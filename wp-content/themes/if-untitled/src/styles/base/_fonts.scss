@@ -1,10 +1,26 @@
-// Self-hosted fonts. Put .woff2 files in src/assets/fonts and reference them with
-// the `@/` alias so Vite fingerprints them, then set $base_font_family in
-// abstracts/_variables.scss. Example:
-// @font-face {
-//     font-family: 'Brand Sans';
-//     src: url('@/assets/fonts/BrandSans-Medium.woff2') format('woff2');
-//     font-weight: 500;
-//     font-style: normal;
-//     font-display: swap;
-// }
+// Self-hosted fonts (src/assets/fonts). Referenced with the `@/` alias so Vite
+// fingerprints them. Families are exposed via $font_* in abstracts/_variables.scss.
+
+@font-face {
+    font-family: 'GT America';
+    src: url('@/assets/fonts/GT-America-Standard-Medium-Trial.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'GT America';
+    src: url('@/assets/fonts/GT-America-Standard-Bold-Trial.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'GT Flexa';
+    src: url('@/assets/fonts/GT-Flexa-Medium-Trial.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}

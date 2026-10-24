@@ -84,7 +84,8 @@ Git ignores are defined once in the repository root `.gitignore` (`dist/`, `hot`
 
 - **PHP**: prefix functions `if_untitled_`, escape all output, templates render `<main id="…">`.
 - **SCSS**: BEM (`block__element--modifier`), one partial per component, every partial starts with
-  `@use 'abstracts' as *;`, use `media-breakpoint-up()` + `font-bold()/font-medium()` mixins.
+  `@use 'abstracts' as *;`, use `media-breakpoint-up()` + `font-bold()/font-medium()/font-display()` mixins.
+- Fonts: GT America (body, 500/700) and GT Flexa (display, 500) are self-hosted `.woff2` files in `src/assets/fonts`, registered in `base/_fonts.scss`.
 - **JS**: one ES class per file with an options-object constructor and `main()`; wire it up in
   `main.js` via `onMounted` / `onPageMounted(Router.X.routeId, …)`; heavy components via `lazyComponent()`.
 

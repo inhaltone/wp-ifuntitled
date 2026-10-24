@@ -22,6 +22,7 @@ body {
     margin: 0;
     font-size: $base_font_size;
     font-family: $base_font_family;
+    font-weight: var(--font-medium);
     line-height: 1.5;
     color: $c_black;
     background-color: $c_white;

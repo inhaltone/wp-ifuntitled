@@ -4,7 +4,9 @@
 :root {
     --font-regular: 400;
     --font-medium: 500;
-    --font-bold: 900;
+    --font-bold: 700;
+    --font-base: #{$base_font_family};
+    --font-display: #{$display_font_family};
     --c-black: #{$c_black};
     --c-white: #{$c_white};
     --c-grey: #{$c_grey};

@@ -20,6 +20,12 @@
     font-size: em($size);
 }
 
+@mixin font-display($size) {
+    font-family: var(--font-display);
+    font-weight: var(--font-medium);
+    font-size: em($size);
+}
+
 // ---------------------------------------------------------------------------
 // Breakpoints (mobile-first; same API as the classic Bootstrap mixins)
 // ---------------------------------------------------------------------------

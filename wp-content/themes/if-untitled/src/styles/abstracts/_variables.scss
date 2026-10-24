@@ -9,7 +9,7 @@ $c_accent: #fc0231 !default;
 
 // Typography
 $base_font_size: 16px !default;
-$base_font_family:
+$font_fallback:
     system-ui,
     -apple-system,
     'Segoe UI',
@@ -17,6 +17,8 @@ $base_font_family:
     'Helvetica Neue',
     arial,
     sans-serif !default;
+$base_font_family: 'GT America', $font_fallback !default;
+$display_font_family: 'GT Flexa', $font_fallback !default;
 $browser-context: 16 !default;
 
 // Spacing
