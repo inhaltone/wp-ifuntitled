@@ -1,0 +1,32 @@
+{
+  "name": "if-untitled",
+  "private": true,
+  "version": "1.0.0",
+  "description": "if-untitled — custom WordPress theme powered by Vite + SCSS",
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:php",
+    "lint:js": "eslint .",
+    "lint:css": "stylelint \"src/**/*.scss\"",
+    "lint:php": "find . -name '*.php' -not -path './node_modules/*' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l > /dev/null",
+    "format": "prettier --write \"src/**/*.{js,scss}\" \"*.{js,json,md}\" \"vite-plugins/**/*.js\"",
+    "format:check": "prettier --check \"src/**/*.{js,scss}\" \"*.{js,json,md}\" \"vite-plugins/**/*.js\"",
+    "check": "npm run format:check && npm run lint && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "sass-embedded": "^1.106.1",
+    "stylelint": "^17.16.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "vite": "^8.3.5"
+  }
+}

@@ -1,0 +1,32 @@
+@use 'abstracts' as *;
+
+.site-footer {
+    min-height: var(--footer-height);
+    padding: 20px 0;
+    border-top: 1px solid $c_light;
+
+    &__inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    &__copy {
+        @include font-medium(13);
+    }
+
+    &__list {
+        display: flex;
+        gap: 15px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        a {
+            @include font-bold(13);
+            text-transform: uppercase;
+        }
+    }
+}

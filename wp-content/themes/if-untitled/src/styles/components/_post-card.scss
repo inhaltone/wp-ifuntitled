@@ -1,0 +1,43 @@
+@use 'abstracts' as *;
+
+.post-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &__item {
+        border-bottom: 1px solid $c_light;
+    }
+}
+
+.post-card {
+    padding: 20px 0;
+
+    &__link {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    &__title {
+        @include font-bold(18);
+        margin: 0;
+
+        @include media-breakpoint-up(lg) {
+            @include font-bold(24);
+        }
+    }
+
+    &__date {
+        @include font-medium(13);
+        color: $c_grey;
+    }
+
+    &__excerpt {
+        @include font-medium(14);
+        margin: 10px 0 0;
+        color: $c_grey;
+    }
+}

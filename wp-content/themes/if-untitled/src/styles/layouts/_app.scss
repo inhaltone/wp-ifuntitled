@@ -1,0 +1,14 @@
+@use 'abstracts' as *;
+
+div#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding-top: var(--nav-height);
+    background-color: $c_white;
+}
+
+#content {
+    flex: 1 0 auto;
+}

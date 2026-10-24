@@ -1,0 +1,17 @@
+@use 'abstracts' as *;
+
+.screen-reader-text {
+    @include visually-hidden;
+}
+
+.skip-link:focus {
+    position: fixed !important;
+    top: 10px;
+    left: 10px;
+    z-index: 3000;
+    width: auto;
+    height: auto;
+    padding: 10px 15px;
+    clip-path: none;
+    background: $c_white;
+}

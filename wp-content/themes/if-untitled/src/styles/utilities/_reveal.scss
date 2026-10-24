@@ -1,0 +1,19 @@
+@use 'abstracts' as *;
+
+// Paired with src/js/components/Reveal.js (lazy-loaded).
+// Scoped to html.js so content stays visible when JavaScript is unavailable.
+.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    @include transition(opacity 0.6s $ease-out, transform 0.6s $ease-out);
+
+    &.is-revealed {
+        opacity: 1;
+        transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        opacity: 1;
+        transform: none;
+    }
+}

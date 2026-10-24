@@ -1,0 +1,41 @@
+@use 'abstracts' as *;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 0.5em;
+    line-height: 1.05;
+    text-transform: uppercase;
+}
+
+h1 {
+    @include font-bold(26);
+    @include media-breakpoint-up(lg) {
+        @include font-bold(40);
+    }
+    @include media-breakpoint-up(xxl) {
+        @include font-bold(50);
+    }
+}
+
+h2 {
+    @include font-bold(20);
+    @include media-breakpoint-up(lg) {
+        @include font-bold(28);
+    }
+}
+
+h3 {
+    @include font-bold(16);
+    @include media-breakpoint-up(lg) {
+        @include font-bold(20);
+    }
+}
+
+p {
+    margin: 0 0 1em;
+    line-height: 1.5;
+}

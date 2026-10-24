@@ -1,0 +1,57 @@
+@use 'abstracts' as *;
+
+// Page-transition overlay. States toggled by RouterTransition.js.
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $c_white;
+    @include transition(opacity 0.5s $ease-out, visibility 0.5s $ease-out);
+
+    &.is-entered {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    &.is-leaving {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &__spinner {
+        width: 2rem;
+        height: 2rem;
+        border: 0.25em solid $c_black;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: loader-spin 0.75s linear infinite;
+    }
+}
+
+// Without JS the overlay must never block the page.
+html:not(.js) .loader {
+    display: none;
+}
+
+// Failsafe: if the JS bundle fails to load, hide the overlay after 3s anyway.
+.loader:not(.is-entered, .is-leaving) {
+    animation: loader-failsafe 0s 3s forwards;
+}
+
+@keyframes loader-failsafe {
+    to {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+@keyframes loader-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,29 @@
+@use 'abstracts' as *;
+
+main#front-page {
+    .hero {
+        display: flex;
+        align-items: flex-end;
+        min-height: calc(70vh - var(--nav-height));
+        padding: 40px 0;
+
+        &__title {
+            @include font-bold(40);
+            margin: 0;
+
+            @include media-breakpoint-up(lg) {
+                @include font-bold(96);
+            }
+        }
+
+        &__lead {
+            @include font-medium(16);
+            max-width: 40ch;
+            color: $c_grey;
+
+            @include media-breakpoint-up(lg) {
+                @include font-medium(20);
+            }
+        }
+    }
+}

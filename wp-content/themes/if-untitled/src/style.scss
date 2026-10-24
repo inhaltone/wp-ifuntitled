@@ -1,0 +1,8 @@
+// Entry stylesheet — imported by src/main.js.
+// Order: base → layouts → components → pages → utilities.
+// Every partial pulls tokens/mixins itself with `@use 'abstracts' as *;`.
+@use 'base';
+@use 'layouts';
+@use 'components';
+@use 'pages';
+@use 'utilities';

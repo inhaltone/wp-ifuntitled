@@ -1,0 +1,16 @@
+@use 'abstracts' as *;
+
+// Runtime design tokens (CSS custom properties).
+:root {
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-bold: 900;
+    --c-black: #{$c_black};
+    --c-white: #{$c_white};
+    --c-grey: #{$c_grey};
+    --c-light: #{$c_light};
+    --c-accent: #{$c_accent};
+    --gutter: #{$gutter};
+    --nav-height: 50px;
+    --footer-height: 80px;
+}

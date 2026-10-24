@@ -1,0 +1,81 @@
+@use 'abstracts' as *;
+
+// Minimal modern reset (no CSS framework).
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    text-size-adjust: 100%;
+}
+
+html,
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+    font-size: $base_font_size;
+    font-family: $base_font_family;
+    line-height: 1.5;
+    color: $c_black;
+    background-color: $c_white;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+        box-shadow: unset;
+    }
+}
+
+a {
+    color: $c_black;
+    text-decoration: none;
+    @include transition(color 0.2s ease);
+
+    @include hover {
+        color: $c_accent;
+    }
+}
+
+:focus-visible {
+    outline: 2px solid $c_accent;
+    outline-offset: 2px;
+}
+
+::selection {
+    background-color: $c_accent;
+    color: $c_white;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}

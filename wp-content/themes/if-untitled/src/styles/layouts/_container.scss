@@ -1,0 +1,12 @@
+@use 'abstracts' as *;
+
+.container {
+    width: 100%;
+    max-width: $container-max-width;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+
+    @include media-breakpoint-up(lg) {
+        padding-inline: calc(var(--gutter) * 2);
+    }
+}

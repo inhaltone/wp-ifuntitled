@@ -1,0 +1,42 @@
+// Design tokens (compile-time). Runtime tokens (CSS custom properties) live in base/_root.scss.
+
+// Colors
+$c_black: rgb(19 19 19) !default;
+$c_white: #fff !default;
+$c_grey: #7a7979 !default;
+$c_light: #f4f4f4 !default;
+$c_accent: #fc0231 !default;
+
+// Typography
+$base_font_size: 16px !default;
+$base_font_family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    roboto,
+    'Helvetica Neue',
+    arial,
+    sans-serif !default;
+$browser-context: 16 !default;
+
+// Spacing
+$gutter: 15px !default;
+
+// Breakpoints — keep in sync with src/js/utils/MediaBreakpoints.js
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+) !default;
+
+$container-max-width: 1440px !default;
+
+// Transitions
+$enable-transitions: true !default;
+$enable-reduced-motion: true !default;
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1) !default;
+$ease-in-out: cubic-bezier(0.68, -0.01, 0.42, 0.99) !default;
+$transition-base: all 0.2s ease-in-out !default;

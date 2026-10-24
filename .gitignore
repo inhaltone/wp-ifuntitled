@@ -1,0 +1,65 @@
+# =============================================================================
+# WordPress project — root .gitignore
+# WordPress core is version-controlled in this repo; only environment-specific
+# files, user content and build artifacts are ignored.
+# =============================================================================
+
+# --- Environment / secrets ---------------------------------------------------
+wp-config.php
+.htaccess
+.user.ini
+php.ini
+.env
+.env.*
+!.env.example
+
+# --- User content & runtime data --------------------------------------------
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/upgrade-temp-backup/
+wp-content/backup*/
+wp-content/cache/
+wp-content/wflogs/
+wp-content/ai1wm-backups/
+wp-content/updraft/
+wp-content/debug.log
+wp-content/advanced-cache.php
+wp-content/object-cache.php
+wp-content/db.php
+wp-content/languages/
+sitemap*.xml
+sitemap*.xml.gz
+*.sql
+*.sql.gz
+
+# --- Theme build (Vite) ------------------------------------------------------
+node_modules/
+dist/
+dist-ssr/
+# Created by `npm run dev` — signals dev mode to inc/vite.php
+wp-content/themes/*/hot
+.vite/
+*.local
+vendor/
+
+# --- Logs --------------------------------------------------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- OS / editors ------------------------------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/shelf/
+.idea/dataSources*
+.idea/httpRequests/
