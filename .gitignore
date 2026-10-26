@@ -42,6 +42,9 @@ wp-content/themes/*/hot
 *.local
 vendor/
 
+# --- Design exports (large PNGs, shared outside git) -------------------------
+.github/plans/*/designs/
+
 # --- Logs --------------------------------------------------------------------
 *.log
 npm-debug.log*
