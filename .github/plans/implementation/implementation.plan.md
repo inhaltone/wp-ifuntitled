@@ -1,6 +1,6 @@
 # IF-Untitled — Implementation plan
 
-Sources: `implementation.notes.md` (developer notes), `IF-Untitled_Website_Outline.docx` (client outline).
+Source: `IF-Untitled_Website_Outline.docx` (client outline, May 2026 — copy texts for the seed from it). Where they differ, this plan wins.
 
 **Flow:** decisions → data model → backend → seed → front-end. Each step is done (and committed) before the next starts.
 
@@ -226,6 +226,17 @@ Terms (in order, with descriptions) · 33 project drafts from the outline (categ
 clients · Annika + Martha · pages with templates (Studio features/services/team, Advisory features) · Theme Options
 (clients list, 1–2 locations, enquiries, social, portals, intros) · reading settings + permalinks · `primary_menu` + `footer_menu` (5 top items + Studio / Advisory sub-items to the anchors) ·
 3–5 back-dated journal posts (one with `journal_video`, tags) · placeholder images.
+Projects from the outline (menu order = this order):
+
+| Category                | Projects                                                                                                                                        |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mix Use Spaces          | Thission Lofts · Palco Factory · Hellenic Xalymvoyrgia Offices                                                                                  |
+| Urban Houses            | Filmmakers House · Curtains · Brick Soleil · Under One Roof · Gore House · Douros Loft · Actors Loft · Richards House                           |
+| Villas & Hospitality    | Pommot Hotel · Kal 124 — Andromachis · Kastri House · Double Decker · Eugenias Keli House · Kythira Houses · Francas House · Dada · Agave House |
+| Commercial & F&B        | Inate · Toyota Flagship Store · Eleftheroudakis · Fabbrica Shop · Vasilainas Restaurant                                                         |
+| Art & Experience Design | Her Data · Summer Palace · Polis Initiative · Simparch · Traces of Commerce A+B · Grid Off — Lights On! · Sleep of Ulro                         |
+| Advisory Projects       | Mobile Van (more to be added)                                                                                                                   |
+
 Proves the model end-to-end before any template is written. **Done when** every page in 1.4 has data.
 
 ## 4. Front-end

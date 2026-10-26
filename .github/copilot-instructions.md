@@ -101,5 +101,5 @@ Step-by-step recipes live in `.github/skills/*/SKILL.md` — use the matching sk
 | "All + terms" filter bar on an archive                      | `create-archive-filter`     |
 | Build, dev server, Sass errors, upgrades                    | `vite-build-verify`         |
 
-Project-specific decisions (content model, routes, build order) live in `.github/impl-input/implementation.plan.md`;
+Project-specific decisions (content model, routes, build order) live in `.github/plans/implementation/implementation.plan.md`;
 it references the skills above rather than repeating their rules.
