@@ -26,7 +26,7 @@ Query tweaks (posts per page, order) go in `pre_get_posts` for **both** the arch
 
 ```php
 /**
- * Filter items for an archive: "All" + non-empty terms ordered by the `sort_order` term field.
+ * Filter items for an archive: "All" + non-empty terms in their manual order.
  *
  * @return array<int, array{label: string, url: string, is_active: bool}>
  */
@@ -35,8 +35,7 @@ function if_untitled_archive_filter(string $taxonomy, string $all_url, string $a
     $terms = get_terms([
         'taxonomy'   => $taxonomy,
         'hide_empty' => true,
-        'meta_key'   => 'sort_order',
-        'orderby'    => 'meta_value_num',
+        'orderby'    => 'term_order',
         'order'      => 'ASC',
     ]);
     $is_term_view = $taxonomy === 'category' ? is_category() : is_tax($taxonomy);
@@ -55,8 +54,9 @@ function if_untitled_archive_filter(string $taxonomy, string $all_url, string $a
 }
 ```
 
-- Term order comes from an ACF number field `sort_order` on the taxonomy (see `create-acf-field-group`), not
-  alphabetical. `meta_key` excludes terms without a value — give every term one.
+- Term order is the drag & drop order from the ordering plugin (Simple Custom Post Order → `term_order`), not
+  alphabetical. Without that plugin, use an ACF number field `sort_order` on the taxonomy
+  (`'meta_key' => 'sort_order', 'orderby' => 'meta_value_num'` — terms without a value are excluded).
 
 ## 3. Component — `components/archive-filter.php`
 

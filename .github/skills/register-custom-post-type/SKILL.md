@@ -112,7 +112,8 @@ For an "All + categories" filter bar follow `create-archive-filter`.
 ## 4. ACF fields
 
 Follow the `create-acf-field-group` skill (location _Post Type is {cpt}_, naming, return formats, `acf-json/`).
-Custom term order: a `sort_order` number field on the taxonomy.
+Manual order: posts and terms are drag-ordered with the ordering plugin (`menu_order` / `term_order`); lists picked
+on a page (team, clients) are ordered by their relationship field instead.
 
 ## 5. Verify
 
