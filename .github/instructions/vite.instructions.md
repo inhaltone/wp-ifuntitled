@@ -21,3 +21,4 @@ description: "Vite build pipeline and WordPress integration rules"
 - Node version: `.nvmrc` + `engines` (Vite 8 needs `^20.19.0 || >=22.12.0`).
 - Upgrades: `npm i -D vite@latest sass-embedded@latest`, then `npm run check` and fix any issues. Check the
   Vite migration guide for breaking changes.
+- Verifying builds, dev mode, troubleshooting and upgrades: follow the **`vite-build-verify`** skill.

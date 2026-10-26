@@ -56,3 +56,11 @@ export default class Accordion {
 - No inline `style` manipulation for things a class can do.
 - No UI frameworks/plugins (Bootstrap JS, jQuery, Swiper…) unless the user explicitly asks; build small classes instead.
 - Don't import CSS from components except a third-party library's own CSS when one has been explicitly approved.
+
+## Skills (step-by-step recipes in `.github/skills/`)
+| Task | Skill |
+|------|-------|
+| New interactive component (+ PHP part, SCSS) | `create-theme-component` |
+| Page-scoped JS / new `Router` id | `create-page-template` |
+| Archive filters (no JS required) | `create-archive-filter` |
+| Dev server / HMR / chunk problems | `vite-build-verify` |

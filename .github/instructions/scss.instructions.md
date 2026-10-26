@@ -60,3 +60,11 @@ New partial `_foo.scss` → add `@use 'foo';` to that folder's `_index.scss`. `s
 - Selectors: BEM classes and kebab-case ids only (`selector-class-pattern` / `selector-id-pattern`).
 - Order inside a rule: `@include` typography → positioning → box model → visuals → transitions → nested states/elements → media queries.
 - Assets: `url('@/assets/fonts/x.woff2')` / `url('@/assets/images/x.svg')` — Vite resolves and fingerprints them.
+
+## Skills (step-by-step recipes in `.github/skills/`)
+
+| Task                                        | Skill                    |
+| ------------------------------------------- | ------------------------ |
+| New component partial (+ PHP part, JS)      | `create-theme-component` |
+| New page partial `pages/_{route-id}.scss`   | `create-page-template`   |
+| Sass build errors, missing styles, upgrades | `vite-build-verify`      |

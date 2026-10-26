@@ -18,14 +18,14 @@ This repository is a full WordPress install. **Only edit the custom theme** at
 
 ## Commands (run inside `wp-content/themes/if-untitled/`)
 
-| Task | Command |
-|------|---------|
-| Install | `npm install` |
-| Dev server (HMR + PHP live reload, port 3000) | `npm run dev` |
-| Production build → `dist/` | `npm run build` |
-| Lint JS / SCSS / PHP | `npm run lint:js` · `npm run lint:css` · `npm run lint:php` (all: `npm run lint`) |
-| Auto-format JS/SCSS/JSON/MD | `npm run format` |
-| **Everything (CI-style)** | `npm run check` = format:check + lint + build |
+| Task                                          | Command                                                                           |
+| --------------------------------------------- | --------------------------------------------------------------------------------- |
+| Install                                       | `npm install`                                                                     |
+| Dev server (HMR + PHP live reload, port 3000) | `npm run dev`                                                                     |
+| Production build → `dist/`                    | `npm run build`                                                                   |
+| Lint JS / SCSS / PHP                          | `npm run lint:js` · `npm run lint:css` · `npm run lint:php` (all: `npm run lint`) |
+| Auto-format JS/SCSS/JSON/MD                   | `npm run format`                                                                  |
+| **Everything (CI-style)**                     | `npm run check` = format:check + lint + build                                     |
 
 Before finishing any task run **`npm run check`** and make sure it passes. Sass deprecations are configured as
 **fatal** (`fatalDeprecations` in `vite.config.js`), so the build fails on `@import`, global built-ins, `/` division, `if()`.
@@ -79,5 +79,27 @@ An explicitly set `WP_ENVIRONMENT_TYPE=production` ignores the `hot` file (unset
   `wp-config.php`, `.env*` (except `.env.example`), `wp-content/uploads/`, caches, `node_modules/`, `dist/`, `hot` are ignored.
 - Keep `README.md` in the theme in sync when changing workflow, commands or structure.
 
-Detailed, file-scoped rules live in `.github/instructions/*.instructions.md`.
-Step-by-step recipes live in `.github/skills/*/SKILL.md`.
+## Content modelling
+
+- **Native first** (title, date, excerpt, featured image, menu order, categories); ACF only for what core lacks.
+- **One source of truth**: shared data (clients, projects, team) is a post type that pages query, never copy.
+- **In code and JSON, never by hand**: post types/taxonomies in `inc/post-types.php`, ACF groups in `acf-json/`.
+- **Templates render, helpers fetch**: data shaping in `inc/template-tags.php`, templates stay logic-free.
+- **YAGNI**: no field, layout or plugin until a page needs it.
+
+## Where the rules live
+
+Detailed, file-scoped rules live in `.github/instructions/*.instructions.md` (applied automatically by path).
+Step-by-step recipes live in `.github/skills/*/SKILL.md` — use the matching skill instead of improvising:
+
+| Task                                                        | Skill                       |
+| ----------------------------------------------------------- | --------------------------- |
+| Page / archive / single / taxonomy template, template names | `create-page-template`      |
+| Reusable UI component (PHP part + SCSS + optional JS)       | `create-theme-component`    |
+| Custom post type / taxonomy                                 | `register-custom-post-type` |
+| ACF field group / Theme Options field                       | `create-acf-field-group`    |
+| "All + terms" filter bar on an archive                      | `create-archive-filter`     |
+| Build, dev server, Sass errors, upgrades                    | `vite-build-verify`         |
+
+Project-specific decisions (content model, routes, build order) live in `.github/impl-input/implementation.plan.md`;
+it references the skills above rather than repeating their rules.
