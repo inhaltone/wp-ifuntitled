@@ -106,8 +106,10 @@ plus `comments_open` / `pings_open` filters returning `false`.
 ## 2. Query tweaks (optional)
 
 Use `pre_get_posts` in `inc/post-types.php` instead of custom `WP_Query` in templates (cover the term archives too).
-The theme owns the front-end order; the ordering plugin only writes `menu_order` / `term_order` in wp-admin
-(turn off its post "auto sort" so the two never fight; terms still use its `term_order`):
+The theme owns the front-end order; the ordering plugin (Simple Custom Post Order) writes `menu_order` / `term_order`
+in wp-admin. It has no "auto sort" switch — it only sorts queries without an explicit `orderby`, so the theme hook
+runs at priority 20 and always sets `orderby`; secondary queries (`get_posts()`) pass an explicit `orderby` array or
+`'scpo_ignore_custom_order' => true`. Terms use its `term_order`:
 
 ```php
 add_action('pre_get_posts', function (WP_Query $q): void {
@@ -122,7 +124,7 @@ add_action('pre_get_posts', function (WP_Query $q): void {
     $q->set('posts_per_page', $is_work ? -1 : 12);
     // Unordered items have menu_order 0 → first, newest first.
     $q->set('orderby', ['menu_order' => 'ASC', 'date' => 'DESC']);
-});
+}, 20);
 ```
 
 ## 3. Templates
