@@ -1,0 +1,111 @@
+@use 'abstracts' as *;
+
+// Image, self-hosted video or YouTube in the space of an image. The poster <img> sets the box size;
+// the video / player lies on top and fades in once it plays.
+.media {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+
+    &__link {
+        display: block;
+        color: inherit;
+    }
+
+    &__video,
+    &__frame {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        @include transition(opacity 0.6s $ease-out);
+    }
+
+    &__video {
+        inline-size: 100%;
+        block-size: 100%;
+        object-fit: cover;
+    }
+
+    &.is-playing &__video,
+    &.is-active &__frame {
+        opacity: 1;
+    }
+
+    &--no-poster &__video {
+        position: static;
+        opacity: 1;
+    }
+
+    // YouTube player (after the click): fills the box, YouTube's own controls.
+    &__frame iframe {
+        inline-size: 100%;
+        block-size: 100%;
+        border: 0;
+    }
+
+    &__play {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: $c_white;
+
+        &::before {
+            content: '';
+            inline-size: 4rem;
+            aspect-ratio: 1;
+            background: currentcolor;
+            clip-path: polygon(25% 15%, 85% 50%, 25% 85%);
+        }
+    }
+
+    &.is-active &__play {
+        display: none;
+    }
+
+    // Pause / play for looping video (WCAG 2.2.2). Shown on hover / focus, always on touch screens.
+    &__toggle {
+        position: absolute;
+        inset-block-end: 1rem;
+        inset-inline-end: 1rem;
+        display: grid;
+        place-items: center;
+        inline-size: 2.5rem;
+        aspect-ratio: 1;
+        padding: 0;
+        color: $c_white;
+        background: rgb(0 0 0 / 40%);
+        border: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        opacity: 0;
+        @include transition(opacity 0.2s $ease-out);
+
+        &::before {
+            content: '';
+            inline-size: 0.75rem;
+            aspect-ratio: 1;
+            background: linear-gradient(90deg, currentcolor 0 35%, transparent 35% 65%, currentcolor 65%);
+        }
+
+        &[hidden] {
+            display: none;
+        }
+    }
+
+    &.is-paused &__toggle::before {
+        background: currentcolor;
+        clip-path: polygon(15% 0, 100% 50%, 15% 100%);
+    }
+
+    &:hover &__toggle,
+    &__toggle:focus-visible {
+        opacity: 1;
+    }
+
+    @media (hover: none) {
+        &__toggle {
+            opacity: 1;
+        }
+    }
+}

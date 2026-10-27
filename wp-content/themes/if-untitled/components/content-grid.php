@@ -23,19 +23,15 @@ if (!$rows) {
                 ?>
                 <?php if ($kind === 'image') : ?>
                     <div class="content-grid__media grid__item" style="<?php echo esc_attr($place); ?>">
-                        <?php if ($link) : ?>
-                            <?php // The heading carries the link text when there is one; the image link is then a duplicate. ?>
-                            <a class="content-grid__link" href="<?php echo esc_url($link['url']); ?>"<?php echo $row['text'] ? ' tabindex="-1" aria-hidden="true"' : ''; ?>>
-                        <?php endif; ?>
                         <?php
-                        if_untitled_component('image', [
-                            'id'      => (int) ($block['block']['image'] ?? 0),
+                        // The heading carries the link text when there is one; the media link is then a duplicate.
+                        if_untitled_component('media', [
+                            'block'   => $block['block'],
                             'context' => $block['context'],
+                            'title'   => ($row['text']['heading'] ?? '') ?: get_the_title(),
+                            'link'    => $link ? ['url' => $link['url'], 'hidden' => (bool) $row['text']] : null,
                         ]);
                         ?>
-                        <?php if ($link) : ?>
-                            </a>
-                        <?php endif; ?>
                     </div>
                 <?php else :
                     $classes = sprintf(
