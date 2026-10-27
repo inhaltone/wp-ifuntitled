@@ -1,0 +1,174 @@
+{
+    "key": "group_project",
+    "title": "Project",
+    "fields": [
+        {
+            "key": "field_a3bd00a11c4cf",
+            "label": "Category",
+            "name": "project_category",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "project_category",
+            "field_type": "radio",
+            "add_term": 0,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "allow_null": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_82af24aaa7adb",
+            "label": "Metadata",
+            "name": "project_metadata",
+            "type": "group",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_0b64e858cdd87",
+                    "label": "Location",
+                    "name": "location",
+                    "type": "taxonomy",
+                    "instructions": "Pick a city (shown as \"City, Country\"). New city: add it under its country.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "taxonomy": "project_location",
+                    "field_type": "select",
+                    "add_term": 1,
+                    "save_terms": 1,
+                    "load_terms": 1,
+                    "return_format": "id",
+                    "allow_null": 1,
+                    "multiple": 0
+                },
+                {
+                    "key": "field_061f4bb55617b",
+                    "label": "Client",
+                    "name": "client",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "client"
+                    ],
+                    "taxonomy": [],
+                    "return_format": "id",
+                    "multiple": 1,
+                    "allow_null": 1,
+                    "ui": 1
+                },
+                {
+                    "key": "field_56305cc3a16a2",
+                    "label": "Year",
+                    "name": "year",
+                    "type": "number",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "min": 1990,
+                    "max": 2100,
+                    "step": 1,
+                    "placeholder": 2026,
+                    "default_value": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_8cc887a7daf4f",
+                    "label": "Status",
+                    "name": "status",
+                    "type": "select",
+                    "instructions": "Shown publicly. Not the same as Draft \/ Published.",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "in_progress": "In progress",
+                        "completed": "Completed",
+                        "planned": "Planned"
+                    },
+                    "default_value": "completed",
+                    "return_format": "value",
+                    "ui": 0,
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ajax": 0,
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_9b1ae3541ad9f",
+            "label": "Text",
+            "name": "project_text",
+            "type": "wysiwyg",
+            "instructions": "Brief, approach, outcome — shown after the content grid.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0,
+            "default_value": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "project"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1793110497
+}

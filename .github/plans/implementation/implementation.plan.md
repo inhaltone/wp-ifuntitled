@@ -138,7 +138,9 @@ Rules: in `image_text` the two ranges must not overlap (`acf/validate_value` on 
 heading or body required (ACF can't express "one of two"). Rendered by `components/content-grid.php` (one partial per
 block) with `--col-start` / `--col-span` custom properties parsed from the range and modifier classes for the options
 (`.content-grid__text--filled`, `--align-x-end`, …). Blocks are output in column order, so below `md` every row stacks
-full width in reading order.
+full width in reading order. The image block and the text block are each defined once — inactive groups
+`group_content_grid_image` / `group_content_grid_text` — and cloned (seamless) into the layouts, so `get_field()`
+returns plain sub-field names (`heading`, `image_columns`, …).
 
 **Project** — `group_project`. Native: title, featured image (cards, Home, prev/next), excerpt (= 2–3 line short
 description, shown on the Advisory showcase — Q19). No video.

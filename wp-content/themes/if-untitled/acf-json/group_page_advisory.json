@@ -1,0 +1,130 @@
+{
+    "key": "group_page_advisory",
+    "title": "Advisory",
+    "fields": [
+        {
+            "key": "field_cd4c4202c11b0",
+            "label": "Service areas",
+            "name": "advisory_features",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add service area",
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_5ad8f1e415b27",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "Also the anchor used by the menu — renaming it changes the link.",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placeholder": "Social & Affordable Housing",
+                    "default_value": "",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_cd4c4202c11b0"
+                },
+                {
+                    "key": "field_d6ab4f718c34b",
+                    "label": "Subtitle",
+                    "name": "subtitle",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placeholder": "policy diagnostics, housing strategy…",
+                    "default_value": "",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_cd4c4202c11b0"
+                },
+                {
+                    "key": "field_d309470009868",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 4,
+                    "new_lines": "wpautop",
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_cd4c4202c11b0"
+                },
+                {
+                    "key": "field_163541f88e53b",
+                    "label": "Showcase project",
+                    "name": "item",
+                    "type": "post_object",
+                    "instructions": "A project in the Advisory Projects category.",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "project"
+                    ],
+                    "taxonomy": [],
+                    "return_format": "id",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 1,
+                    "parent_repeater": "field_cd4c4202c11b0"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-templates\/advisory.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1793110498
+}

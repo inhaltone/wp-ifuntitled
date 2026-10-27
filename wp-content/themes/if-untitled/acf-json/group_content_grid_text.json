@@ -1,0 +1,193 @@
+{
+    "key": "group_content_grid_text",
+    "title": "Content grid: text block",
+    "fields": [
+        {
+            "key": "field_a35a5cf87bb58",
+            "label": "Heading",
+            "name": "heading",
+            "type": "text",
+            "instructions": "Display title, e.g. \"Studio\". Heading and\/or body.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_e589c041663fe",
+            "label": "Body",
+            "name": "body",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "new_lines": "wpautop",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_21e64d4cd1b64",
+            "label": "Body size",
+            "name": "body_size",
+            "type": "button_group",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "small": "Small",
+                "large": "Large (bold intro)",
+                "display": "Display (statement)"
+            },
+            "default_value": "small",
+            "return_format": "value",
+            "layout": "horizontal",
+            "allow_null": 0
+        },
+        {
+            "key": "field_ebde36e6540c5",
+            "label": "Box",
+            "name": "box",
+            "type": "button_group",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "none": "None",
+                "outlined": "Outlined",
+                "filled": "Filled (black)"
+            },
+            "default_value": "none",
+            "return_format": "value",
+            "layout": "horizontal",
+            "allow_null": 0
+        },
+        {
+            "key": "field_323fdb30f9cd7",
+            "label": "Text columns",
+            "name": "text_columns",
+            "type": "select",
+            "instructions": "Where the block sits on the 5-column grid.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "1-1": "Column 1",
+                "1-2": "Columns 1–2",
+                "1-3": "Columns 1–3",
+                "1-4": "Columns 1–4",
+                "1-5": "Columns 1–5",
+                "2-2": "Column 2",
+                "2-3": "Columns 2–3",
+                "2-4": "Columns 2–4",
+                "2-5": "Columns 2–5",
+                "3-3": "Column 3",
+                "3-4": "Columns 3–4",
+                "3-5": "Columns 3–5",
+                "4-4": "Column 4",
+                "4-5": "Columns 4–5",
+                "5-5": "Column 5"
+            },
+            "default_value": "4-5",
+            "return_format": "value",
+            "ui": 0,
+            "allow_null": 0,
+            "multiple": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_26787c3aaf851",
+            "label": "Horizontal alignment",
+            "name": "align_x",
+            "type": "button_group",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "start": "Start",
+                "center": "Center",
+                "end": "End"
+            },
+            "default_value": "start",
+            "return_format": "value",
+            "layout": "horizontal",
+            "allow_null": 0
+        },
+        {
+            "key": "field_4240fc6316469",
+            "label": "Vertical alignment",
+            "name": "align_y",
+            "type": "button_group",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "top": "Top",
+                "center": "Center",
+                "bottom": "Bottom"
+            },
+            "default_value": "top",
+            "return_format": "value",
+            "layout": "horizontal",
+            "allow_null": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": false,
+    "description": "Cloned into the content_grid layouts — not shown on its own.",
+    "show_in_rest": 0,
+    "modified": 1793110497
+}

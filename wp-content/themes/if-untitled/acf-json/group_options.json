@@ -1,0 +1,464 @@
+{
+    "key": "group_options",
+    "title": "Theme Options",
+    "fields": [
+        {
+            "key": "field_e59aea7df1066",
+            "label": "Clients",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_92e30e13d3170",
+            "label": "Clients",
+            "name": "clients",
+            "type": "relationship",
+            "instructions": "Which clients show on Studio and Advisory, in this order.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "client"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search"
+            ],
+            "elements": [
+                "featured_image"
+            ],
+            "return_format": "id",
+            "min": 0,
+            "max": 0
+        },
+        {
+            "key": "field_5df7da957881f",
+            "label": "Locations & footer",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_67a2e112b018b",
+            "label": "Locations",
+            "name": "locations",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add location",
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_85fb22b20b870",
+                    "label": "City",
+                    "name": "city",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_67a2e112b018b"
+                },
+                {
+                    "key": "field_ca188e76712c6",
+                    "label": "Address",
+                    "name": "address",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 4,
+                    "new_lines": "wpautop",
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_67a2e112b018b"
+                },
+                {
+                    "key": "field_86e99fa95c6fa",
+                    "label": "Phone",
+                    "name": "phone",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_67a2e112b018b"
+                },
+                {
+                    "key": "field_2213bfb3bb244",
+                    "label": "Email",
+                    "name": "email",
+                    "type": "email",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_67a2e112b018b"
+                },
+                {
+                    "key": "field_37c5221ea7c7f",
+                    "label": "Map",
+                    "name": "map",
+                    "type": "google_map",
+                    "instructions": "Search the address to place the marker.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "center_lat": "37.9838",
+                    "center_lng": "23.7275",
+                    "zoom": 14,
+                    "height": 300,
+                    "parent_repeater": "field_67a2e112b018b"
+                }
+            ]
+        },
+        {
+            "key": "field_5e4d28bac55fe",
+            "label": "Enquiries",
+            "name": "enquiries",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add enquiry",
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_22833ae1cd17d",
+                    "label": "Label",
+                    "name": "label",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_5e4d28bac55fe"
+                },
+                {
+                    "key": "field_4bf5b1fd24be4",
+                    "label": "Type",
+                    "name": "type",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "email": "Email",
+                        "phone": "Phone"
+                    },
+                    "default_value": "email",
+                    "return_format": "value",
+                    "ui": 0,
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_5e4d28bac55fe"
+                },
+                {
+                    "key": "field_7f2d8996ac948",
+                    "label": "Value",
+                    "name": "value",
+                    "type": "text",
+                    "instructions": "Email address or phone number.",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_5e4d28bac55fe"
+                }
+            ]
+        },
+        {
+            "key": "field_8b6eec8f15a4d",
+            "label": "Social",
+            "name": "social",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add social link",
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_901631d0198ee",
+                    "label": "Label",
+                    "name": "label",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_8b6eec8f15a4d"
+                },
+                {
+                    "key": "field_6743ddaee9e51",
+                    "label": "URL",
+                    "name": "url",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_8b6eec8f15a4d"
+                }
+            ]
+        },
+        {
+            "key": "field_a9145b845c1b8",
+            "label": "Portals",
+            "name": "portals",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add portal",
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6ce244d8b9f33",
+                    "label": "Label",
+                    "name": "label",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_a9145b845c1b8"
+                },
+                {
+                    "key": "field_93a5c19768fe7",
+                    "label": "URL",
+                    "name": "url",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_a9145b845c1b8"
+                }
+            ]
+        },
+        {
+            "key": "field_6b4114efd9396",
+            "label": "Archives",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_127737652df8e",
+            "label": "Work intro",
+            "name": "work_intro",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "new_lines": "wpautop",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_ff1c773340b58",
+            "label": "Journal intro",
+            "name": "journal_intro",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "new_lines": "wpautop",
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "if-untitled-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1793110498
+}

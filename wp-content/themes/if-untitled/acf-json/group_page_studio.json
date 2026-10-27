@@ -1,0 +1,242 @@
+{
+    "key": "group_page_studio",
+    "title": "Studio",
+    "fields": [
+        {
+            "key": "field_cc69d8472acf2",
+            "label": "Features",
+            "name": "studio_features",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add feature",
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_dfa2081445b72",
+                    "label": "Item",
+                    "name": "item",
+                    "type": "post_object",
+                    "instructions": "Any page, project or journal entry — its image and link are used.",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [],
+                    "taxonomy": [],
+                    "return_format": "id",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 1,
+                    "parent_repeater": "field_cc69d8472acf2"
+                },
+                {
+                    "key": "field_73b30c08a3f09",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "Leave empty to use the item title.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_cc69d8472acf2"
+                },
+                {
+                    "key": "field_b83f37c6fb32a",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 4,
+                    "new_lines": "wpautop",
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_cc69d8472acf2"
+                }
+            ]
+        },
+        {
+            "key": "field_9e74d42870240",
+            "label": "Services",
+            "name": "studio_services",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add service",
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_9902df29793ac",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "Also the anchor (#architecture-interior-design) used by the menu and footer — renaming it changes the link.",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_9e74d42870240"
+                },
+                {
+                    "key": "field_02e4baa25eda9",
+                    "label": "Subtitle",
+                    "name": "subtitle",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_9e74d42870240"
+                },
+                {
+                    "key": "field_9bcaa531b3772",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 4,
+                    "new_lines": "wpautop",
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_9e74d42870240"
+                },
+                {
+                    "key": "field_905944278e561",
+                    "label": "Image",
+                    "name": "image",
+                    "type": "image",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_9e74d42870240"
+                }
+            ]
+        },
+        {
+            "key": "field_944eaee3fefd4",
+            "label": "Team",
+            "name": "studio_team",
+            "type": "relationship",
+            "instructions": "Pick and order the team members.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "team_member"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search"
+            ],
+            "elements": [
+                "featured_image"
+            ],
+            "return_format": "id",
+            "min": 0,
+            "max": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-templates\/studio.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1793110498
+}
