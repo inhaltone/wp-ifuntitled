@@ -29,6 +29,13 @@ updates from re-adding the default `twentytwenty*` themes, add this to `wp-confi
 define('CORE_UPGRADE_SKIP_NEW_BUNDLED', true);
 ```
 
+Then apply the site structure (permalinks, pages, reading settings, entry types, menu) with WP-CLI — idempotent, run
+it on every environment:
+
+```bash
+wp eval-file bin/setup.php
+```
+
 ## How dev / prod switching works
 
 | Mode        | Trigger                                             | What WordPress loads                                                            |
@@ -52,8 +59,11 @@ if-untitled/
 ├── inc/
 │   ├── vite.php             # dev server / manifest loader
 │   ├── setup.php            # theme supports, menus, head cleanup
+│   ├── post-types.php       # CPTs, taxonomies, Journal labels, archive queries
+│   ├── urls.php             # redirects, noindex, reserved slugs
 │   ├── template-tags.php    # if_untitled_* helpers
 │   └── acf.php              # optional ACF options page + acf-json
+├── bin/setup.php            # WP-CLI: site structure (wp eval-file bin/setup.php)
 ├── components/              # template parts (get_template_part('components/x'))
 ├── *.php                    # template hierarchy files, each renders <main id="route-id">
 ├── src/
