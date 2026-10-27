@@ -273,6 +273,21 @@ function if_untitled_archive_intro(string $option): string
 }
 
 /**
+ * Previous / next page URLs of the main query ('' when there is none) for archive pagination.
+ *
+ * @return array{prev: string, next: string}
+ */
+function if_untitled_paged_links(): array
+{
+    global $wp_query;
+    $paged = max(1, (int) get_query_var('paged'));
+    return [
+        'prev' => $paged > 1 ? (string) get_previous_posts_page_link() : '',
+        'next' => $paged < (int) $wp_query->max_num_pages ? (string) get_next_posts_page_link() : '',
+    ];
+}
+
+/**
  * Filter items for an archive: "All" + non-empty terms in their manual order.
  *
  * @return array<int, array{label: string, url: string, is_active: bool}>
