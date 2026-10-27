@@ -71,22 +71,30 @@ Data shaping lives in `inc/template-tags.php` as `if_untitled_*()` helpers; temp
 ```php
 function if_untitled_project_metadata(?int $post_id = null): array
 {
-    if (!function_exists('get_field')) {
-        return [];
-    }
-    $meta     = get_field('project_metadata', $post_id) ?: [];
+    $meta = function_exists('get_field') ? (get_field('project_metadata', $post_id) ?: []) : [];
+
     $city     = !empty($meta['location']) ? get_term((int) $meta['location'], 'project_location') : null;
     $country  = $city instanceof WP_Term && $city->parent ? get_term($city->parent, 'project_location') : null;
     $location = $city instanceof WP_Term
         ? implode(', ', array_filter([$city->name, $country instanceof WP_Term ? $country->name : '']))
         : '';
+    $clients  = array_filter(array_map(
+        fn($id): string => get_post_status((int) $id) === 'publish' ? get_the_title((int) $id) : '',
+        (array) ($meta['client'] ?? [])
+    ));
+    $statuses = [
+        'in_progress' => __('In progress', 'if-untitled'),
+        'completed'   => __('Completed', 'if-untitled'),
+        'planned'     => __('Planned', 'if-untitled'),
+    ];
 
-    // Always this order: Location · Client · Year · Status.
+    // Display strings, always this order: Location · Client · Year · Status ('' = empty cell).
+    // Labels: if_untitled_project_metadata_labels().
     return [
         'location' => $location, // "City, Country"
-        'clients'  => array_map('intval', $meta['client'] ?? []),
-        'year'     => $meta['year'] ?? '',
-        'status'   => $meta['status'] ?? '',
+        'client'   => implode(', ', $clients),
+        'year'     => (string) ($meta['year'] ?? ''),
+        'status'   => $statuses[$meta['status'] ?? ''] ?? '',
     ];
 }
 ```
@@ -103,7 +111,10 @@ In templates:
 - Images: always `if_untitled_image($id, $context)` (skill `render-responsive-image`) — never `wp_get_attachment_image()` with a hand-picked size, never `<img>` from URLs.
 - Escape late: `esc_html`, `esc_url`, `esc_attr`, `wp_kses_post` (WYSIWYG).
 - Options: `get_field('contact_email', 'option')`. Terms: `get_field('{field}', $term)`.
-- Flexible content: loop `have_rows()` / `get_row_layout()` and render one `components/{layout}.php` per layout.
+- Flexible content: a helper shapes the rows (`if_untitled_content_grid()` → render-ready rows, empty / invalid blocks
+  dropped; seamless clones come back flat) and the template renders one component per row.
+- Textarea output: `new_lines` = `wpautop` for prose (render with `wp_kses_post()`); `''` (raw) when a helper splits
+  the lines itself (Theme Options `address`).
 
 ## 6. Verify
 

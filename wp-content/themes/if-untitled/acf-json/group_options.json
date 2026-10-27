@@ -106,7 +106,7 @@
                     "label": "Address",
                     "name": "address",
                     "type": "textarea",
-                    "instructions": "",
+                    "instructions": "One line per address line.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -114,8 +114,8 @@
                         "class": "",
                         "id": ""
                     },
-                    "rows": 4,
-                    "new_lines": "wpautop",
+                    "rows": 3,
+                    "new_lines": "",
                     "default_value": "",
                     "maxlength": "",
                     "placeholder": "",
@@ -194,7 +194,7 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
+            "layout": "table",
             "button_label": "Add enquiry",
             "min": 0,
             "max": 0,
@@ -282,7 +282,7 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
+            "layout": "table",
             "button_label": "Add social link",
             "min": 0,
             "max": 0,
@@ -341,7 +341,7 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
+            "layout": "table",
             "button_label": "Add portal",
             "min": 0,
             "max": 0,
@@ -460,5 +460,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1793110498
+    "modified": 1793111233
 }
