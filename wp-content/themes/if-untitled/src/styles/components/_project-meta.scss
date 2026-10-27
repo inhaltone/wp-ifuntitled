@@ -1,0 +1,37 @@
+@use 'abstracts' as *;
+
+.project-meta {
+    @include text-style(text-s);
+    margin: 0;
+
+    &__label,
+    &__value {
+        margin: 0;
+    }
+
+    &__value {
+        font-weight: var(--font-bold);
+    }
+
+    // Label | value rows (project hero).
+    &--list {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        column-gap: 1.5em;
+    }
+
+    &--list &__item {
+        display: contents;
+    }
+
+    // 4 equal cells, label above value (Work card, Advisory).
+    &--columns {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        column-gap: var(--grid-gutter);
+    }
+
+    &--columns &__value {
+        min-block-size: 1lh;
+    }
+}
