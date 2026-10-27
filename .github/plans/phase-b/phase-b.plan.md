@@ -9,6 +9,9 @@ implementation plan once confirmed (that plan stays the single source for fields
 How-to rules (file names, BEM, components, Router ids) come from the skills — see the table at the top of the
 implementation plan.
 
+**When:** Phase B starts after Phase A (implementation plan §2 backend + §3 seed) is done — templates are built against
+seeded data only.
+
 **Status:** draft from the first design read — items marked ⏳ wait for an answer (§7); build with the stated default.
 
 ---
@@ -130,8 +133,10 @@ and mobile.
 | 10  | `contact-map`                                          | Contact                                    | `ContactMap` (lazy, contact route only)        |
 | 11  | `media` — MP4 loop / YouTube click (`render-video`)    | `content_grid` image blocks                | `AmbientVideo` · `YoutubeVideo` (lazy)         |
 
-Route order: Project → Work → Studio → Advisory → Journal → Journal entry → Contact → Home → 404 / page → QA
-(responsive, a11y, Lighthouse). **Done when** each route matches its PNG at 1920 px with seeded data and
+**This is the single Phase B build order.** Before #1: the helpers in implementation plan §4. Components in the
+table order, then routes: Project → Work → Studio → Advisory → Journal → Journal entry → Contact (Maps JS API loaded
+only on this route) → Home → 404 / page → QA (responsive, a11y, empty states, images per `render-responsive-image` §5,
+Lighthouse). **Done when** each route matches its PNG at 1920 px with seeded data and
 `npm run check` passes.
 
 ## 5. Model changes (✅ confirmed, back-ported to the implementation plan)
