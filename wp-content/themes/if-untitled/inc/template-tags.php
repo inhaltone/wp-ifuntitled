@@ -400,3 +400,42 @@ function if_untitled_studio_services(): array
     }
     return $services;
 }
+
+/**
+ * Enquiry contacts from Theme Options (footer), each with its link: mailto:, tel: or WhatsApp.
+ *
+ * @return array<int, array{label: string, href: string}>
+ */
+function if_untitled_enquiries(): array
+{
+    $rows = function_exists('get_field') ? (get_field('enquiries', 'option') ?: []) : [];
+    $out  = [];
+    foreach ($rows as $row) {
+        $value = trim((string) ($row['value'] ?? ''));
+        $href  = match ($row['type'] ?? '') {
+            'email'    => is_email($value) ? 'mailto:' . $value : '',
+            'phone'    => 'tel:' . preg_replace('/[^\d+]/', '', $value),
+            'whatsapp' => 'https://wa.me/' . preg_replace('/\D/', '', $value),
+            default    => '',
+        };
+        if ($value !== '' && $href !== '') {
+            $out[] = ['label' => (string) ($row['label'] ?? '') ?: $value, 'href' => $href];
+        }
+    }
+    return $out;
+}
+
+/**
+ * External label + URL lists from Theme Options (`social`, `portals`).
+ *
+ * @return array<int, array{label: string, url: string}>
+ */
+function if_untitled_external_links(string $field): array
+{
+    $rows = function_exists('get_field') ? (get_field($field, 'option') ?: []) : [];
+    $rows = array_map(fn(array $row): array => [
+        'label' => (string) ($row['label'] ?? ''),
+        'url'   => (string) ($row['url'] ?? ''),
+    ], $rows);
+    return array_values(array_filter($rows, fn(array $row): bool => $row['label'] !== '' && $row['url'] !== ''));
+}

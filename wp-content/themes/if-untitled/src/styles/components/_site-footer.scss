@@ -1,32 +1,55 @@
 @use 'abstracts' as *;
 
 .site-footer {
-    min-height: var(--footer-height);
-    padding: 20px 0;
-    border-top: 1px solid $c_light;
+    padding: 120px 0 20px;
+    color: var(--c-fg);
+    background-color: var(--c-bg);
 
-    &__inner {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
+    &__columns {
+        row-gap: 40px;
+        padding-inline: var(--text-inset);
     }
 
-    &__copy {
-        @include font-medium(13);
+    &__title {
+        @include text-style(display-s);
+        margin-block-end: 8px;
+    }
+
+    &__group + &__group {
+        margin-block-start: 40px;
     }
 
     &__list {
-        display: flex;
-        gap: 15px;
         margin: 0;
         padding: 0;
         list-style: none;
+    }
 
-        a {
-            @include font-bold(13);
-            text-transform: uppercase;
+    &__item,
+    &__line {
+        @include text-style(text-m);
+        display: block;
+    }
+
+    &__address {
+        font-style: normal;
+
+        & + & {
+            margin-block-start: 1.3em;
         }
+    }
+
+    :is(&__link, &__line[href]) {
+        @include hover {
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+        }
+    }
+
+    &__copy {
+        @include text-style(text-s);
+        margin: 120px 0 0;
+        font-size: 0.75rem;
+        text-align: center;
     }
 }

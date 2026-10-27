@@ -19,4 +19,5 @@
 <?php get_template_part('components/loader'); ?>
 <div id="app">
     <?php get_template_part('components/nav-bar'); ?>
+    <?php get_template_part('components/site-logo'); ?>
     <div id="content">

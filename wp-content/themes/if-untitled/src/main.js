@@ -3,16 +3,13 @@ import { onMounted, onPageMounted, onLoaded } from '@/js/utils/Hooks.js';
 import Router, { useRouterLink } from '@/js/utils/Router.js';
 import RouterTransition from '@/js/utils/RouterTransition.js';
 import { lazyComponent } from '@/js/utils/LazyComponent.js';
-import MenuToggle from '@/js/components/MenuToggle.js';
+import PrimaryNav from '@/js/components/PrimaryNav.js';
 
 // Global: runs on every page.
 onMounted(() => {
     new RouterTransition();
     useRouterLink();
-    new MenuToggle({
-        buttonSelector: '.menu-toggle',
-        targetSelector: '#app-header',
-    });
+    new PrimaryNav();
 
     // Code-split: only downloaded when [data-reveal] exists on the page.
     lazyComponent('[data-reveal]', () => import('@/js/components/Reveal.js'), {

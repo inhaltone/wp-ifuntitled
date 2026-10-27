@@ -1,0 +1,20 @@
+@use 'abstracts' as *;
+
+// Fixed bottom-left on every page. White + difference blend reads on white, black and photos; only the logo is
+// clickable. Below the header (and its submenus).
+.site-logo {
+    position: fixed;
+    bottom: 10px;
+    left: 8px;
+    z-index: 90;
+    display: block;
+    width: clamp(140px, 19.08vw, 366px);
+    color: $c_white;
+    mix-blend-mode: difference;
+
+    &__svg {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}

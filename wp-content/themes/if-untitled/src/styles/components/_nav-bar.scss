@@ -1,0 +1,72 @@
+@use 'abstracts' as *;
+
+.site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 100;
+    height: var(--nav-height);
+    color: var(--c-fg);
+    background-color: var(--c-bg);
+}
+
+.primary-nav {
+    height: 100%;
+
+    // One top-level item per grid column (design); a spread row below md.
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        height: 100%;
+        margin: 0;
+        padding: 0 var(--text-inset);
+        list-style: none;
+
+        @include media-breakpoint-up(md) {
+            display: grid;
+            grid-template-columns: repeat(#{$grid-columns}, minmax(0, 1fr));
+            gap: var(--grid-gutter);
+        }
+    }
+
+    &__item {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &--sub {
+            display: block;
+        }
+    }
+
+    &__link {
+        @include text-style(text-s);
+        display: inline-block;
+
+        @include hover {
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+        }
+
+        .is-current > & {
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+        }
+    }
+
+    // Simple list right below the parent, same text, no panel (only the page background so it stays readable).
+    &__submenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+        min-width: max-content;
+        margin: 0;
+        padding: 0 0 6px;
+        list-style: none;
+        background-color: var(--c-bg);
+
+        .has-submenu:is(:hover, :focus-within, .is-open) > & {
+            display: block;
+        }
+    }
+}

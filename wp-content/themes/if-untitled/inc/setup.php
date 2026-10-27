@@ -47,3 +47,35 @@ add_filter('body_class', function (array $classes): array {
     }
     return $classes;
 });
+
+/*
+ * BEM classes for menus rendered with the custom wp_nav_menu() arg `if_untitled_block` ({block}__item,
+ * {block}__link, {block}__submenu, state classes is-current / has-submenu) instead of WordPress' generic ones.
+ */
+add_filter('nav_menu_css_class', function (array $classes, WP_Post $item, stdClass $args, int $depth): array {
+    if (empty($args->if_untitled_block)) {
+        return $classes;
+    }
+    $block  = $args->if_untitled_block;
+    $anchor = str_contains((string) $item->url, '#'); // in-page anchors are never "current"
+    return array_filter([
+        "{$block}__item",
+        $depth > 0 ? "{$block}__item--sub" : '',
+        in_array('menu-item-has-children', $classes, true) ? 'has-submenu' : '',
+        !$anchor && array_intersect(['current-menu-item', 'current-menu-ancestor', 'current_page_parent'], $classes) ? 'is-current' : '',
+    ]);
+}, 10, 4);
+
+add_filter('nav_menu_item_id', fn(string $id, WP_Post $item, stdClass $args): string => empty($args->if_untitled_block) ? $id : '', 10, 3);
+
+add_filter('nav_menu_link_attributes', function (array $atts, WP_Post $item, stdClass $args): array {
+    if (!empty($args->if_untitled_block)) {
+        $atts['class'] = "{$args->if_untitled_block}__link";
+        if (str_contains((string) $item->url, '#')) {
+            unset($atts['aria-current']);
+        }
+    }
+    return $atts;
+}, 10, 3);
+
+add_filter('nav_menu_submenu_css_class', fn(array $classes, stdClass $args): array => empty($args->if_untitled_block) ? $classes : ["{$args->if_untitled_block}__submenu"], 10, 2);

@@ -236,7 +236,8 @@
                     },
                     "choices": {
                         "email": "Email",
-                        "phone": "Phone"
+                        "phone": "Phone",
+                        "whatsapp": "WhatsApp"
                     },
                     "default_value": "email",
                     "return_format": "value",
@@ -252,7 +253,7 @@
                     "label": "Value",
                     "name": "value",
                     "type": "text",
-                    "instructions": "Email address or phone number.",
+                    "instructions": "Email address or phone number (international format for WhatsApp).",
                     "required": 1,
                     "conditional_logic": false,
                     "wrapper": {
@@ -460,5 +461,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1793111233
+    "modified": 1793111548
 }

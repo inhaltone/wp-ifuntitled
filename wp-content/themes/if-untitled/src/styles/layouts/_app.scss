@@ -6,7 +6,7 @@ div#app {
     min-height: 100vh;
     min-height: 100dvh;
     padding-top: var(--nav-height);
-    background-color: $c_white;
+    background-color: var(--c-bg);
 }
 
 #content {
