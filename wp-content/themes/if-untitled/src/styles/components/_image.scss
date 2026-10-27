@@ -1,0 +1,28 @@
+@use 'abstracts' as *;
+
+.image {
+    margin: 0;
+
+    &__img {
+        display: block;
+        inline-size: 100%;
+        block-size: auto; // width/height attributes keep the ratio → no CLS
+    }
+
+    &--ratio-3x4 {
+        aspect-ratio: 3 / 4;
+    }
+
+    &--ratio-4x3 {
+        aspect-ratio: 4 / 3;
+    }
+
+    &--ratio-16x9 {
+        aspect-ratio: 16 / 9;
+    }
+
+    &[class*='--ratio-'] &__img {
+        block-size: 100%;
+        object-fit: cover;
+    }
+}
