@@ -63,4 +63,6 @@ export default class Accordion {
 | New interactive component (+ PHP part, SCSS) | `create-theme-component` |
 | Page-scoped JS / new `Router` id | `create-page-template` |
 | Archive filters (no JS required) | `create-archive-filter` |
+| Images / lazy loading (native, no JS) | `render-responsive-image` |
+| Video / YouTube players | `render-video` |
 | Dev server / HMR / chunk problems | `vite-build-verify` |

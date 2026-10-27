@@ -44,7 +44,8 @@ description: "WordPress PHP template and inc/ conventions for the if-untitled th
 - Field naming, locations, return formats and rendering: follow the **`create-acf-field-group`** skill.
 - Guard every ACF call: `if (function_exists('get_field'))` in shared code. Field groups are saved as JSON in
   `acf-json/` — commit those files.
-- Image fields return **IDs**: render with `wp_get_attachment_image($id, $size)` (srcset + alt), never raw URLs.
+- Image fields return **IDs**: render with `if_untitled_image()` / `components/image.php` (skill `render-responsive-image`),
+  never raw URLs or hand-written `<img>`.
 
 ## Post types & taxonomies
 

@@ -70,9 +70,9 @@ get_footer();
 
 - Templates render, helpers fetch: no queries or data shaping in the template — put them in an
   `if_untitled_*()` helper in `inc/template-tags.php` or in `pre_get_posts`.
-- Reuse layouts (`.container`, `.single-layout`) and components (`post-card`, `text-render`) before inventing new markup;
+- Reuse layouts (`.container`, `.single-layout`) and components (`project-card`, `journal-card`, `text-render`) before inventing new markup;
   load parts with `if_untitled_component('{name}', $args)`.
-- Archives: loop with `components/post-card` inside `<ul class="post-list">`, then `the_posts_pagination()`.
+- Archives: loop with the type's card (`components/project-card`, `components/journal-card`) inside one shared `<ul>` grid, then `the_posts_pagination()`.
 - ACF fields: follow `create-acf-field-group` (guard `function_exists('get_field')`, image IDs →
   `wp_get_attachment_image()`, escape late).
 

@@ -63,8 +63,10 @@ New partial `_foo.scss` → add `@use 'foo';` to that folder's `_index.scss`. `s
 
 ## Skills (step-by-step recipes in `.github/skills/`)
 
-| Task                                        | Skill                    |
-| ------------------------------------------- | ------------------------ |
-| New component partial (+ PHP part, JS)      | `create-theme-component` |
-| New page partial `pages/_{route-id}.scss`   | `create-page-template`   |
-| Sass build errors, missing styles, upgrades | `vite-build-verify`      |
+| Task                                        | Skill                     |
+| ------------------------------------------- | ------------------------- |
+| New component partial (+ PHP part, JS)      | `create-theme-component`  |
+| New page partial `pages/_{route-id}.scss`   | `create-page-template`    |
+| Image styles (ratio, `object-fit`)          | `render-responsive-image` |
+| Video / YouTube styles (poster, fade-in)    | `render-video`            |
+| Sass build errors, missing styles, upgrades | `vite-build-verify`       |

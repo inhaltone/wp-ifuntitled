@@ -29,7 +29,9 @@ This repository is a full WordPress install. **Only edit the custom theme** at
 
 Before finishing any task run **`npm run check`** and make sure it passes. Sass deprecations are configured as
 **fatal** (`fatalDeprecations` in `vite.config.js`), so the build fails on `@import`, global built-ins, `/` division, `if()`.
-Run `npm run format` instead of hand-formatting.
+Run `npm run format` instead of hand-formatting. Markdown under `.github/` is outside the theme's Prettier config: format it from the
+theme folder with `npx prettier --config .prettierrc.json --embedded-language-formatting=off --write ../../../.github/{file}.md`
+(keeps code samples in theme style — 4 spaces, single quotes).
 
 ## Architecture
 
@@ -96,6 +98,8 @@ Step-by-step recipes live in `.github/skills/*/SKILL.md` — use the matching sk
 | ----------------------------------------------------------- | --------------------------- |
 | Page / archive / single / taxonomy template, template names | `create-page-template`      |
 | Reusable UI component (PHP part + SCSS + optional JS)       | `create-theme-component`    |
+| Any image output (sizes, srcset, lazy load, LCP)            | `render-responsive-image`   |
+| Video (MP4 autoplay loop) / YouTube (click to play)         | `render-video`              |
 | Custom post type / taxonomy                                 | `register-custom-post-type` |
 | ACF field group / Theme Options field                       | `create-acf-field-group`    |
 | "All + terms" filter bar on an archive                      | `create-archive-filter`     |

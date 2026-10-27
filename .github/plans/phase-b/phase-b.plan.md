@@ -69,7 +69,7 @@ Pattern "**section label in col 1, content in cols 2–5**" → one `section-hea
 
 - **Intro:** "Advisory" display XL + bold paragraph, cols 2–3 (page title + content).
 - **4 thematics** (anchors for the header submenu): left cols 1–2 — title (display L), subtitle (bold), description;
-  pinned to the bottom of the row: **project title + metadata** (Year · Client · Status · Location, small). Right: project
+  pinned to the bottom of the row: **project title + metadata** (Location · Client · Year · Status, small). Right: project
   image, cols 3–5 or 4–5 (alternating span). Data: `advisory_features` + the linked project's featured image and
   `project_metadata`.
 - **Clients** (same component as Studio).
@@ -90,7 +90,8 @@ Pattern "**section label in col 1, content in cols 2–5**" → one `section-hea
   at many start columns ⇒ the model's big/small × left/center/right is **not enough** (§5 change 1).
 - **Statement box:** black box with white display M text next to an image (same "filled box" as Home).
 - **Text:** `project_text` as plain paragraphs, cols 2–4, after the grid — shown open (no "read more" toggle in the design ⏳ Q6).
-- **Not in the design:** previous / next, category label ⏳ Q6.
+- **Category:** rendered below the metadata (decided — not in the design yet).
+- **Not in the design:** previous / next ⏳ Q6.
 
 ### 3.6 Journal archive `journal` (dark)
 
@@ -118,6 +119,7 @@ and mobile.
 | --- | ------------------------------------------------------ | ------------------------------------------ | ---------------------------------------------- |
 | 1   | tokens, fonts, `.grid` utility, themes (`is-dark`)     | all                                        | —                                              |
 | 2   | `nav-bar` (+ submenu), `site-logo`, `site-footer`      | all                                        | `PrimaryNav` (submenu: `aria-expanded`, touch) |
+| 2b  | `image` (skill `render-responsive-image`)              | every image                                | — (native lazy loading)                        |
 | 3   | `page-intro` (display XL title + paragraph, col start) | Studio, Advisory, Work, Journal, Contact   | —                                              |
 | 4   | `content-grid` (image / title / text / box rows)       | Project, Journal entry, Home               | —                                              |
 | 5   | `project-meta` (list + 4-column variants)              | Project hero, Work card, Advisory thematic | —                                              |
@@ -126,7 +128,7 @@ and mobile.
 | 8   | `section-head` (label col 1), `feature-row`            | Studio, Advisory                           | —                                              |
 | 9   | `team`, `clients`                                      | Studio, Advisory                           | —                                              |
 | 10  | `contact-map`                                          | Contact                                    | `ContactMap` (lazy, contact route only)        |
-| 11  | `youtube-player` (click-to-load)                       | Journal entry                              | `YoutubePlayer`                                |
+| 11  | `media` — MP4 loop / YouTube click (`render-video`)    | `content_grid` image blocks                | `AmbientVideo` · `YoutubeVideo` (lazy)         |
 
 Route order: Project → Work → Studio → Advisory → Journal → Journal entry → Contact → Home → 404 / page → QA
 (responsive, a11y, Lighthouse). **Done when** each route matches its PNG at 1920 px with seeded data and
@@ -134,12 +136,12 @@ Route order: Project → Work → Studio → Advisory → Journal → Journal en
 
 ## 5. Model changes (✅ confirmed, back-ported to the implementation plan)
 
-| #   | Change                                                                                                                                                                                                                                                          | Why (design)                                              |
-| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| 1   | `content_grid` row = **`image`** (+ `image_start` 1–5, `image_span` 1–5) and/or **`text`** (+ `text_start`, `text_span`, `text_style`: `plain` · `title` · `outlined` · `filled`). Replaces `position` / `size` / `text_size`. Validation: start + span − 1 ≤ 5 | Project + Home use spans 2–4 at any column; 4 text styles |
-| 2   | Home = hero image + the same `content_grid` with an optional **`link`** (post object: project / post / page) per row. Drops `home_sections` / feature / showcase                                                                                                | Home is the project grid language with links (closes Q10) |
-| 3   | Page intro for Studio · Advisory · Contact: native page **title + content** (classic editor, plain paragraphs) — no new field                                                                                                                                   | All three open with title + paragraph                     |
-| 4   | Advisory thematic shows the project's title + `project_metadata` — no new field (from `item`)                                                                                                                                                                   | Advisory rows                                             |
+| #   | Change                                                                                                                                                                                                                                                                                                                                         | Why (design)                                              |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| 1   | `content_grid` row = **`image`** (+ column range 1–5) and/or **`text`** (+ column range, `heading` / `body` + size, `box` none · outlined · filled, `align_x` / `align_y`). Replaces `position` / `size` / `text_size`. Built as **flexible content** (layouts `image` · `text` · `image_text`, column range select) — implementation plan 1.2 | Project + Home use spans 2–4 at any column; 4 text styles |
+| 2   | Home = hero image + the same `content_grid` with an optional **`link`** (post object: any public content) per block. Drops `home_sections` / feature / showcase                                                                                                                                                                                | Home is the project grid language with links (closes Q10) |
+| 3   | Page intro for Studio · Advisory · Contact: native page **title + content** (classic editor, plain paragraphs) — no new field                                                                                                                                                                                                                  | All three open with title + paragraph                     |
+| 4   | Advisory service area shows its showcase project's title + `project_metadata` + excerpt — no new field (from `item`)                                                                                                                                                                                                                           | Advisory rows                                             |
 
 ## 6. Assets
 
@@ -156,7 +158,7 @@ Route order: Project → Work → Studio → Advisory → Journal → Journal en
 | 3   | ✅ Header submenu                                                                              | Shown on hover of the parent, simple list directly below it (no panel); no 01–05 numbers. Keyboard via `:focus-within`, touch via `PrimaryNav` |
 | 4   | Footer "Studio" column = Architecture · Urban Design · Interior Design ≠ the 2 Studio services | Generated from `studio_services` (single source); designer to align the labels                                                                 |
 | 5   | Studio "Services": two empty boxes — what goes inside (title, subtitle, description, image)?   | Outlined box: title (display M) + description                                                                                                  |
-| 6   | Project: "read more" toggle, prev/next and category are not in the design — drop or keep?      | Keep prev/next (small, after the text); text shown open; no category label                                                                     |
+| 6   | Project: "read more" toggle, prev/next and category are not in the design — drop or keep?      | Keep prev/next (small, after the text); text shown open. Category ✅ rendered below the metadata                                               |
 | 7   | ✅ Journal filter                                                                              | Keep the entry-type filter (vertical, like Work) — the design gets updated; cards show the entry type                                          |
 | 8   | Mobile / tablet designs?                                                                       | Stack all grid rows full width under `md`; archives 2 cols `md`, 1 col `sm`                                                                    |
 | 9   | Contact map: markers visible? Which city centred?                                              | Custom marker per location, fit bounds                                                                                                         |

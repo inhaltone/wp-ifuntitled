@@ -22,6 +22,27 @@ Create it if missing and require it from `functions.php` (`require_once IF_UNTIT
 defined('ABSPATH') || exit;
 
 add_action('init', function (): void {
+    // Taxonomy first: its rewrite rules must win over the post type's.
+    register_taxonomy('project_category', ['project'], [
+        'labels'            => ['name' => __('Project categories', 'if-untitled')],
+        'hierarchical'      => true,
+        'show_admin_column' => true,
+        'show_in_rest'      => true,
+        'rewrite'           => ['slug' => 'work/category', 'with_front' => false],
+    ]);
+
+    // Private vocabulary (one spelling per value), country › city: no URLs, edited only through its ACF taxonomy field.
+    register_taxonomy('project_location', ['project'], [
+        'labels'            => ['name' => __('Locations', 'if-untitled')],
+        'hierarchical'      => true,
+        'public'            => false,
+        'show_ui'           => true,
+        'show_in_rest'      => true,
+        'show_admin_column' => true,
+        'meta_box_cb'       => false,
+        'rewrite'           => false,
+    ]);
+
     register_post_type('project', [
         'labels'       => [
             'name'          => __('Projects', 'if-untitled'),
@@ -29,7 +50,7 @@ add_action('init', function (): void {
         ],
         'public'       => true,
         'has_archive'  => true,
-        'rewrite'      => ['slug' => 'projects', 'with_front' => false],
+        'rewrite'      => ['slug' => 'work', 'with_front' => false],
         'menu_icon'    => 'dashicons-portfolio',
         'supports'     => ['title', 'editor', 'thumbnail', 'excerpt', 'page-attributes'],
         'show_in_rest' => true,
@@ -49,24 +70,18 @@ add_action('init', function (): void {
         'menu_icon'           => 'dashicons-groups',
         'supports'            => ['title', 'thumbnail', 'page-attributes'],
     ]);
-
-    register_taxonomy('project_category', ['project'], [
-        'labels'            => ['name' => __('Project categories', 'if-untitled')],
-        'hierarchical'      => true,
-        'show_admin_column' => true,
-        'show_in_rest'      => true,
-        'rewrite'           => ['slug' => 'projects/category', 'with_front' => false],
-    ]);
 });
 ```
 
 Naming & URL rules:
 
 - Post type key: singular, lowercase, ≤ 20 chars, underscores not dashes (`team_member`). Taxonomy key: same
-  rules, ≤ 32 chars (`project_category`). URL slugs: plural kebab-case.
-- Term archives nest under the CPT archive (`projects/category` → `/projects/category/{slug}/`).
+  rules, ≤ 32 chars (`project_category`). URL slugs: kebab-case, matching the header label (`work`, not `projects`).
+- Item slugs are words from the title (`sanitize_title()`), **never IDs or numbers**.
+- Term archives nest under the CPT archive (`work/category` → `/work/category/{slug}/`).
+  Register the taxonomy **before** the post type so its rewrite rules win over the CPT's.
 - Always `'with_front' => false` on CPTs and taxonomies: a custom permalink structure such as `/journal/%postname%/`
-  would otherwise prefix every CPT URL (`/journal/projects/…`).
+  would otherwise prefix every CPT URL (`/journal/work/…`).
 - Use native `supports` (title, thumbnail, excerpt, `page-attributes` for menu order) before adding ACF fields.
 - Private types (`public => false`, `show_ui => true`) get no archive/single templates.
 - After adding/changing rewrites tell the user to re-save **Settings → Permalinks** (or `wp rewrite flush`).
@@ -82,7 +97,7 @@ add_filter('post_type_labels_post', function (object $labels): object {
 
 // Classic editor for types that are built from ACF fields.
 add_filter('use_block_editor_for_post_type', fn(bool $use, string $type): bool
-    => in_array($type, ['post', 'project'], true) ? false : $use, 10, 2);
+    => in_array($type, ['post', 'project', 'team_member', 'page'], true) ? false : $use, 10, 2);
 ```
 
 Relabel categories with `taxonomy_labels_category`. Disable comments with `remove_post_type_support($type, 'comments')`
@@ -90,16 +105,23 @@ plus `comments_open` / `pings_open` filters returning `false`.
 
 ## 2. Query tweaks (optional)
 
-Use `pre_get_posts` in `inc/post-types.php` instead of custom `WP_Query` in templates (cover the term archive too):
+Use `pre_get_posts` in `inc/post-types.php` instead of custom `WP_Query` in templates (cover the term archives too).
+The theme owns the front-end order; the ordering plugin only writes `menu_order` / `term_order` in wp-admin
+(turn off its post "auto sort" so the two never fight; terms still use its `term_order`):
 
 ```php
 add_action('pre_get_posts', function (WP_Query $q): void {
-    if (!is_admin() && $q->is_main_query()
-        && ($q->is_post_type_archive('project') || $q->is_tax('project_category'))) {
-        $q->set('posts_per_page', -1);
-        $q->set('orderby', 'menu_order');
-        $q->set('order', 'ASC');
+    if (is_admin() || !$q->is_main_query()) {
+        return;
     }
+    $is_work    = $q->is_post_type_archive('project') || $q->is_tax('project_category');
+    $is_journal = $q->is_home() || $q->is_category() || $q->is_tag();
+    if (!$is_work && !$is_journal) {
+        return;
+    }
+    $q->set('posts_per_page', $is_work ? -1 : 12);
+    // Unordered items have menu_order 0 → first, newest first.
+    $q->set('orderby', ['menu_order' => 'ASC', 'date' => 'DESC']);
 });
 ```
 

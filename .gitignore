@@ -45,6 +45,9 @@ vendor/
 # --- Design exports (large PNGs, shared outside git) -------------------------
 .github/plans/*/designs/
 
+# --- Seed images (local only; the seed downloads them when missing) ----------
+.github/plans/*/seeds/images/
+
 # --- Logs --------------------------------------------------------------------
 *.log
 npm-debug.log*

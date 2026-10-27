@@ -19,7 +19,7 @@ The archive and its term archive render the same markup and share the archive's 
 
 Create them with the `create-page-template` skill. Put the shared markup in components — don't duplicate it.
 
-Term URLs come from the taxonomy `rewrite` slug (see `register-custom-post-type`), e.g. `/projects/category/{slug}/`.
+Term URLs come from the taxonomy `rewrite` slug (see `register-custom-post-type`), e.g. `/work/category/{slug}/`.
 Query tweaks (posts per page, order) go in `pre_get_posts` for **both** the archive and the term archive.
 
 ## 2. Helper — `inc/template-tags.php`
