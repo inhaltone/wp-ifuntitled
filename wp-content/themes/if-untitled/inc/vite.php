@@ -17,6 +17,12 @@ defined('ABSPATH') || exit;
 const IF_UNTITLED_VITE_ENTRY = 'src/main.js';
 const IF_UNTITLED_DIST       = 'dist';
 
+// The 2 faces of the first paint (body text + display titles); the bold face loads on demand.
+const IF_UNTITLED_PRELOAD_FONTS = [
+    'src/assets/fonts/GT-America-Standard-Medium-Trial.woff2',
+    'src/assets/fonts/GT-Flexa-Medium-Trial.woff2',
+];
+
 /**
  * Dev-server origin (e.g. http://localhost:3000) or null when not in dev mode.
  */
@@ -116,6 +122,13 @@ add_action('wp_head', function (): void {
         printf('<script type="module" src="%s"></script>' . "\n", esc_url($server . '/@vite/client'));
         printf('<script type="module" src="%s"></script>' . "\n", esc_url($server . '/' . IF_UNTITLED_VITE_ENTRY));
         return;
+    }
+
+    foreach (IF_UNTITLED_PRELOAD_FONTS as $font) {
+        $url = if_untitled_asset($font);
+        if ($url) {
+            printf('<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url($url));
+        }
     }
 
     $manifest = if_untitled_vite_manifest();

@@ -1,0 +1,35 @@
+@use 'abstracts' as *;
+
+// The 5-column page grid (no outer margin). Items place themselves with --col-start / --col-span (set inline by PHP
+// from a column range) or the grid-columns() mixin. Below md every item is full width, stacked.
+.grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--grid-gutter);
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(#{$grid-columns}, minmax(0, 1fr));
+    }
+
+    &__item {
+        @include media-breakpoint-up(md) {
+            grid-column: var(--col-start, 1) / span var(--col-span, #{$grid-columns});
+        }
+    }
+
+    // Text never touches the viewport / column edge.
+    &__text {
+        padding-inline: var(--text-inset);
+    }
+
+    // Archive cards: 1 column, 2 from md, 3 from lg.
+    &--cards {
+        @include media-breakpoint-up(md) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @include media-breakpoint-up(lg) {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+}

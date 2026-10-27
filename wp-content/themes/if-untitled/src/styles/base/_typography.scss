@@ -1,41 +1,49 @@
 @use 'abstracts' as *;
 
+// Headings carry no size of their own: components pick a step with @include text-style(…).
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    margin: 0 0 0.5em;
-    line-height: 1.05;
-    text-transform: uppercase;
-}
-
-h1 {
-    @include font-bold(26);
-    @include media-breakpoint-up(lg) {
-        @include font-bold(40);
-    }
-    @include media-breakpoint-up(xxl) {
-        @include font-bold(50);
-    }
-}
-
-h2 {
-    @include font-bold(20);
-    @include media-breakpoint-up(lg) {
-        @include font-bold(28);
-    }
-}
-
-h3 {
-    @include font-bold(16);
-    @include media-breakpoint-up(lg) {
-        @include font-bold(20);
-    }
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
 }
 
 p {
     margin: 0 0 1em;
-    line-height: 1.5;
+}
+
+p:last-child {
+    margin-block-end: 0;
+}
+
+.text-display-xl {
+    @include text-style(display-xl);
+}
+
+.text-display-l {
+    @include text-style(display-l);
+}
+
+.text-display-m {
+    @include text-style(display-m);
+}
+
+.text-display-s {
+    @include text-style(display-s);
+}
+
+.text-l {
+    @include text-style(text-l);
+}
+
+.text-m {
+    @include text-style(text-m);
+}
+
+.text-s {
+    @include text-style(text-s);
 }

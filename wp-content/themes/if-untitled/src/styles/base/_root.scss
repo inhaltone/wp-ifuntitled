@@ -13,6 +13,17 @@
     --c-light: #{$c_light};
     --c-accent: #{$c_accent};
     --gutter: #{$gutter};
+    --grid-gutter: #{$grid-gutter};
+    --text-inset: #{$text-inset};
+    --c-bg: var(--c-white);
+    --c-fg: var(--c-black);
+    --c-line: var(--c-grey);
     --nav-height: 50px;
     --footer-height: 80px;
+}
+
+// Dark theme (Journal archive, Contact): body class set in inc/setup.php.
+.is-dark {
+    --c-bg: var(--c-black);
+    --c-fg: var(--c-white);
 }

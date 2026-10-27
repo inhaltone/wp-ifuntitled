@@ -23,9 +23,9 @@ body {
     font-size: $base_font_size;
     font-family: $base_font_family;
     font-weight: var(--font-medium);
-    line-height: 1.5;
-    color: $c_black;
-    background-color: $c_white;
+    line-height: 1.3;
+    color: var(--c-fg);
+    background-color: var(--c-bg);
 }
 
 img,
@@ -56,23 +56,18 @@ button {
 }
 
 a {
-    color: $c_black;
+    color: inherit;
     text-decoration: none;
-    @include transition(color 0.2s ease);
-
-    @include hover {
-        color: $c_accent;
-    }
 }
 
 :focus-visible {
-    outline: 2px solid $c_accent;
+    outline: 2px solid currentcolor;
     outline-offset: 2px;
 }
 
 ::selection {
-    background-color: $c_accent;
-    color: $c_white;
+    background-color: var(--c-fg);
+    color: var(--c-bg);
 }
 
 @media (prefers-reduced-motion: no-preference) {

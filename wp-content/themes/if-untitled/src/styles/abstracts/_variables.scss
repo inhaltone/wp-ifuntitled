@@ -1,9 +1,9 @@
 // Design tokens (compile-time). Runtime tokens (CSS custom properties) live in base/_root.scss.
 
-// Colors
-$c_black: rgb(19 19 19) !default;
+// Colors — the design is black / white only; grey = thin outlines.
+$c_black: #000 !default;
 $c_white: #fff !default;
-$c_grey: #7a7979 !default;
+$c_grey: #707070 !default;
 $c_light: #f4f4f4 !default;
 $c_accent: #fc0231 !default;
 
@@ -23,6 +23,58 @@ $browser-context: 16 !default;
 
 // Spacing
 $gutter: 15px !default;
+
+// Layout grid (measured on the 1920 px designs): 5 columns, 16 px gutter, no outer margin — images bleed to the
+// viewport edge. Text sits $text-inset from its column edge. Archives use 3 columns with the same gutter.
+$grid-columns: 5 !default;
+$grid-gutter: 16px !default;
+$text-inset: 12px !default;
+
+// Type scale: size at 1920 px, fluid below (clamp), never above. Display = GT Flexa, base = GT America.
+$type-scale: (
+    display-xl: (
+        family: var(--font-display),
+        weight: var(--font-medium),
+        size: clamp(3rem, 5vw, 6rem),
+        line: 1,
+    ),
+    display-l: (
+        family: var(--font-display),
+        weight: var(--font-medium),
+        size: clamp(2rem, 2.5vw, 3rem),
+        line: 1.05,
+    ),
+    display-m: (
+        family: var(--font-display),
+        weight: var(--font-medium),
+        size: clamp(1.375rem, 1.67vw, 2rem),
+        line: 1.25,
+    ),
+    display-s: (
+        family: var(--font-display),
+        weight: var(--font-medium),
+        size: clamp(1.0625rem, 1.05vw, 1.25rem),
+        line: 1.15,
+    ),
+    text-l: (
+        family: var(--font-base),
+        weight: var(--font-bold),
+        size: clamp(1.125rem, 1.15vw, 1.375rem),
+        line: 1.4,
+    ),
+    text-m: (
+        family: var(--font-base),
+        weight: var(--font-medium),
+        size: clamp(1rem, 0.94vw, 1.125rem),
+        line: 1.3,
+    ),
+    text-s: (
+        family: var(--font-base),
+        weight: var(--font-medium),
+        size: clamp(0.875rem, 0.78vw, 0.9375rem),
+        line: 1.3,
+    ),
+) !default;
 
 // Breakpoints — keep in sync with src/js/utils/MediaBreakpoints.js
 $grid-breakpoints: (

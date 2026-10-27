@@ -1,4 +1,5 @@
 @use 'sass:list';
+@use 'sass:map';
 @use 'variables' as *;
 @use 'functions' as *;
 
@@ -24,6 +25,25 @@
     font-family: var(--font-display);
     font-weight: var(--font-medium);
     font-size: em($size);
+}
+
+// A step of $type-scale (family, weight, fluid size, line height). Usage: @include text-style(display-l);
+@mixin text-style($name) {
+    $style: map.get($type-scale, $name);
+
+    @if not $style {
+        @error "text-style `#{$name}` not found in $type-scale";
+    }
+
+    font-family: map.get($style, family);
+    font-weight: map.get($style, weight);
+    font-size: map.get($style, size);
+    line-height: map.get($style, line);
+}
+
+// Place an element on the 5-column grid (columns are 1-based, inclusive).
+@mixin grid-columns($start, $end) {
+    grid-column: #{$start} / #{$end + 1};
 }
 
 // ---------------------------------------------------------------------------

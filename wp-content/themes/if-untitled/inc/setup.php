@@ -39,3 +39,11 @@ add_action('wp_enqueue_scripts', function (): void {
 add_action('wp_head', function (): void {
     wp_print_inline_script_tag("document.documentElement.classList.add('js');");
 }, 0);
+
+// Dark theme (black background, white text) on the Journal archive and Contact (designs).
+add_filter('body_class', function (array $classes): array {
+    if (is_home() || is_category() || is_tag() || is_page_template('page-templates/contact.php')) {
+        $classes[] = 'is-dark';
+    }
+    return $classes;
+});
