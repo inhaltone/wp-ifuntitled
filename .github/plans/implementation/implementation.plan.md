@@ -362,8 +362,13 @@ Menus (`primary_menu`, `footer_menu`) and reading settings / permalinks are part
 
 `team.csv`, per row: `team_member` created / updated by slug (`sanitize_title(name)`), `role` + `bio` → ACF, portrait =
 featured image (same image rules as projects: `seeds/images/{image}` else `image_url`). After all rows, the Studio page's
-`studio_team` is set to the members in `order` — skipped with a notice while the Studio page doesn't exist yet
-(`pages.csv`).
+`studio_team` is set to the members in `order` (the page exists from 2.3).
+
+Implementation notes: every row is validated (category, location, status) before anything is written. Images are
+keyed by their URL in `_if_untitled_source`, so a featured image that is also the first gallery image is imported once
+(Hikaru's portrait reuses Annika's file until her own is added to `team.csv`). Content grid rows are written with flat
+sub-field names (seamless clones — the shape `get_field()` returns). First run ≈ 5 min, 257 attachments; PHP
+`exif_read_data` warnings on some old camera files are harmless.
 
 Reference only (not seed data) — the client's outline, to curate `projects.csv` against:
 

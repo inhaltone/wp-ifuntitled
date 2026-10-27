@@ -9,29 +9,9 @@
 
 defined('ABSPATH') || exit;
 
-$if_untitled_seeds = $args[0] ?? dirname(__DIR__, 4) . '/.github/plans/phase-b/seeds';
+require_once __DIR__ . '/lib.php';
 
-/**
- * Reads a CSV with a header row into associative rows.
- *
- * @return array<int, array<string, string>>
- */
-function if_untitled_setup_csv(string $file): array
-{
-    if (!is_readable($file)) {
-        WP_CLI::error("Missing {$file}");
-    }
-    $handle = fopen($file, 'r');
-    $head   = fgetcsv($handle, null, ',', '"', '');
-    $rows   = [];
-    while (($row = fgetcsv($handle, null, ',', '"', '')) !== false) {
-        if ($row !== [null]) {
-            $rows[] = array_combine($head, array_map('trim', $row));
-        }
-    }
-    fclose($handle);
-    return $rows;
-}
+$if_untitled_seeds = if_untitled_seeds_dir($args);
 
 // Permalinks and media.
 update_option('permalink_structure', '/journal/%postname%/');
@@ -82,25 +62,8 @@ update_option('page_on_front', $if_untitled_page_ids['home']);
 update_option('page_for_posts', $if_untitled_page_ids['journal']);
 
 // Entry types: create, order, make Project notes the default, then delete Uncategorized.
-global $wpdb;
-$if_untitled_term_order = (bool) $wpdb->get_var("SHOW COLUMNS FROM {$wpdb->terms} LIKE 'term_order'");
-foreach (if_untitled_setup_csv("{$if_untitled_seeds}/entry-types.csv") as $if_untitled_row) {
-    $if_untitled_term = term_exists($if_untitled_row['slug'], 'category');
-    $if_untitled_term = $if_untitled_term
-        ? wp_update_term((int) $if_untitled_term['term_id'], 'category', [
-            'name'        => $if_untitled_row['name'],
-            'description' => $if_untitled_row['description'],
-        ])
-        : wp_insert_term($if_untitled_row['name'], 'category', [
-            'slug'        => $if_untitled_row['slug'],
-            'description' => $if_untitled_row['description'],
-        ]);
-    if (is_wp_error($if_untitled_term)) {
-        WP_CLI::error($if_untitled_term);
-    }
-    if ($if_untitled_term_order) {
-        $wpdb->update($wpdb->terms, ['term_order' => (int) $if_untitled_row['order']], ['term_id' => $if_untitled_term['term_id']]);
-    }
+foreach (if_untitled_read_csv("{$if_untitled_seeds}/entry-types.csv") as $if_untitled_row) {
+    if_untitled_upsert_term('category', $if_untitled_row);
     WP_CLI::log("Entry type: {$if_untitled_row['name']}");
 }
 update_option('default_category', get_term_by('slug', 'project-notes', 'category')->term_id);

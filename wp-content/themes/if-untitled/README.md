@@ -36,6 +36,13 @@ it on every environment:
 wp eval-file bin/setup.php
 ```
 
+Locally, fill the site with content from the curated CSVs in `.github/plans/phase-b/seeds/` (projects, terms, team,
+images downloaded from the old site — a few minutes the first time). Idempotent: matched by slug, images reused:
+
+```bash
+bin/seed.sh            # or: bin/seed.sh /path/to/seeds
+```
+
 ## How dev / prod switching works
 
 | Mode        | Trigger                                             | What WordPress loads                                                            |
@@ -63,7 +70,10 @@ if-untitled/
 │   ├── urls.php             # redirects, noindex, reserved slugs
 │   ├── template-tags.php    # if_untitled_* helpers
 │   └── acf.php              # optional ACF options page + acf-json
-├── bin/setup.php            # WP-CLI: site structure (wp eval-file bin/setup.php)
+├── bin/
+│   ├── setup.php            # WP-CLI: site structure (wp eval-file bin/setup.php)
+│   ├── seed.sh / seed.php   # WP-CLI: local content seed from the CSVs
+│   └── lib.php              # CSV / term helpers shared by both
 ├── components/              # template parts (get_template_part('components/x'))
 ├── *.php                    # template hierarchy files, each renders <main id="route-id">
 ├── src/
