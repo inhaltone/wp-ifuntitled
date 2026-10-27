@@ -1,0 +1,38 @@
+@use 'abstracts' as *;
+
+// Vertical list (Work, Journal): bold "All", "Filter" label, terms; the active link is bold with an arrow.
+.archive-filter {
+    @include text-style(text-s);
+
+    &__label {
+        margin: 0 0 0.75em;
+        font-weight: var(--font-bold);
+    }
+
+    &__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__link {
+        display: inline-block;
+
+        &--all {
+            font-weight: var(--font-bold);
+        }
+
+        @include hover {
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+        }
+
+        &[aria-current='page'] {
+            font-weight: var(--font-bold);
+        }
+    }
+
+    &__item &__link[aria-current='page']::before {
+        content: '→';
+    }
+}
