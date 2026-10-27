@@ -1,29 +1,36 @@
 @use 'abstracts' as *;
 
 main#front-page {
-    .hero {
-        display: flex;
-        align-items: flex-end;
-        min-height: calc(70vh - var(--nav-height));
-        padding: 40px 0;
+    display: grid;
+    gap: var(--grid-gutter);
+    padding-block-end: 120px;
 
-        &__title {
-            @include font-bold(40);
-            margin: 0;
+    // Full-bleed first viewport; the fixed site logo sits over the image bottom-left.
+    .front-page__hero {
+        block-size: calc(100svh - var(--nav-height));
+        background-color: $c_black;
 
-            @include media-breakpoint-up(lg) {
-                @include font-bold(96);
-            }
+        .image,
+        .image__img {
+            block-size: 100%;
         }
 
-        &__lead {
-            @include font-medium(16);
-            max-width: 40ch;
-            color: $c_grey;
+        .image__img {
+            object-fit: cover;
+        }
+    }
 
-            @include media-breakpoint-up(lg) {
-                @include font-medium(20);
-            }
+    .front-page__description {
+        @include text-style(text-m);
+        padding-inline: var(--text-inset);
+        font-weight: var(--font-bold);
+
+        > :first-child {
+            margin-block-start: 0;
+        }
+
+        > :last-child {
+            margin-block-end: 0;
         }
     }
 }
