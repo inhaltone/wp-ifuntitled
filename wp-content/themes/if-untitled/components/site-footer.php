@@ -50,17 +50,7 @@ $lists     = [
             <div class="site-footer__column">
                 <h2 class="site-footer__title"><?php esc_html_e('Address', 'if-untitled'); ?></h2>
                 <?php foreach ($locations as $location) : ?>
-                    <address class="site-footer__address">
-                        <?php foreach ($location['address'] ?: [$location['city']] as $line) : ?>
-                            <span class="site-footer__line"><?php echo esc_html($line); ?></span>
-                        <?php endforeach; ?>
-                        <?php if ($location['phone']) : ?>
-                            <a class="site-footer__line" href="tel:<?php echo esc_attr($location['phone_href']); ?>"><?php echo esc_html($location['phone']); ?></a>
-                        <?php endif; ?>
-                        <?php if ($location['email']) : ?>
-                            <a class="site-footer__line" href="mailto:<?php echo esc_attr($location['email']); ?>"><?php echo esc_html($location['email']); ?></a>
-                        <?php endif; ?>
-                    </address>
+                    <?php if_untitled_component('location', ['location' => $location]); ?>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>

@@ -26,20 +26,12 @@
     }
 
     &__item,
-    &__line {
+    .location__line {
         @include text-style(text-m);
         display: block;
     }
 
-    &__address {
-        font-style: normal;
-
-        & + & {
-            margin-block-start: 1.3em;
-        }
-    }
-
-    :is(&__link, &__line[href]) {
+    &__link {
         @include hover {
             text-decoration: underline;
             text-underline-offset: 0.2em;

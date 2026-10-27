@@ -202,7 +202,7 @@ No drag order: the Studio page's `studio_team` field picks and orders members. H
 | `work_intro`    | textarea — Work archive intro                                                                                                                                                                               |
 | `journal_intro` | textarea — Journal archive intro                                                                                                                                                                            |
 
-Google Maps API key: `IF_UNTITLED_GOOGLE_MAPS_KEY` constant in `wp-config.php` (per environment, not in git, HTTP-referrer restricted); passed to ACF with `acf/fields/google_map/api` in `inc/acf.php` and to the front-end map via `data-*`.
+Google Maps API key: `IF_UNTITLED_GOOGLE_MAPS_KEY` constant in `wp-config.php` (per environment, not in git, HTTP-referrer restricted); passed to ACF with `acf/fields/google_map/api` in `inc/acf.php` and to the front-end map via `data-*`. The dark style is a Google Cloud Map ID in `IF_UNTITLED_GOOGLE_MAPS_ID` (falls back to `DEMO_MAP_ID`); without a key or coordinates `components/contact-map.php` shows the panel only.
 
 ### 1.3 Relationships
 

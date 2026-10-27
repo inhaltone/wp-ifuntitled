@@ -1,0 +1,61 @@
+@use 'abstracts' as *;
+
+// Map fills the first viewport; the panel sits over col 5 (stacked under the map below md).
+.contact-map {
+    position: relative;
+    display: grid;
+    color: var(--c-fg);
+    background-color: var(--c-bg);
+
+    @include media-breakpoint-up(md) {
+        min-block-size: calc(100svh - var(--nav-height));
+    }
+
+    &__canvas {
+        block-size: 60svh;
+
+        @include media-breakpoint-up(md) {
+            position: absolute;
+            inset: 0;
+            block-size: auto;
+        }
+    }
+
+    &__overlay {
+        position: relative;
+        align-items: start;
+        pointer-events: none;
+    }
+
+    &__panel {
+        @include text-style(text-s);
+        padding: 8px var(--text-inset) 40px;
+        font-weight: var(--font-bold);
+        pointer-events: auto;
+    }
+
+    &__title {
+        @include text-style(display-l);
+        margin: 0 0 0.4em;
+    }
+
+    &__text {
+        margin-block-end: 3em;
+
+        > :first-child {
+            margin-block-start: 0;
+        }
+
+        > :last-child {
+            margin-block-end: 0;
+        }
+    }
+
+    &__marker {
+        inline-size: 14px;
+        block-size: 14px;
+        background-color: $c_white;
+        border: 2px solid $c_black;
+        border-radius: 50%;
+    }
+}
