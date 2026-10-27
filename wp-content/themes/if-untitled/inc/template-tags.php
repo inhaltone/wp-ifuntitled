@@ -258,6 +258,21 @@ function if_untitled_content_grid(?int $post_id = null): array
 }
 
 /**
+ * Archive intro text (HTML): the term description on a term view, else the Theme Options intro (`work_intro`,
+ * `journal_intro`).
+ */
+function if_untitled_archive_intro(string $option): string
+{
+    if (is_category() || is_tag() || is_tax()) {
+        $description = term_description();
+        if (trim(wp_strip_all_tags($description)) !== '') {
+            return $description;
+        }
+    }
+    return function_exists('get_field') ? (string) get_field($option, 'option') : '';
+}
+
+/**
  * Filter items for an archive: "All" + non-empty terms in their manual order.
  *
  * @return array<int, array{label: string, url: string, is_active: bool}>

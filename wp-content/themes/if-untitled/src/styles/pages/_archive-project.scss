@@ -1,0 +1,15 @@
+@use 'abstracts' as *;
+
+main#archive-project {
+    .archive-project__cards {
+        row-gap: clamp(60px, 10vw, 190px);
+        margin: 0;
+        padding: 0 0 120px;
+        list-style: none;
+    }
+
+    .archive-project__empty {
+        @include text-style(text-m);
+        padding-block-end: 120px;
+    }
+}
