@@ -1,0 +1,50 @@
+@use 'abstracts' as *;
+
+// First viewport: title + paragraph at the top of their column range; the content starts below the fold (design).
+.page-intro {
+    align-items: start;
+    min-block-size: calc(100svh - var(--nav-height));
+    padding-block-end: 40px;
+
+    @include media-breakpoint-up(md) {
+        grid-auto-rows: 1fr;
+    }
+
+    &__aside,
+    &__body {
+        padding-inline: var(--text-inset);
+    }
+
+    &__aside {
+        padding-block-start: 4px;
+    }
+
+    &__body {
+        padding-block-start: 8px;
+
+        &--rule {
+            @include media-breakpoint-up(md) {
+                align-self: stretch;
+                border-inline-start: 1px solid var(--c-fg);
+            }
+        }
+    }
+
+    &__title {
+        @include text-style(display-xl);
+        margin: 0 0 0.2em;
+    }
+
+    &__text {
+        @include text-style(text-l);
+        max-inline-size: 48em;
+
+        > :first-child {
+            margin-block-start: 0;
+        }
+
+        > :last-child {
+            margin-block-end: 0;
+        }
+    }
+}
