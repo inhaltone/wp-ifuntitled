@@ -2,7 +2,8 @@
 /**
  * Feature row (Studio features, Advisory thematics): text in cols 1–2, image on the right at its natural ratio.
  * $args: ['title' => string, 'subtitle' => string, 'description' => string, 'image' => int, 'columns' => '4-5' | '3-5',
- * 'id' => string (anchor), 'project' => ?array (if_untitled_resolve_item(): title + metadata + excerpt pinned to the bottom)]
+ * 'id' => string (anchor), 'url' => string (image links to the featured item, Studio),
+ * 'project' => ?array (if_untitled_resolve_item(): title + metadata + excerpt pinned to the bottom; image links to it)]
  *
  * @package if-untitled
  */
@@ -11,6 +12,7 @@ $title   = $args['title'] ?? '';
 $range   = if_untitled_column_range($args['columns'] ?? '4-5') ?? [4, 5];
 $image   = (int) ($args['image'] ?? 0);
 $project = $args['project'] ?? null;
+$url     = $project['url'] ?? ($args['url'] ?? '');
 ?>
 <section class="feature-row grid"<?php echo !empty($args['id']) ? ' id="' . esc_attr($args['id']) . '"' : ''; ?>>
     <div class="feature-row__text grid__item" style="--col-start: 1; --col-span: 2">
@@ -39,7 +41,14 @@ $project = $args['project'] ?? null;
     </div>
     <?php if ($image) : ?>
         <div class="feature-row__media grid__item" style="--col-start: <?php echo (int) $range[0]; ?>; --col-span: <?php echo (int) ($range[1] - $range[0] + 1); ?>">
+            <?php if ($url) : ?>
+                <?php // The project title (Advisory) names the same target; on Studio the image alt names it. ?>
+                <a class="feature-row__link" href="<?php echo esc_url($url); ?>"<?php echo $project ? ' tabindex="-1" aria-hidden="true"' : ''; ?>>
+            <?php endif; ?>
             <?php if_untitled_component('image', ['id' => $image, 'context' => 'span-' . ($range[1] - $range[0] + 1)]); ?>
+            <?php if ($url) : ?>
+                </a>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
 </section>

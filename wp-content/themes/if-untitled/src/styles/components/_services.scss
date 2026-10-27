@@ -1,0 +1,51 @@
+@use 'abstracts' as *;
+
+// Outlined boxes on the section's 4 columns: two per row (cols 2–3 / 4–5 of the page grid).
+.services {
+    display: grid;
+    gap: var(--grid-gutter);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6em;
+        min-block-size: clamp(160px, 12vw, 240px);
+        padding: clamp(16px, 1.5vw, 28px);
+        border: 1px solid var(--c-line);
+        scroll-margin-top: var(--nav-height);
+
+        .image {
+            margin-block-end: 0.6em;
+        }
+    }
+
+    &__title {
+        @include text-style(display-m);
+        margin: 0;
+    }
+
+    &__subtitle {
+        @include text-style(text-m);
+        margin: 0;
+        font-weight: var(--font-bold);
+    }
+
+    &__description {
+        @include text-style(text-s);
+
+        > :first-child {
+            margin-block-start: 0;
+        }
+
+        > :last-child {
+            margin-block-end: 0;
+        }
+    }
+}

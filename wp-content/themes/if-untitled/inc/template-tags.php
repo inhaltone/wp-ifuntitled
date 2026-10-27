@@ -417,6 +417,50 @@ function if_untitled_studio_services(): array
 }
 
 /**
+ * Studio feature rows: the item's image + URL, the row title (falls back to the item title) and description.
+ * Rows whose item is missing / unpublished keep their text, without image.
+ *
+ * @return array<int, array{title: string, description: string, image: int, url: string}>
+ */
+function if_untitled_studio_features(?int $post_id = null): array
+{
+    $rows = function_exists('get_field') ? (get_field('studio_features', $post_id) ?: []) : [];
+    return array_values(array_filter(array_map(function (array $row): ?array {
+        $item  = if_untitled_resolve_item($row['item'] ?? 0);
+        $title = trim((string) ($row['title'] ?? '')) ?: ($item['title'] ?? '');
+        if ($title === '' && !$item) {
+            return null;
+        }
+        return [
+            'title'       => $title,
+            'description' => (string) ($row['description'] ?? ''),
+            'image'       => $item['image'] ?? 0,
+            'url'         => $item['url'] ?? '',
+        ];
+    }, $rows)));
+}
+
+/**
+ * Advisory service areas: title (anchored for the header submenu), subtitle, description and the showcase project
+ * (image = its featured image).
+ *
+ * @return array<int, array{title: string, subtitle: string, description: string, anchor: string, project: ?array}>
+ */
+function if_untitled_advisory_features(?int $post_id = null): array
+{
+    $rows    = function_exists('get_field') ? (get_field('advisory_features', $post_id) ?: []) : [];
+    $rows    = array_values(array_filter($rows, fn(array $row): bool => trim((string) ($row['title'] ?? '')) !== ''));
+    $anchors = if_untitled_anchors(array_column($rows, 'title'));
+    return array_map(fn(array $row, string $anchor): array => [
+        'title'       => (string) $row['title'],
+        'subtitle'    => (string) ($row['subtitle'] ?? ''),
+        'description' => (string) ($row['description'] ?? ''),
+        'anchor'      => $anchor,
+        'project'     => if_untitled_resolve_item($row['item'] ?? 0),
+    ], $rows, $anchors);
+}
+
+/**
  * Enquiry contacts from Theme Options (footer), each with its link: mailto:, tel: or WhatsApp.
  *
  * @return array<int, array{label: string, href: string}>
