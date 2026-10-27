@@ -1,0 +1,104 @@
+@use 'abstracts' as *;
+
+main#project {
+    display: grid;
+    gap: var(--grid-gutter);
+
+    // Hero fills the first viewport from md: summary centred in col 1, cover cropped to the remaining height.
+    .project__hero {
+        @include media-breakpoint-up(md) {
+            block-size: calc(100svh - var(--nav-height));
+
+            > * {
+                grid-row: 1;
+            }
+        }
+    }
+
+    .project__summary {
+        align-self: center;
+        padding: 40px var(--text-inset);
+
+        @include media-breakpoint-up(md) {
+            padding-block: 0;
+        }
+    }
+
+    .project__title {
+        @include text-style(display-l);
+        margin: 0 0 0.6em;
+    }
+
+    .project__categories {
+        @include text-style(text-s);
+        margin: 1.5em 0 0;
+
+        a {
+            @include hover {
+                text-decoration: underline;
+                text-underline-offset: 0.2em;
+            }
+        }
+    }
+
+    .project__cover {
+        @include media-breakpoint-up(md) {
+            .image {
+                block-size: 100%;
+            }
+
+            .image__img {
+                block-size: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .project__text-row {
+        padding-block: 40px 120px;
+    }
+
+    .project__text {
+        @include text-style(text-l);
+        padding-inline: var(--text-inset);
+
+        > :first-child {
+            margin-block-start: 0;
+        }
+
+        > :last-child {
+            margin-block-end: 0;
+        }
+    }
+
+    .project__pager {
+        padding-block-end: 40px;
+
+        @include media-breakpoint-up(md) {
+            > * {
+                grid-row: 1;
+            }
+        }
+    }
+
+    .project__pager-link {
+        display: grid;
+        gap: 4px;
+        padding-inline: var(--text-inset);
+
+        @include hover {
+            .project__pager-title {
+                text-decoration: underline;
+                text-underline-offset: 0.15em;
+            }
+        }
+    }
+
+    .project__pager-label {
+        @include text-style(text-s);
+    }
+
+    .project__pager-title {
+        @include text-style(display-s);
+    }
+}

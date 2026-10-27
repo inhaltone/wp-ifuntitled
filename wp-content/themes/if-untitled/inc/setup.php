@@ -62,9 +62,26 @@ add_filter('nav_menu_css_class', function (array $classes, WP_Post $item, stdCla
         "{$block}__item",
         $depth > 0 ? "{$block}__item--sub" : '',
         in_array('menu-item-has-children', $classes, true) ? 'has-submenu' : '',
-        !$anchor && array_intersect(['current-menu-item', 'current-menu-ancestor', 'current_page_parent'], $classes) ? 'is-current' : '',
+        !$anchor && if_untitled_menu_item_is_current($item, $classes) ? 'is-current' : '',
     ]);
 }, 10, 4);
+
+/**
+ * Current section: WordPress' own flags, except that the posts page (Journal) is only the parent of journal content
+ * (core marks it on every non-page post) and the Work archive is also the parent of projects and their terms.
+ */
+function if_untitled_menu_item_is_current(WP_Post $item, array $classes): bool
+{
+    if (array_intersect(['current-menu-item', 'current-menu-ancestor'], $classes)) {
+        return true;
+    }
+    if ($item->type === 'post_type_archive') {
+        $taxonomies = get_object_taxonomies((string) $item->object);
+        return is_singular($item->object) || ($taxonomies && is_tax($taxonomies));
+    }
+    return in_array('current_page_parent', $classes, true)
+        && (is_singular('post') || is_category() || is_tag() || is_date() || is_author());
+}
 
 add_filter('nav_menu_item_id', fn(string $id, WP_Post $item, stdClass $args): string => empty($args->if_untitled_block) ? $id : '', 10, 3);
 
