@@ -15,6 +15,7 @@ define('IF_UNTITLED_URI', get_template_directory_uri());
 
 require_once IF_UNTITLED_DIR . '/inc/vite.php';
 require_once IF_UNTITLED_DIR . '/inc/setup.php';
+require_once IF_UNTITLED_DIR . '/inc/media.php';
 require_once IF_UNTITLED_DIR . '/inc/post-types.php';
 require_once IF_UNTITLED_DIR . '/inc/urls.php';
 require_once IF_UNTITLED_DIR . '/inc/template-tags.php';
