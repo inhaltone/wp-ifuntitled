@@ -1,0 +1,103 @@
+@use 'abstracts' as *;
+
+// Rows on the 5-column grid; image + text of a row share one grid row and the text block stretches to its height.
+.content-grid {
+    display: grid;
+    gap: var(--grid-gutter);
+
+    &__row {
+        align-items: stretch;
+
+        @include media-breakpoint-up(md) {
+            > * {
+                grid-row: 1;
+            }
+        }
+    }
+
+    &__media {
+        align-self: start;
+    }
+
+    &__link {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    &__heading &__link,
+    &__more {
+        display: inline;
+
+        @include hover {
+            text-decoration: underline;
+            text-underline-offset: 0.15em;
+        }
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6em;
+        padding: 8px var(--text-inset);
+
+        &--box-outlined,
+        &--box-filled {
+            padding: clamp(16px, 1.5vw, 28px);
+        }
+
+        &--box-outlined {
+            border: 1px solid var(--c-line);
+        }
+
+        &--box-filled {
+            color: var(--c-bg);
+            background-color: var(--c-fg);
+        }
+
+        &--x-center {
+            text-align: center;
+        }
+
+        &--x-end {
+            text-align: end;
+        }
+
+        &--y-center {
+            justify-content: center;
+        }
+
+        &--y-bottom {
+            justify-content: flex-end;
+        }
+    }
+
+    &__heading {
+        @include text-style(display-l);
+        margin: 0;
+    }
+
+    &__body {
+        @include text-style(text-m);
+
+        > :first-child {
+            margin-block-start: 0;
+        }
+
+        > :last-child {
+            margin-block-end: 0;
+        }
+
+        .content-grid__text--large & {
+            @include text-style(text-l);
+        }
+
+        .content-grid__text--display & {
+            @include text-style(display-m);
+        }
+    }
+
+    &__more {
+        @include text-style(text-s);
+    }
+}
