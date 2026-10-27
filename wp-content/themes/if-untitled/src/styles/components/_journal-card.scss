@@ -1,0 +1,43 @@
+@use 'abstracts' as *;
+
+.journal-card {
+    @include text-style(text-s);
+
+    &__link {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+
+        @include hover {
+            .journal-card__title {
+                text-decoration: underline;
+                text-underline-offset: 0.15em;
+            }
+        }
+    }
+
+    &__title {
+        @include text-style(text-m);
+        margin: 10px 0 0;
+        font-weight: var(--font-bold);
+    }
+
+    &__title,
+    &__excerpt,
+    &__meta {
+        padding-inline: var(--text-inset);
+    }
+
+    &__excerpt,
+    &__meta {
+        margin: 0;
+    }
+
+    &__meta {
+        font-weight: var(--font-bold);
+    }
+
+    &__type::after {
+        content: ' · ';
+    }
+}

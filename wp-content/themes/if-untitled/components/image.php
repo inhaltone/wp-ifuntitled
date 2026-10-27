@@ -1,7 +1,7 @@
 <?php
 /**
  * Responsive image with an optional fixed ratio.
- * $args: ['id' => int, 'context' => string, 'ratio' => '' | '3x4' | '4x3' | '16x9', 'priority' => bool, 'alt' => string]
+ * $args: ['id' => int, 'context' => string, 'ratio' => '' | '2x3' | '3x4' | '4x3' | '16x9', 'priority' => bool, 'alt' => string]
  *
  * @package if-untitled
  */

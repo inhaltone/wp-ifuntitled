@@ -9,6 +9,10 @@
         block-size: auto; // width/height attributes keep the ratio → no CLS
     }
 
+    &--ratio-2x3 {
+        aspect-ratio: 2 / 3;
+    }
+
     &--ratio-3x4 {
         aspect-ratio: 3 / 4;
     }

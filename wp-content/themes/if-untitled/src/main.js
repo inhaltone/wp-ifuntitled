@@ -15,6 +15,7 @@ onMounted(() => {
     lazyComponent('[data-reveal]', () => import('@/js/components/Reveal.js'), {
         selector: '[data-reveal]',
     });
+    lazyComponent('[data-infinite-scroll]', () => import('@/js/components/InfiniteScroll.js'));
 });
 
 // Page-scoped: runs only when <main id="front-page"> exists.

@@ -100,13 +100,13 @@ Contexts — add one here instead of writing `sizes` in a template:
 ## 3. Component — `components/image.php`
 
 The wrapper reserves the space (no layout shift) and applies a fixed ratio when the design crops. Render with
-`if_untitled_component('image', ['id' => $id, 'context' => 'card', 'ratio' => '3x4'])`.
+`if_untitled_component('image', ['id' => $id, 'context' => 'card', 'ratio' => '2x3'])`.
 
 ```php
 <?php
 /**
  * Responsive image with an optional fixed ratio.
- * $args: ['id' => int, 'context' => string, 'ratio' => '' | '3x4' | '4x3' | '16x9', 'priority' => bool, 'alt' => string]
+ * $args: ['id' => int, 'context' => string, 'ratio' => '' | '2x3' | '3x4' | '4x3' | '16x9', 'priority' => bool, 'alt' => string]
  *
  * @package if-untitled
  */
@@ -137,6 +137,10 @@ SCSS — `src/styles/components/_image.scss`, registered in `components/_index.s
         block-size: auto; // width/height attributes keep the ratio → no CLS
     }
 
+    &--ratio-2x3 {
+        aspect-ratio: 2 / 3;
+    }
+
     &--ratio-3x4 {
         aspect-ratio: 3 / 4;
     }
@@ -158,7 +162,7 @@ SCSS — `src/styles/components/_image.scss`, registered in `components/_index.s
 
 ## 4. Rules
 
-- **Natural ratio by default** (Work cards, `content_grid`); fixed ratio only where the design crops (Journal cards 3:4).
+- **Natural ratio by default** (Work cards, `content_grid`); fixed ratio only where the design crops (Journal cards 2:3).
 - **Exactly one `priority` image per route** — the LCP: Home hero, project featured image, the first archive card.
   Everything else stays lazy (core default). Never pass `priority` to every item of a loop.
 - **Alt:** from the media library (core adds it). Pass `'alt' => ''` when the image is decorative or sits in a link
