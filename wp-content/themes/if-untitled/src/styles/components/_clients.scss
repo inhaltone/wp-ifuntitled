@@ -1,0 +1,33 @@
+@use 'abstracts' as *;
+
+// Logos at their natural ratio, one common height.
+.clients {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 32px clamp(32px, 4vw, 80px);
+    margin: 0;
+    padding: 0 var(--text-inset);
+    list-style: none;
+
+    &__link {
+        display: block;
+    }
+
+    a.clients__link {
+        @include hover {
+            opacity: 0.6;
+        }
+    }
+
+    &__logo.image__img {
+        inline-size: auto;
+        max-inline-size: 240px;
+        block-size: clamp(48px, 4.2vw, 80px);
+        object-fit: contain;
+    }
+
+    &__name {
+        @include text-style(display-s);
+    }
+}

@@ -1,0 +1,13 @@
+@use 'abstracts' as *;
+
+// Label in col 1 (vertically centred on the content), content in cols 2–5.
+.section-head {
+    align-items: center;
+    padding-block: clamp(80px, 10vw, 200px) 0;
+
+    &__title {
+        @include text-style(display-l);
+        margin: 0;
+        padding-inline: var(--text-inset);
+    }
+}

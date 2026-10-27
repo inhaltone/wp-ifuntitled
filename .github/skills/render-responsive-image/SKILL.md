@@ -106,7 +106,7 @@ The wrapper reserves the space (no layout shift) and applies a fixed ratio when 
 <?php
 /**
  * Responsive image with an optional fixed ratio.
- * $args: ['id' => int, 'context' => string, 'ratio' => '' | '2x3' | '3x4' | '4x3' | '16x9', 'priority' => bool, 'alt' => string]
+ * $args: ['id' => int, 'context' => string, 'ratio' => '' | '2x3' | '3x2' | '3x4' | '4x3' | '16x9', 'priority' => bool, 'alt' => string]
  *
  * @package if-untitled
  */
@@ -141,6 +141,10 @@ SCSS — `src/styles/components/_image.scss`, registered in `components/_index.s
         aspect-ratio: 2 / 3;
     }
 
+    &--ratio-3x2 {
+        aspect-ratio: 3 / 2;
+    }
+
     &--ratio-3x4 {
         aspect-ratio: 3 / 4;
     }
@@ -162,7 +166,7 @@ SCSS — `src/styles/components/_image.scss`, registered in `components/_index.s
 
 ## 4. Rules
 
-- **Natural ratio by default** (Work cards, `content_grid`); fixed ratio only where the design crops (Journal cards 2:3).
+- **Natural ratio by default** (Work cards, `content_grid`); fixed ratio only where the design crops (Journal cards 2:3, team 3:2).
 - **Exactly one `priority` image per route** — the LCP: Home hero, project featured image, the first archive card.
   Everything else stays lazy (core default). Never pass `priority` to every item of a loop.
 - **Alt:** from the media library (core adds it). Pass `'alt' => ''` when the image is decorative or sits in a link

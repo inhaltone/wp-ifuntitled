@@ -1,0 +1,33 @@
+@use 'abstracts' as *;
+
+// Two members per row across cols 2–5 (each spans 2 page columns).
+.team {
+    display: grid;
+    gap: 60px var(--grid-gutter);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    &__name {
+        @include text-style(text-l);
+        margin: 12px 0 8px;
+        padding-inline: var(--text-inset);
+    }
+
+    &__bio {
+        @include text-style(text-s);
+        padding-inline: var(--text-inset);
+
+        > :first-child {
+            margin-block-start: 0;
+        }
+
+        > :last-child {
+            margin-block-end: 0;
+        }
+    }
+}
