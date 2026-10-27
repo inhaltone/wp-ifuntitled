@@ -18,14 +18,14 @@ description: "SCSS architecture, BEM naming and mixin usage for the if-untitled 
 
 ## Folder layout (`src/styles/`)
 
-| Folder        | Purpose                                                                                                    | Outputs CSS?                      |
-| ------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `abstracts/`  | `_variables`, `_functions`, `_mixins` (forwarded by `_index.scss`)                                         | **No** — never add selectors here |
-| `base/`       | fonts, `:root` custom properties, `_reset` (our minimal modern reset), typography                          | yes                               |
-| `layouts/`    | `#app`, `.container` (max-width `$container-max-width`, `padding-inline: var(--gutter)`), `.single-layout` | yes                               |
-| `components/` | one partial per `components/*.php`                                                                         | yes                               |
-| `pages/`      | one partial per template, scoped by `main#{route-id}`                                                      | yes                               |
-| `utilities/`  | helpers like `.screen-reader-text`, `[data-reveal]`                                                        | yes                               |
+| Folder        | Purpose                                                                                          | Outputs CSS?                      |
+| ------------- | ------------------------------------------------------------------------------------------------ | --------------------------------- |
+| `abstracts/`  | `_variables`, `_functions`, `_mixins` (forwarded by `_index.scss`)                               | **No** — never add selectors here |
+| `base/`       | fonts, `:root` custom properties, `_reset` (our minimal modern reset), typography                | yes                               |
+| `layouts/`    | `#app`, `.grid` (5-column grid: `.grid__item` with `--col-start` / `--col-span`, `.grid--cards`) | yes                               |
+| `components/` | one partial per `components/*.php`                                                               | yes                               |
+| `pages/`      | one partial per template, scoped by `main#{route-id}`                                            | yes                               |
+| `utilities/`  | helpers like `.screen-reader-text`, `[data-reveal]`                                              | yes                               |
 
 New partial `_foo.scss` → add `@use 'foo';` to that folder's `_index.scss`. `src/style.scss` only `@use`s folders.
 
@@ -39,7 +39,7 @@ New partial `_foo.scss` → add `@use 'foo';` to that folder's `_index.scss`. `s
 
 - Colors: `$c_black`, `$c_white`, `$c_grey`, `$c_light`, `$c_accent` (snake_case with `c_` prefix).
   Runtime equivalents: `var(--c-accent)` etc. in `base/_root.scss`.
-- Spacing: `var(--gutter)`, `var(--nav-height)`, `var(--footer-height)`.
+- Spacing: `var(--gutter)`, `var(--grid-gutter)`, `var(--text-inset)`, `var(--nav-height)`.
 - Type: `@include font-bold(24);` / `font-medium()` / `font-regular()` — size in px numbers, output in `em`.
   Weights come from `--font-bold|medium|regular`. Helpers `em()` / `rem()`.
 - Fonts (`base/_fonts.scss`, `.woff2` only): body base = **GT America Medium (500)** set on `body` in `_reset`;

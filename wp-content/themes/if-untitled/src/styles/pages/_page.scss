@@ -1,0 +1,15 @@
+@use 'abstracts' as *;
+
+main#page {
+    padding-block: 80px 120px;
+
+    .page__title {
+        @include text-style(display-m);
+        padding-inline: var(--text-inset);
+        margin: 0 0 1em;
+    }
+
+    .page__content {
+        padding-inline: var(--text-inset);
+    }
+}

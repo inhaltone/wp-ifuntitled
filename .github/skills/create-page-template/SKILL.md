@@ -54,11 +54,9 @@ get_header();
 ?>
 <main id="{id}" class="{id}">
     <?php while (have_posts()) : the_post(); ?>
-        <div class="single-layout">
-            <div class="single-layout__title">
-                <h1><?php the_title(); ?></h1>
-            </div>
-            <div class="single-layout__content">
+        <div class="{id}__layout grid">
+            <h1 class="{id}__title grid__item" style="--col-start: 1; --col-span: 1"><?php the_title(); ?></h1>
+            <div class="{id}__content grid__item" style="--col-start: 2; --col-span: 3">
                 <?php get_template_part('components/text-render'); ?>
             </div>
         </div>
@@ -70,9 +68,11 @@ get_footer();
 
 - Templates render, helpers fetch: no queries or data shaping in the template — put them in an
   `if_untitled_*()` helper in `inc/template-tags.php` or in `pre_get_posts`.
-- Reuse layouts (`.container`, `.single-layout`) and components (`project-card`, `journal-card`, `text-render`) before inventing new markup;
+- Reuse the 5-column `.grid` (`.grid__item` + `--col-start` / `--col-span`) and components (`page-intro`, `content-grid`, `project-card`,
+  `journal-card`, `text-render`) before inventing new markup;
   load parts with `if_untitled_component('{name}', $args)`.
-- Archives: loop with the type's card (`components/project-card`, `components/journal-card`) inside one shared `<ul>` grid, then `the_posts_pagination()`.
+- Archives: loop with the type's card (`components/project-card`, `components/journal-card`) inside one shared `.grid.grid--cards`, then pagination
+  (`if_untitled_paged_links()` / `the_posts_pagination()`).
 - ACF fields: follow `create-acf-field-group` (guard `function_exists('get_field')`, image IDs →
   `wp_get_attachment_image()`, escape late).
 

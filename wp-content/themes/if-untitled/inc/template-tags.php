@@ -21,7 +21,7 @@ function if_untitled_is_date_passed(string $date): bool
 
 /**
  * Render a component from /components with typed args.
- * Usage: if_untitled_component('post-card', ['post' => $post]);
+ * Usage: if_untitled_component('project-card', ['priority' => true]);
  */
 function if_untitled_component(string $name, array $args = []): void
 {

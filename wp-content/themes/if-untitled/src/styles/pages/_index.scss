@@ -1,5 +1,4 @@
 @use 'front-page';
-@use 'archive';
 @use 'not-found';
 @use 'project';
 @use 'archive-project';
@@ -7,3 +6,5 @@
 @use 'advisory';
 @use 'journal';
 @use 'journal-entry';
+@use 'page';
+@use 'index-route';
