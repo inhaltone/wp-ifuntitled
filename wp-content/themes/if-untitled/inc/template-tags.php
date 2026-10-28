@@ -79,9 +79,13 @@ function if_untitled_image(int $id, string $context = 'full', array $args = []):
     if (isset($args['alt'])) {
         $attr['alt'] = $args['alt'];
     }
+    // Explicit both ways: core's heuristic would leave the first images of the main query eager (+ fetchpriority high)
+    // even when they sit below a full-viewport intro.
     if (!empty($args['priority'])) {
         $attr['loading']       = 'eager';
         $attr['fetchpriority'] = 'high';
+    } else {
+        $attr['loading'] = 'lazy';
     }
 
     // 'large' is only the fallback src; srcset carries every proportional size up to 2560.

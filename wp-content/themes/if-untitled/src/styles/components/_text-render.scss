@@ -1,16 +1,33 @@
 @use 'abstracts' as *;
 
-// Editorial typography for the_content().
+// Editorial typography for the_content() (page, journal entry body).
 .text-render {
-    @include font-medium(16);
-    line-height: 1.5;
+    @include text-style(text-m);
 
-    @include media-breakpoint-up(lg) {
-        @include font-medium(18);
+    > :first-child {
+        margin-block-start: 0;
     }
 
-    > * + * {
-        margin-top: 1em;
+    > :last-child {
+        margin-block-end: 0;
+    }
+
+    p,
+    ul,
+    ol {
+        margin-block: 0 1em;
+    }
+
+    :is(h2, h3, h4) {
+        margin-block: 2em 0.6em;
+    }
+
+    h2 {
+        @include text-style(display-m);
+    }
+
+    :is(h3, h4) {
+        @include text-style(display-s);
     }
 
     a {
@@ -18,20 +35,20 @@
         text-underline-offset: 0.15em;
     }
 
-    img,
-    figure {
-        margin: 2em 0;
+    :is(img, figure) {
+        margin-block: 2em;
     }
 
     figcaption {
-        @include font-medium(12);
-        margin-top: 0.5em;
-        color: $c_grey;
+        @include text-style(text-s);
+        margin-block-start: 0.5em;
     }
 
     blockquote {
-        margin: 2em 0;
-        padding-left: 1em;
-        border-left: 3px solid $c_accent;
+        @include text-style(text-l);
+        margin-block: 2em;
+        margin-inline: 0;
+        padding-inline-start: 1em;
+        border-inline-start: 1px solid currentcolor;
     }
 }

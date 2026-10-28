@@ -22,7 +22,7 @@ get_header();
     <?php if (have_posts()) : ?>
         <div class="index__cards grid grid--cards">
             <?php while (have_posts()) : the_post(); ?>
-                <?php if_untitled_component('journal-card'); ?>
+                <?php if_untitled_component('journal-card', ['priority' => $wp_query->current_post === 0 && !is_paged()]); ?>
             <?php endwhile; ?>
         </div>
         <?php the_posts_pagination(); ?>
