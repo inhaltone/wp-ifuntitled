@@ -24,10 +24,11 @@ add_filter('acf/settings/load_json', function (array $paths): array {
     return $paths;
 });
 
-// Google Maps key per environment: define('IF_UNTITLED_GOOGLE_MAPS_KEY', '…') in wp-config.php.
+// Same key for the admin location picker (Theme Options → Locations) as for the Contact map.
 add_filter('acf/fields/google_map/api', function (array $api): array {
-    if (defined('IF_UNTITLED_GOOGLE_MAPS_KEY')) {
-        $api['key'] = IF_UNTITLED_GOOGLE_MAPS_KEY;
+    $key = if_untitled_google_maps()['key'];
+    if ($key !== '') {
+        $api['key'] = $key;
     }
     return $api;
 });

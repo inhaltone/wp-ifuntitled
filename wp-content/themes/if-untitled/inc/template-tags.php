@@ -378,6 +378,22 @@ function if_untitled_locations(): array
 }
 
 /**
+ * Google Maps settings: Theme Options (`google_maps_key`, `google_maps_id`); the IF_UNTITLED_GOOGLE_MAPS_KEY / _ID
+ * constants (wp-config.php) override them per environment. Empty key = no map.
+ *
+ * @return array{key: string, map_id: string}
+ */
+function if_untitled_google_maps(): array
+{
+    $option = fn(string $name): string => function_exists('get_field') ? trim((string) get_field($name, 'option')) : '';
+
+    return [
+        'key'    => defined('IF_UNTITLED_GOOGLE_MAPS_KEY') ? (string) IF_UNTITLED_GOOGLE_MAPS_KEY : $option('google_maps_key'),
+        'map_id' => defined('IF_UNTITLED_GOOGLE_MAPS_ID') ? (string) IF_UNTITLED_GOOGLE_MAPS_ID : $option('google_maps_id'),
+    ];
+}
+
+/**
  * Unique anchor ids from titles (`sanitize_title()`; duplicates get -2, -3 …).
  *
  * @param string[] $titles

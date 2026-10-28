@@ -5,8 +5,8 @@
  * (lazy, only where [data-contact-map] exists); without a key or JS the panel is shown on the dark background.
  * $args: ['title' => string, 'text' => string (HTML)]
  *
- * Constants (wp-config.php): IF_UNTITLED_GOOGLE_MAPS_KEY (required for the map), IF_UNTITLED_GOOGLE_MAPS_ID (Map ID
- * with the dark style; falls back to Google's DEMO_MAP_ID).
+ * Key and Map ID: if_untitled_google_maps() (Theme Options → Google Maps, overridable by wp-config.php constants). Without
+ * a Map ID Google's DEMO_MAP_ID is used (advanced markers need one; default style).
  *
  * @package if-untitled
  */
@@ -18,8 +18,9 @@ $markers   = array_values(array_filter(array_map(
         : null,
     $locations
 )));
-$key       = defined('IF_UNTITLED_GOOGLE_MAPS_KEY') ? (string) IF_UNTITLED_GOOGLE_MAPS_KEY : '';
-$map_id    = defined('IF_UNTITLED_GOOGLE_MAPS_ID') ? (string) IF_UNTITLED_GOOGLE_MAPS_ID : 'DEMO_MAP_ID';
+$maps      = if_untitled_google_maps();
+$key       = $maps['key'];
+$map_id    = $maps['map_id'] ?: 'DEMO_MAP_ID';
 ?>
 <section class="contact-map">
     <?php if ($key && $markers) : ?>

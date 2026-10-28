@@ -190,19 +190,21 @@ No drag order: the Studio page's `studio_team` field picks and orders members. H
 | Advisory | Intro = page title + content (positioning paragraph: geographies Europe / MENA / Africa / Asia, institutional relationships UN / World Bank / IOM / UNDP, participatory co-design approach) · `advisory_features` repeater (no limit, 4 at launch) — **one row = one service area + its showcase project** (Service Areas and Showcase are the same component): `title` text (service area, required — e.g. "Social & Affordable Housing"), `subtitle` text (scope keywords — e.g. "policy diagnostics, housing strategy…"), `description` textarea (service paragraph), `item` post object → **project only**, filtered to category Advisory Projects, required (returns ID) — each row gets `id="{sanitize_title(title)}"` as anchor for the header submenu · no team section |
 | Contact  | No ACF fields — intro = page title + content; renders the Theme Options `locations` on the map.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
-**Theme Options** (tabs: Clients · Locations & footer · Archives):
+**Theme Options** (tabs: Clients · Locations & footer · Google Maps · Archives):
 
-| Field           | Type                                                                                                                                                                                                        |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `clients`       | relationship → client, published only; picks which clients show and their order                                                                                                                             |
-| `locations`     | repeater: `city` text · `address` textarea · `phone` text · `email` email · `map` ACF Google Map (lat/lng from address search). Used by Contact + footer; "Open in Google Maps" link generated from lat/lng |
-| `enquiries`     | repeater: `label` text · `type` select `email` / `phone` · `value` text → `mailto:` / `tel:` link                                                                                                           |
-| `social`        | repeater: `label` text · `url` url                                                                                                                                                                          |
-| `portals`       | repeater: `label` text · `url` url                                                                                                                                                                          |
-| `work_intro`    | textarea — Work archive intro                                                                                                                                                                               |
-| `journal_intro` | textarea — Journal archive intro                                                                                                                                                                            |
+| Field             | Type                                                                                                                                                                                                        |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `clients`         | relationship → client, published only; picks which clients show and their order                                                                                                                             |
+| `locations`       | repeater: `city` text · `address` textarea · `phone` text · `email` email · `map` ACF Google Map (lat/lng from address search). Used by Contact + footer; "Open in Google Maps" link generated from lat/lng |
+| `enquiries`       | repeater: `label` text · `type` select `email` / `phone` · `value` text → `mailto:` / `tel:` link                                                                                                           |
+| `social`          | repeater: `label` text · `url` url                                                                                                                                                                          |
+| `portals`         | repeater: `label` text · `url` url                                                                                                                                                                          |
+| `google_maps_key` | text — Maps JavaScript API key (browser key)                                                                                                                                                                |
+| `google_maps_id`  | text — optional Map ID (dark style)                                                                                                                                                                         |
+| `work_intro`      | textarea — Work archive intro                                                                                                                                                                               |
+| `journal_intro`   | textarea — Journal archive intro                                                                                                                                                                            |
 
-Google Maps API key: `IF_UNTITLED_GOOGLE_MAPS_KEY` constant in `wp-config.php` (per environment, not in git, HTTP-referrer restricted); passed to ACF with `acf/fields/google_map/api` in `inc/acf.php` and to the front-end map via `data-*`. The dark style is a Google Cloud Map ID in `IF_UNTITLED_GOOGLE_MAPS_ID` (falls back to `DEMO_MAP_ID`); without a key or coordinates `components/contact-map.php` shows the panel only.
+Google Maps: Theme Options → Google Maps (`google_maps_key`, `google_maps_id`), read by `if_untitled_google_maps()`. A Maps JavaScript key is public by design (it is in the page HTML), so it may live in the database; restrict it to the site's HTTP referrers and the Maps JavaScript API in Google Cloud. The `IF_UNTITLED_GOOGLE_MAPS_KEY` / `IF_UNTITLED_GOOGLE_MAPS_ID` constants in `wp-config.php` override the options per environment. The key feeds both the ACF location picker (`acf/fields/google_map/api` in `inc/acf.php`) and the front-end map (`data-*`); without a Map ID `DEMO_MAP_ID` is used (default style). Without a key or coordinates `components/contact-map.php` shows the panel only.
 
 ### 1.3 Relationships
 
@@ -423,7 +425,7 @@ projects, Journal only on journal content); components `location`, `contact-map`
    (The SEO Framework, Q14 — not installed yet).
 2. ✅ Theme README — `page-templates/`, optional constants, grid / `text-style()` conventions.
 3. ✅ Phase B plan §4 — status line.
-4. Content — Home (featured image, description, grid rows), Contact intro + Maps key (map untested live), Advisory
+4. Content — Home (featured image, description, grid rows), Contact intro + Maps key (Theme Options → Google Maps; Athens marker is the city centre until its address is set), Advisory
    features, clients, journal entries, Privacy page (draft).
 5. ✅ `text-render` on the type scale (h2 display M, h3–h4 display S, `currentcolor` rules for dark mode).
 6. ✅ Unknown root paths return 404 (`3c8a9ac`, `inc/urls.php`): with the `/journal/%postname%/` base no rewrite rule

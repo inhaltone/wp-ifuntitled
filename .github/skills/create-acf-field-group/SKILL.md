@@ -58,6 +58,8 @@ Never target a page/post **ID or slug** — they differ between environments.
 - Group (`type: group`) for a block of related metadata → one box in the editor, read as an array.
 - WYSIWYG: basic toolbar, media upload off unless needed. Mark required only what a template cannot do without.
 - Secrets / per-environment values (API tokens) are **not** fields: use a constant in `wp-config.php` (`IF_UNTITLED_*`).
+  Exception: keys that are public by design (Google Maps JavaScript browser key, referrer-restricted) may be a Theme
+  Options field, read through a helper where the constant still overrides it (`if_untitled_google_maps()`).
 
 ## 4. Save to JSON
 

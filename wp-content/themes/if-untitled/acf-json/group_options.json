@@ -389,6 +389,60 @@
             ]
         },
         {
+            "key": "field_f98fcf7c469f1",
+            "label": "Google Maps",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_d9c2b91c3daa7",
+            "label": "API key",
+            "name": "google_maps_key",
+            "type": "text",
+            "instructions": "Maps JavaScript API key (browser key, restricted to this site's HTTP referrers). Shows the Contact map and the location picker above. A IF_UNTITLED_GOOGLE_MAPS_KEY constant in wp-config.php overrides it.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "AIza…",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_39dfb64b5e404",
+            "label": "Map ID",
+            "name": "google_maps_id",
+            "type": "text",
+            "instructions": "Optional. Map ID with the dark map style (Google Cloud → Map Management). Empty = Google's default style.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_6b4114efd9396",
             "label": "Archives",
             "name": "",
@@ -461,5 +515,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1793111548
+    "modified": 1793169976
 }
