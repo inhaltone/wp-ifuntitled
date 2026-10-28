@@ -1,7 +1,7 @@
 <?php
 /**
- * Single project: sticky title, category and metadata (col 1, blend difference, over the whole project), hero
- * (featured image cols 2–5), content grid, project text, previous / next project (menu order, looping).
+ * Single project: sticky title + category (col 1, blend difference, over the whole project), hero (metadata in col 1 ·
+ * featured image cols 2–5), content grid, project text, previous / next project (menu order, looping).
  *
  * @package if-untitled
  */
@@ -15,12 +15,14 @@ get_header();
                 <div class="project__heading grid__item" style="--col-start: 1; --col-span: 1">
                     <h1 class="project__title"><?php the_title(); ?></h1>
                     <?php the_terms(get_the_ID(), 'project_category', '<p class="project__categories">', ', ', '</p>'); ?>
-                    <?php if_untitled_component('project-meta', ['variant' => 'list']); ?>
                 </div>
             </header>
 
             <div class="project__body">
                 <section class="project__hero grid">
+                    <div class="project__summary grid__item" style="--col-start: 1; --col-span: 1">
+                        <?php if_untitled_component('project-meta', ['variant' => 'list']); ?>
+                    </div>
                     <?php if (has_post_thumbnail()) : ?>
                         <div class="project__cover grid__item" style="--col-start: 2; --col-span: 4">
                             <?php
