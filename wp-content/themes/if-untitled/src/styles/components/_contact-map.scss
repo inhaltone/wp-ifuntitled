@@ -11,8 +11,10 @@
         min-block-size: calc(100svh - var(--nav-height));
     }
 
+    // Black-and-white: greyscale on top of the dark colour scheme (no custom Map ID needed).
     &__canvas {
         block-size: 60svh;
+        filter: grayscale(1);
 
         @include media-breakpoint-up(md) {
             position: absolute;
