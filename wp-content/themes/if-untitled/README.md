@@ -74,7 +74,8 @@ if-untitled/
 │   ├── setup.php            # WP-CLI: site structure (wp eval-file bin/setup.php)
 │   ├── seed.sh / seed.php   # WP-CLI: local content seed from the CSVs
 │   └── lib.php              # CSV / term helpers shared by both
-├── components/              # template parts (get_template_part('components/x'))
+├── components/              # template parts: if_untitled_component('x', $args)
+├── page-templates/          # selectable page templates (Studio, Advisory, Contact)
 ├── *.php                    # template hierarchy files, each renders <main id="route-id">
 ├── src/
 │   ├── main.js              # single Vite entry (imports style.scss)
@@ -89,6 +90,14 @@ if-untitled/
 └── vite-plugins/wordpress.js
 ```
 
+## Optional constants (`wp-config.php`)
+
+| Constant                      | Purpose                                                                             |
+| ----------------------------- | ----------------------------------------------------------------------------------- |
+| `IF_UNTITLED_VITE_DEV`        | force dev (`true`) or prod (`false`) asset loading                                  |
+| `IF_UNTITLED_GOOGLE_MAPS_KEY` | Google Maps JS API key; without it the Contact page shows the locations without map |
+| `IF_UNTITLED_GOOGLE_MAPS_ID`  | Map ID carrying the dark map style (default `DEMO_MAP_ID`)                          |
+
 ## Tooling
 
 | File                  | Purpose                                                                       |
@@ -102,9 +111,10 @@ Git ignores are defined once in the repository root `.gitignore` (`dist/`, `hot`
 
 ## Conventions (short)
 
-- **PHP**: prefix functions `if_untitled_`, escape all output, templates render `<main id="…">`.
+- **PHP**: prefix functions `if_untitled_`, escape all output, templates render `<main id="…">`. Templates render,
+  helpers in `inc/template-tags.php` fetch. Layout = the 5-column `.grid` (`.grid__item` + `--col-start` / `--col-span`).
 - **SCSS**: BEM (`block__element--modifier`), one partial per component, every partial starts with
-  `@use 'abstracts' as *;`, use `media-breakpoint-up()` + `font-bold()/font-medium()/font-display()` mixins.
+  `@use 'abstracts' as *;`, use `media-breakpoint-up()` + `text-style()` (type scale in `abstracts/_variables.scss`).
 - Fonts: GT America (body, 500/700) and GT Flexa (display, 500) are self-hosted `.woff2` files in `src/assets/fonts`, registered in `base/_fonts.scss`.
 - **JS**: one ES class per file with an options-object constructor and `main()`; wire it up in
   `main.js` via `onMounted` / `onPageMounted(Router.X.routeId, …)`; heavy components via `lazyComponent()`.

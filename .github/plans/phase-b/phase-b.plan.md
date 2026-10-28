@@ -139,6 +139,11 @@ only on this route) → Home → 404 / page → QA (responsive, a11y, empty stat
 Lighthouse). **Done when** each route matches its PNG at 1920 px with seeded data and
 `npm run check` passes.
 
+**Status (2026-10-28):** ✅ components #1–#11 · ✅ all routes (Project → 404 / page, plus search via `index.php`) ·
+✅ QA: responsive (390 px), one `<h1>` / `<main>` per route, alt on every image, one priority image per route, rest lazy,
+unknown URLs → 404, Lighthouse performance 99–100 / accessibility 100. ⏳ PNG comparison for Home and Advisory (no seeded content yet) · ⏳ live map
+(needs `IF_UNTITLED_GOOGLE_MAPS_KEY`). Details: implementation plan §4.1.
+
 ## 5. Model changes (✅ confirmed, back-ported to the implementation plan)
 
 | #   | Change                                                                                                                                                                                                                                                                                                                                         | Why (design)                                              |

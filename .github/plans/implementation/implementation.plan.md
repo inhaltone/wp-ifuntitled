@@ -416,13 +416,18 @@ projects, Journal only on journal content); components `location`, `contact-map`
 
 **Remaining:**
 
-1. QA — responsive (mobile screenshots), a11y, empty states, images (`render-responsive-image` §5).
-2. Theme README — `page-templates/`, new components, Maps constants; drop removed parts.
-3. Phase B plan §4 — tick completed steps.
+1. ✅ QA (2026-10-28, `0be0697`) — responsive, a11y basics, images: explicit `loading="lazy"` on every non-priority
+   image (core's heuristic left below-the-fold images eager). Lighthouse (mobile): performance 99–100,
+   accessibility 100 after 24px touch targets on footer / location links. Remaining best-practices / SEO flags are
+   environment (HTTPS, HTTP/2, cache headers), the missing site icon (favicon → set in Customizer) and meta description
+   (The SEO Framework, Q14 — not installed yet).
+2. ✅ Theme README — `page-templates/`, optional constants, grid / `text-style()` conventions.
+3. ✅ Phase B plan §4 — status line.
 4. Content — Home (featured image, description, grid rows), Contact intro + Maps key (map untested live), Advisory
    features, clients, journal entries, Privacy page (draft).
-5. `text-render` — headings look the same as body text.
-6. Unknown root URLs (`/a/b/c/`) redirect to Home (WordPress `redirect_canonical` guess) instead of 404.
+5. ✅ `text-render` on the type scale (h2 display M, h3–h4 display S, `currentcolor` rules for dark mode).
+6. ✅ Unknown root paths return 404 (`3c8a9ac`, `inc/urls.php`): with the `/journal/%postname%/` base no rewrite rule
+   matched them, so core rendered the front page and 301'd to `/`.
 7. Open questions still ⏳: Q1, Q5, Q9, Q13, Q18.
 
 ---
