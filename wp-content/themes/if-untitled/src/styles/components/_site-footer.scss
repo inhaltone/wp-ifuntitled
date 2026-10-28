@@ -13,6 +13,7 @@
     &__title {
         @include text-style(display-s);
         margin-block-end: 8px;
+        font-size: 1.875rem; // 30px (design)
     }
 
     &__group + &__group {
@@ -27,8 +28,10 @@
 
     &__item,
     .location__line {
-        @include text-style(text-m);
+        @include text-style(text-s);
         display: block;
+        font-size: 0.875rem; // 14px (design)
+        font-weight: var(--font-bold);
     }
 
     &__link {
@@ -50,7 +53,8 @@
     &__copy {
         @include text-style(text-s);
         margin: 120px 0 0;
-        font-size: 0.75rem;
+        font-size: 0.875rem;
+        font-weight: var(--font-bold);
         text-align: center;
     }
 }
