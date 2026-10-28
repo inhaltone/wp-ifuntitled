@@ -1,8 +1,8 @@
 <?php
 /**
  * Page intro: display XL title + bold paragraph in a column range, filling the first viewport.
- * $args: ['title' => string, 'text' => string (HTML), 'columns' => '1-2' (start-end, 1–5), 'rule' => bool (1px rule on
- * the left, Journal), 'aside' => ['name' => component, 'args' => array] (rendered in col 1, e.g. archive-filter)]
+ * $args: ['title' => string, 'text' => string (HTML), 'columns' => '1-2' (start-end, 1–5),
+ * 'aside' => ['name' => component, 'args' => array] (rendered in col 1, e.g. archive-filter)]
  *
  * @package if-untitled
  */
@@ -11,7 +11,7 @@ $title   = $args['title'] ?? '';
 $text    = $args['text'] ?? '';
 $range   = if_untitled_column_range($args['columns'] ?? '1-2') ?? [1, 2];
 $aside   = $args['aside'] ?? null;
-$classes = 'page-intro__body grid__item' . (!empty($args['rule']) ? ' page-intro__body--rule' : '');
+$classes = 'page-intro__body grid__item';
 ?>
 <header class="page-intro grid">
     <?php if (!empty($aside['name'])) : ?>

@@ -16,7 +16,6 @@ get_header();
         'title'   => get_the_title((int) get_option('page_for_posts')) ?: __('Journal', 'if-untitled'),
         'text'    => if_untitled_archive_intro('journal_intro'),
         'columns' => '4-5',
-        'rule'    => true,
         'aside'   => is_tag() ? null : [
             'name' => 'archive-filter',
             'args' => [

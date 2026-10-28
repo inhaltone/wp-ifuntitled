@@ -98,7 +98,7 @@ Pattern "**section label in col 1, content in cols 2–5**" → one `section-hea
 
 ### 3.6 Journal archive `journal` (dark)
 
-- **Intro:** "Journal" display XL + paragraph in cols 4–5, a 1px vertical rule on its left; black area above the grid.
+- **Intro:** "Journal" display XL + paragraph in cols 4–5 (no vertical rule); black area above the grid.
 - **Cards:** 3 columns, portrait images (2:3 — measured 629 × 979, cropped to a fixed ratio), title (bold), excerpt (small), date ("June 2026").
 - **Filter:** entry types, vertical like Work (not in the design yet — Q7 ✅ keep); cards also show the entry type.
 - Infinite scroll as in the implementation plan (Q8 there).

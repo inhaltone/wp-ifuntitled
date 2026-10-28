@@ -28,13 +28,6 @@
 
     &__body {
         padding-block-start: 8px;
-
-        &--rule {
-            @include media-breakpoint-up(md) {
-                align-self: stretch;
-                border-inline-start: 1px solid var(--c-fg);
-            }
-        }
     }
 
     &__title {
