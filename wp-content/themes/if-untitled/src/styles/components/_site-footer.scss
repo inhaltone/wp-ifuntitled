@@ -13,7 +13,7 @@
     &__title {
         @include text-style(display-s);
         margin-block-end: 8px;
-        font-size: 1.875rem; // 30px (design)
+        font-size: 1.375rem; // 22px
     }
 
     &__group + &__group {
