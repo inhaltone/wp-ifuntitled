@@ -104,6 +104,34 @@
                     "allow_null": 0,
                     "ui": 1,
                     "parent_repeater": "field_cd4c4202c11b0"
+                },
+                {
+                    "key": "field_66483d0c9e708",
+                    "label": "Image size",
+                    "name": "image_size",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Large: columns 3–5. Small: columns 4–5.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "large": "Large",
+                        "small": "Small"
+                    },
+                    "default_value": "small",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_in_bindings": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_cd4c4202c11b0"
                 }
             ]
         }
@@ -126,5 +154,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1793111233
+    "modified": 1793193594
 }

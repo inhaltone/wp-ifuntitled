@@ -29,7 +29,7 @@ get_header();
                 'id'          => $feature['anchor'],
                 'project'     => $feature['project'],
                 'image'       => $feature['project']['image'] ?? 0,
-                'columns'     => '4-5',
+                'columns'     => $feature['columns'],
             ]);
             ?>
         <?php endforeach; ?>

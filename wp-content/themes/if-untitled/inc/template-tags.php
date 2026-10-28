@@ -509,10 +509,10 @@ function if_untitled_studio_features(?int $post_id = null): array
 }
 
 /**
- * Advisory service areas: title (anchored for the header submenu), subtitle, description and the showcase project
- * (image = its featured image).
+ * Advisory service areas: title (anchored for the header submenu), subtitle, description, the showcase project
+ * (image = its featured image) and the image columns (image_size: large = 3–5, small = 4–5).
  *
- * @return array<int, array{title: string, subtitle: string, description: string, anchor: string, project: ?array}>
+ * @return array<int, array{title: string, subtitle: string, description: string, anchor: string, project: ?array, columns: string}>
  */
 function if_untitled_advisory_features(?int $post_id = null): array
 {
@@ -525,6 +525,7 @@ function if_untitled_advisory_features(?int $post_id = null): array
         'description' => (string) ($row['description'] ?? ''),
         'anchor'      => $anchor,
         'project'     => if_untitled_resolve_item($row['item'] ?? 0),
+        'columns'     => ($row['image_size'] ?? '') === 'large' ? '3-5' : '4-5',
     ], $rows, $anchors);
 }
 
