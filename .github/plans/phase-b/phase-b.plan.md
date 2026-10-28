@@ -141,8 +141,8 @@ Lighthouse). **Done when** each route matches its PNG at 1920 px with seeded dat
 
 **Status (2026-10-28):** ✅ components #1–#11 · ✅ all routes (Project → 404 / page, plus search via `index.php`) ·
 ✅ QA: responsive (390 px), one `<h1>` / `<main>` per route, alt on every image, one priority image per route, rest lazy,
-unknown URLs → 404, Lighthouse performance 99–100 / accessibility 100. ⏳ PNG comparison for Home and Advisory (no seeded content yet) · ⏳ live map
-(needs `IF_UNTITLED_GOOGLE_MAPS_KEY`). Details: implementation plan §4.1.
+unknown URLs → 404, Lighthouse performance 99–100 / accessibility 100. ✅ Home PNG comparison (8 seeded rows; content grid `large` = 30 px and `display` =
+38 px at 1920, centred display boxes keep ragged-left lines) · ⏳ PNG comparison for Advisory · ✅ live map (Theme Options key). Details: implementation plan §4.1.
 
 ## 5. Model changes (✅ confirmed, back-ported to the implementation plan)
 

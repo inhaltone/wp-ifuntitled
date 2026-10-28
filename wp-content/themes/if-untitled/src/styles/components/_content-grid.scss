@@ -59,6 +59,16 @@
             text-align: center;
         }
 
+        // Display statements centre the block, not the lines (Home XD: ragged-left text in the middle of the box).
+        &--display#{&}--x-center {
+            align-items: center;
+            text-align: start;
+
+            > * {
+                max-inline-size: 13em;
+            }
+        }
+
         &--x-end {
             text-align: end;
         }
@@ -90,10 +100,17 @@
 
         .content-grid__text--large & {
             @include text-style(text-l);
+
+            // Home XD: 30 px at 1920, larger than the shared text-l.
+            font-size: clamp(1.25rem, 1.56vw, 1.875rem);
         }
 
         .content-grid__text--display & {
             @include text-style(display-m);
+
+            // Home XD statements: 38 px at 1920, tight leading.
+            font-size: clamp(1.5rem, 2vw, 2.375rem);
+            line-height: 1.15;
         }
     }
 
