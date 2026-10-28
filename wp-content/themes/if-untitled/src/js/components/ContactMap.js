@@ -1,6 +1,7 @@
 /**
  * Google map on Contact: loads the Maps JavaScript API on demand (only where [data-contact-map] exists), shows one
- * custom marker per location and fits them in view. The dark style lives in Google Cloud (Map ID), not in code.
+ * custom marker per location and fits them in view. Dark via colorScheme (works with DEMO_MAP_ID); a custom Map ID
+ * from Google Cloud can refine the style.
  * Data: data-key, data-map-id, data-markers (JSON [{lat, lng, title}]).
  */
 export default class ContactMap {
@@ -24,7 +25,7 @@ export default class ContactMap {
         try {
             await this.#loadApi();
             const { importLibrary } = window.google.maps;
-            const [{ Map }, { AdvancedMarkerElement }, { LatLngBounds }] = await Promise.all([
+            const [{ Map }, { AdvancedMarkerElement }, { LatLngBounds, ColorScheme }] = await Promise.all([
                 importLibrary('maps'),
                 importLibrary('marker'),
                 importLibrary('core'),
@@ -32,6 +33,7 @@ export default class ContactMap {
 
             const map = new Map(this.element, {
                 mapId: this.mapId,
+                colorScheme: ColorScheme.DARK,
                 center: this.markers[0],
                 zoom: this.maxZoom,
                 disableDefaultUI: true,

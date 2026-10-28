@@ -109,7 +109,7 @@ Pattern "**section label in col 1, content in cols 2–5**" → one `section-hea
 - **Panel** in col 5 over the map: "Contact" display L, intro paragraph, then the locations (address lines, phone,
   email; second block prefixed by the city). No markers visible in the export ⏳ Q9.
 - Footer dark, directly under the map.
-- Build: `ContactMap` with a Maps JS `mapId` (cloud-based dark style) — the style lives in Google Cloud, not in code.
+- Build: `ContactMap` with Maps JS `colorScheme: DARK` (works with `DEMO_MAP_ID`); an optional custom Map ID refines the style in Google Cloud.
 
 ### 3.8 Not designed (build from the system, review later)
 
