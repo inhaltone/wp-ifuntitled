@@ -1,33 +1,23 @@
 @use 'abstracts' as *;
 
-// Logos at their natural ratio, one common height.
+// Vertical list of names, GT America bold 14px, one page column wide (the section content starts at col 2).
 .clients {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 32px clamp(32px, 4vw, 80px);
+    @include text-style(text-s);
     margin: 0;
-    padding: 0 var(--text-inset);
+    padding: 0;
+    font-size: 0.875rem;
+    font-weight: var(--font-bold);
+    line-height: 1.3;
     list-style: none;
 
+    @include media-breakpoint-up(md) {
+        inline-size: calc((100% - 3 * var(--grid-gutter)) / 4);
+    }
+
     &__link {
-        display: block;
-    }
-
-    a.clients__link {
         @include hover {
-            opacity: 0.6;
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
         }
-    }
-
-    &__logo.image__img {
-        inline-size: auto;
-        max-inline-size: 240px;
-        block-size: clamp(48px, 4.2vw, 80px);
-        object-fit: contain;
-    }
-
-    &__name {
-        @include text-style(display-s);
     }
 }
