@@ -22,9 +22,9 @@ Measured on the 1920 px artboards. Tokens go to `src/styles/abstracts/_variables
 
 | Token        | Value                                                                                                                                                                                              |
 | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Grid         | **5 columns**, gutter **16 px**, no outer margin — images bleed to the viewport edge (column ≈ 371 px at 1920)                                                                                     |
+| Grid         | **5 columns**, gutter **10 px** (`--grid-gutter`, every layout grid), no outer margin — images bleed to the viewport edge (column = 376 px at 1920)                                                |
 | Text inset   | 12 px from a column edge (measured 10–20; text never touches the viewport edge)                                                                                                                    |
-| Archive grid | **3 columns**, same 16 px gutter (Work + Journal)                                                                                                                                                  |
+| Archive grid | **3 columns**, same 10 px gutter (Work + Journal)                                                                                                                                                  |
 | Colours      | `#000` / `#fff` only; map greys come from the map style. Thin outline `1px` mid-grey (outlined text box)                                                                                           |
 | Themes       | **light** (default: white bg, black text) · **dark** (black bg, white text) — Journal archive and Contact are dark                                                                                 |
 | Typography   | **Display**: GT Flexa Medium (headings, statement boxes) · **Text**: GT America Standard Medium / Bold (body, metadata). Files already in `src/assets/fonts/` — **Trial** versions (licence ⏳ Q1) |

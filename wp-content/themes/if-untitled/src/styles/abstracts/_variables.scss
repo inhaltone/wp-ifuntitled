@@ -24,10 +24,11 @@ $browser-context: 16 !default;
 // Spacing
 $gutter: 15px !default;
 
-// Layout grid (measured on the 1920 px designs): 5 columns, 16 px gutter, no outer margin — images bleed to the
-// viewport edge. Text sits $text-inset from its column edge. Archives use 3 columns with the same gutter.
+// Layout grid (1920 px designs): 5 columns, 10 px gutter (--grid-gutter = the gap of every layout grid), no outer
+// margin — images bleed to the viewport edge. Text sits $text-inset from its column edge. Archives use 3 columns
+// with the same gutter.
 $grid-columns: 5 !default;
-$grid-gutter: 16px !default;
+$grid-gutter: 10px !default;
 $text-inset: 12px !default;
 
 // Type scale: size at 1920 px, fluid below (clamp), never above. Display = GT Flexa, base = GT America.

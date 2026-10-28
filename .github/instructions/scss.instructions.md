@@ -39,7 +39,8 @@ New partial `_foo.scss` → add `@use 'foo';` to that folder's `_index.scss`. `s
 
 - Colors: `$c_black`, `$c_white`, `$c_grey`, `$c_light`, `$c_accent` (snake_case with `c_` prefix).
   Runtime equivalents: `var(--c-accent)` etc. in `base/_root.scss`.
-- Spacing: `var(--gutter)`, `var(--grid-gutter)`, `var(--text-inset)`, `var(--nav-height)`.
+- Spacing: `var(--gutter)`, `var(--grid-gutter)`, `var(--text-inset)`, `var(--nav-height)`. Every layout grid (columns of
+  the 5-/3-column grid, archives, nav, meta columns) uses `gap: var(--grid-gutter)` (10 px) — never a hard-coded gutter.
 - Type: `@include font-bold(24);` / `font-medium()` / `font-regular()` — size in px numbers, output in `em`.
   Weights come from `--font-bold|medium|regular`. Helpers `em()` / `rem()`.
 - Fonts (`base/_fonts.scss`, `.woff2` only): body base = **GT America Medium (500)** set on `body` in `_reset`;
