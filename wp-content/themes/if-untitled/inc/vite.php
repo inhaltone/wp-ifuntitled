@@ -20,7 +20,7 @@ const IF_UNTITLED_DIST       = 'dist';
 // The 2 faces of the first paint (body text + display titles); the bold face loads on demand.
 const IF_UNTITLED_PRELOAD_FONTS = [
     'src/assets/fonts/GT-America-Standard-Medium-Trial.woff2',
-    'src/assets/fonts/GT-Flexa-Medium-Trial.woff2',
+    'src/assets/fonts/GT-Flexa-Expanded-Bold-Trial.woff2',
 ];
 
 /**

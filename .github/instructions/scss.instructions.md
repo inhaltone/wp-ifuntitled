@@ -45,7 +45,7 @@ New partial `_foo.scss` → add `@use 'foo';` to that folder's `_index.scss`. `s
   Weights come from `--font-bold|medium|regular`. Helpers `em()` / `rem()`.
 - Fonts (`base/_fonts.scss`, `.woff2` only): body base = **GT America Medium (500)** set on `body` in `_reset`;
   bold = GT America 700 (`$base_font_family`, `--font-base`);
-  display = GT Flexa 500 via `@include font-display(48);` (`$display_font_family`, `--font-display`).
+  display = GT Flexa Expanded Bold 700 via `@include font-display(48);` (`$display_font_family`, `--font-display`).
   There is no 400 file, so `font-regular` renders with the 500 face. Add a new weight as a `.woff2` plus an `@font-face` block.
 - Responsive: **mobile-first** with `@include media-breakpoint-up(lg) { … }` (≥ 992px). Write the mobile rule first,
   then override from a breakpoint up; don't use `media-breakpoint-down()` for layout.

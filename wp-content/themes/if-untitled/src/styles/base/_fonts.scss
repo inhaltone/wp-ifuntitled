@@ -24,3 +24,12 @@
     font-style: normal;
     font-display: swap;
 }
+
+// Display face in use (GT Flexa Medium above is kept but no longer referenced).
+@font-face {
+    font-family: 'GT Flexa Expanded';
+    src: url('@/assets/fonts/GT-Flexa-Expanded-Bold-Trial.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}

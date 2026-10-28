@@ -23,7 +23,7 @@
 
 @mixin font-display($size) {
     font-family: var(--font-display);
-    font-weight: var(--font-medium);
+    font-weight: var(--font-bold);
     font-size: em($size);
 }
 

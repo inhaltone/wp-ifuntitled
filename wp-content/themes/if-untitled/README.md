@@ -115,7 +115,7 @@ Git ignores are defined once in the repository root `.gitignore` (`dist/`, `hot`
   helpers in `inc/template-tags.php` fetch. Layout = the 5-column `.grid` (`.grid__item` + `--col-start` / `--col-span`).
 - **SCSS**: BEM (`block__element--modifier`), one partial per component, every partial starts with
   `@use 'abstracts' as *;`, use `media-breakpoint-up()` + `text-style()` (type scale in `abstracts/_variables.scss`).
-- Fonts: GT America (body, 500/700) and GT Flexa (display, 500) are self-hosted `.woff2` files in `src/assets/fonts`, registered in `base/_fonts.scss`.
+- Fonts: GT America (body, 500/700) and GT Flexa Expanded (display, 700; GT Flexa Medium 500 kept but unused) are self-hosted `.woff2` files in `src/assets/fonts`, registered in `base/_fonts.scss`.
 - **JS**: one ES class per file with an options-object constructor and `main()`; wire it up in
   `main.js` via `onMounted` / `onPageMounted(Router.X.routeId, …)`; heavy components via `lazyComponent()`.
 

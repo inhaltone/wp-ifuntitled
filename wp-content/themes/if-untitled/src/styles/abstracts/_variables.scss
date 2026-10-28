@@ -18,7 +18,7 @@ $font_fallback:
     arial,
     sans-serif !default;
 $base_font_family: 'GT America', $font_fallback !default;
-$display_font_family: 'GT Flexa', $font_fallback !default;
+$display_font_family: 'GT Flexa Expanded', $font_fallback !default;
 $browser-context: 16 !default;
 
 // Spacing
@@ -31,29 +31,29 @@ $grid-columns: 5 !default;
 $grid-gutter: 10px !default;
 $text-inset: 12px !default;
 
-// Type scale: size at 1920 px, fluid below (clamp), never above. Display = GT Flexa, base = GT America.
+// Type scale: size at 1920 px, fluid below (clamp), never above. Display = GT Flexa Expanded Bold, base = GT America.
 $type-scale: (
     display-xl: (
         family: var(--font-display),
-        weight: var(--font-medium),
+        weight: var(--font-bold),
         size: clamp(3rem, 5vw, 6rem),
         line: 1,
     ),
     display-l: (
         family: var(--font-display),
-        weight: var(--font-medium),
+        weight: var(--font-bold),
         size: clamp(2rem, 2.5vw, 3rem),
         line: 1.05,
     ),
     display-m: (
         family: var(--font-display),
-        weight: var(--font-medium),
+        weight: var(--font-bold),
         size: clamp(1.375rem, 1.67vw, 2rem),
         line: 1.25,
     ),
     display-s: (
         family: var(--font-display),
-        weight: var(--font-medium),
+        weight: var(--font-bold),
         size: clamp(1.0625rem, 1.05vw, 1.25rem),
         line: 1.15,
     ),
