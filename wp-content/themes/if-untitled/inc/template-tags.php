@@ -178,8 +178,9 @@ function if_untitled_project_metadata(?int $post_id = null): array
         : '';
 
     $clients  = array_filter(array_map(
-        fn($id): string => get_post_status((int) $id) === 'publish' ? get_the_title((int) $id) : '',
-        (array) ($meta['client'] ?? [])
+        fn($id): string => get_post_status($id) === 'publish' ? get_the_title($id) : '',
+        // Empty field → '' → 0, which core resolves to the current post: drop it.
+        array_filter(array_map('intval', (array) ($meta['client'] ?? [])))
     ));
     $statuses = [
         'in_progress' => __('In progress', 'if-untitled'),

@@ -27,9 +27,23 @@
         font-weight: var(--font-medium);
     }
 
+    // Card metadata: smaller and tighter than the shared project-meta; labels bold, values medium.
     &__meta {
-        margin-block-start: 12px;
+        margin-block-start: 8px;
         padding-inline: var(--text-inset);
+
+        .project-meta {
+            font-size: clamp(0.6875rem, 0.63vw, 0.75rem);
+            line-height: 1.25;
+        }
+
+        .project-meta__label {
+            font-weight: var(--font-bold);
+        }
+
+        .project-meta__value {
+            font-weight: var(--font-medium);
+        }
     }
 
     // Pointer devices: line + metadata only on hover / focus, both absolute so the card never changes height
