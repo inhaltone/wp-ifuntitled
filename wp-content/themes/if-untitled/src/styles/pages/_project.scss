@@ -39,8 +39,8 @@ main#project {
     .project__title {
         @include text-style(display-l);
         margin: 0;
-        font-size: 2.5rem; // 40px (design)
-        line-height: 1.1;
+        font-size: 1.5rem;
+        line-height: 1;
     }
 
     .project__categories {
