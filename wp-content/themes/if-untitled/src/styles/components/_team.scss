@@ -27,6 +27,7 @@
     &__name {
         @include text-style(display-s);
         margin: 12px 0 0;
+        padding-inline-end: var(--text-inset);
         font-size: 1.375rem;
         line-height: 1.1;
     }
@@ -44,6 +45,7 @@
 
     &__bio {
         @include text-style(text-s);
+        padding-inline-end: var(--text-inset);
         font-size: 0.75rem;
         font-weight: var(--font-medium);
         line-height: 1.35;
