@@ -1,6 +1,7 @@
 @use 'abstracts' as *;
 
-// One page column per member: four per row across cols 2–5 (two from sm).
+// One page column per member: four per row across cols 2–5 (two from sm), right aligned — with fewer than four the
+// first member is pushed so the last one ends in the last column.
 .team {
     display: grid;
     gap: 60px var(--grid-gutter);
@@ -14,6 +15,12 @@
 
     @include media-breakpoint-up(md) {
         grid-template-columns: repeat(4, minmax(0, 1fr));
+
+        @for $n from 1 through 3 {
+            > :first-child:nth-last-child(#{$n}) {
+                grid-column-start: 5 - $n;
+            }
+        }
     }
 
     &__name {

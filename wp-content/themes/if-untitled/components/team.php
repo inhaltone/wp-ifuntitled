@@ -1,6 +1,6 @@
 <?php
 /**
- * Team members, one page column each (four per row): portrait image (3:4), "Name + role" heading, short bio.
+ * Team members, one page column each (four per row, right aligned): portrait image (3:4), "Name + role" heading, short bio.
  * $args: ['ids' => int[] (team_member post IDs in order)]
  *
  * @package if-untitled
