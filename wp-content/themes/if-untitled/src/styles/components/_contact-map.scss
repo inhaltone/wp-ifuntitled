@@ -11,10 +11,9 @@
         min-block-size: calc(100svh - var(--nav-height));
     }
 
-    // Black-and-white safety net: greyscale on top of the map style (code style or a Map ID style).
+    // Black-and-white comes from the map style (ContactMap.js); no CSS filter, it would grey the blue markers.
     &__canvas {
         block-size: 60svh;
-        filter: grayscale(1);
 
         @include media-breakpoint-up(md) {
             position: absolute;
@@ -54,10 +53,9 @@
     }
 
     &__marker {
-        inline-size: 14px;
-        block-size: 14px;
-        background-color: $c_white;
-        border: 2px solid $c_black;
+        inline-size: 20px;
+        block-size: 20px;
+        background-color: rgb(0 0 255);
         border-radius: 50%;
     }
 }
