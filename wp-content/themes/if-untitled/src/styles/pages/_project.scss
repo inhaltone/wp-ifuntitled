@@ -55,8 +55,8 @@ main#project {
         }
     }
 
-    // Hero fills the first viewport from md: metadata centred in col 1 (title above it, logo below), cover cropped to the
-    // remaining height. Below md the metadata follows the cover (the title sits over the image).
+    // Hero fills the first viewport from md: col 1 is left to the sticky heading, cover cropped to the remaining height.
+    // Below md the heading sits over the cover.
     .project__hero {
         @include media-breakpoint-up(md) {
             block-size: calc(100svh - var(--nav-height));
@@ -67,29 +67,19 @@ main#project {
         }
     }
 
-    .project__summary {
-        order: 1;
-        padding: 0 var(--text-inset) 40px;
+    // Sticky metadata under the category: smaller than the shared project-meta; labels bold, values medium.
+    .project__heading .project-meta {
+        margin-block-start: 12px;
+        font-size: 12px;
+        line-height: 1.25;
+    }
 
-        @include media-breakpoint-up(md) {
-            align-self: center;
-            order: 0;
-            padding-block: 0;
-        }
+    .project__heading .project-meta__label {
+        font-weight: var(--font-bold);
+    }
 
-        // Smaller than the shared project-meta; labels bold, values medium.
-        .project-meta {
-            font-size: 12px;
-            line-height: 1.25;
-        }
-
-        .project-meta__label {
-            font-weight: var(--font-bold);
-        }
-
-        .project-meta__value {
-            font-weight: var(--font-medium);
-        }
+    .project__heading .project-meta__value {
+        font-weight: var(--font-medium);
     }
 
     .project__cover {
