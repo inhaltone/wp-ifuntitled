@@ -17,6 +17,7 @@ onMounted(() => {
     });
     lazyComponent('[data-archive-filter]', () => import('@/js/components/ArchiveFilter.js'));
     lazyComponent('[data-infinite-scroll]', () => import('@/js/components/InfiniteScroll.js'));
+    lazyComponent('[data-sticky-center]', () => import('@/js/components/StickyCenter.js'));
     lazyComponent('[data-contact-map]', () => import('@/js/components/ContactMap.js'));
     lazyComponent('[data-media-video]', () => import('@/js/components/AmbientVideo.js'));
     lazyComponent('[data-media-youtube]', () => import('@/js/components/YoutubeVideo.js'));

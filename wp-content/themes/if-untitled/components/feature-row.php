@@ -4,7 +4,8 @@
  * $args: ['title' => string, 'subtitle' => string, 'description' => string, 'image' => int, 'columns' => '4-5' | '3-5',
  * 'id' => string (anchor), 'url' => string (image links to the featured item, Studio),
  * 'project' => ?array (if_untitled_resolve_item(): title + metadata + excerpt, sticky at the
- * bottom of the viewport within the space below the body; image links to it)]
+ * bottom of the viewport within the space below the body; image links to it). With a project the body stays
+ * vertically centred in the viewport, stopping above the project block (StickyCenter.js)]
  *
  * @package if-untitled
  */
@@ -17,7 +18,7 @@ $url     = $project['url'] ?? ($args['url'] ?? '');
 ?>
 <section class="feature-row grid"<?php echo !empty($args['id']) ? ' id="' . esc_attr($args['id']) . '"' : ''; ?>>
     <div class="feature-row__text grid__item" style="--col-start: 1; --col-span: 2">
-        <div class="feature-row__body">
+        <div class="feature-row__body"<?php echo $project ? ' data-sticky-center' : ''; ?>>
             <?php if ($title) : ?>
                 <h2 class="feature-row__title"><?php echo esc_html($title); ?></h2>
             <?php endif; ?>
@@ -30,7 +31,7 @@ $url     = $project['url'] ?? ($args['url'] ?? '');
         </div>
         <?php if ($project) : ?>
             <div class="feature-row__project-track">
-                <div class="feature-row__project">
+                <div class="feature-row__project" data-sticky-center-end>
                     <h3 class="feature-row__project-title">
                         <a href="<?php echo esc_url($project['url']); ?>"><?php echo esc_html($project['title']); ?></a>
                     </h3>

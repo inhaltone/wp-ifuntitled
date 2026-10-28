@@ -87,6 +87,23 @@
         justify-content: flex-end;
     }
 
+    // Body centred in the viewport while the row scrolls (StickyCenter.js sets the top and the project block height).
+    // Its bottom margin reserves the project block, so it stops above it; the track's negative margin cancels it in
+    // the flow, so the project block still starts right below the body.
+    &__body[data-sticky-center] {
+        @include media-breakpoint-up(md) {
+            --sticky-center-space: calc(var(--sticky-center-end, 0px) + var(--grid-gutter));
+
+            position: sticky;
+            inset-block-start: var(--sticky-center-top, 0);
+            margin-block: 0 var(--sticky-center-space);
+
+            & + .feature-row__project-track {
+                margin-block-start: calc(-1 * var(--sticky-center-space));
+            }
+        }
+    }
+
     &__project {
         @include media-breakpoint-up(md) {
             position: sticky;
