@@ -3,7 +3,8 @@
  * Feature row (Studio features, Advisory thematics): text in cols 1–2, image on the right at its natural ratio.
  * $args: ['title' => string, 'subtitle' => string, 'description' => string, 'image' => int, 'columns' => '4-5' | '3-5',
  * 'id' => string (anchor), 'url' => string (image links to the featured item, Studio),
- * 'project' => ?array (if_untitled_resolve_item(): title + metadata + excerpt pinned to the bottom; image links to it)]
+ * 'project' => ?array (if_untitled_resolve_item(): title + metadata + excerpt, sticky at the
+ * bottom of the viewport within the space below the body; image links to it)]
  *
  * @package if-untitled
  */
@@ -28,14 +29,16 @@ $url     = $project['url'] ?? ($args['url'] ?? '');
             <?php endif; ?>
         </div>
         <?php if ($project) : ?>
-            <div class="feature-row__project">
-                <h3 class="feature-row__project-title">
-                    <a href="<?php echo esc_url($project['url']); ?>"><?php echo esc_html($project['title']); ?></a>
-                </h3>
-                <?php if (has_excerpt($project['id'])) : ?>
-                    <p class="feature-row__excerpt"><?php echo esc_html(get_the_excerpt($project['id'])); ?></p>
-                <?php endif; ?>
-                <?php if_untitled_component('project-meta', ['post_id' => $project['id']]); ?>
+            <div class="feature-row__project-track">
+                <div class="feature-row__project">
+                    <h3 class="feature-row__project-title">
+                        <a href="<?php echo esc_url($project['url']); ?>"><?php echo esc_html($project['title']); ?></a>
+                    </h3>
+                    <?php if (has_excerpt($project['id'])) : ?>
+                        <p class="feature-row__excerpt"><?php echo esc_html(get_the_excerpt($project['id'])); ?></p>
+                    <?php endif; ?>
+                    <?php if_untitled_component('project-meta', ['post_id' => $project['id']]); ?>
+                </div>
             </div>
         <?php endif; ?>
     </div>

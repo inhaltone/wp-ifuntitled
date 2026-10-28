@@ -15,6 +15,11 @@
     --gutter: #{$gutter};
     --grid-gutter: #{$grid-gutter};
     --text-inset: #{$text-inset};
+
+    // Fixed logo (bottom-left): width and height (SVG ratio 84.082 / 366.281), so content can clear it.
+    --logo-width: clamp(140px, 19.08vw, 366px);
+    --logo-height: calc(var(--logo-width) * 0.2296);
+    --logo-offset: 10px;
     --c-bg: var(--c-white);
     --c-fg: var(--c-black);
     --c-line: var(--c-grey);

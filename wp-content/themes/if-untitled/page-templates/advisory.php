@@ -20,7 +20,7 @@ get_header();
         ]);
         ?>
 
-        <?php foreach (if_untitled_advisory_features() as $i => $feature) : ?>
+        <?php foreach (if_untitled_advisory_features() as $feature) : ?>
             <?php
             if_untitled_component('feature-row', [
                 'title'       => $feature['title'],
@@ -29,7 +29,7 @@ get_header();
                 'id'          => $feature['anchor'],
                 'project'     => $feature['project'],
                 'image'       => $feature['project']['image'] ?? 0,
-                'columns'     => $i % 2 ? '4-5' : '3-5',
+                'columns'     => '3-5',
             ]);
             ?>
         <?php endforeach; ?>

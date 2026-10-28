@@ -4,11 +4,11 @@
 // clickable. Below the header (and its submenus).
 .site-logo {
     position: fixed;
-    bottom: 10px;
+    bottom: var(--logo-offset);
     left: 8px;
     z-index: 90;
     display: block;
-    width: clamp(140px, 19.08vw, 366px);
+    width: var(--logo-width);
     color: $c_white;
     mix-blend-mode: difference;
 
