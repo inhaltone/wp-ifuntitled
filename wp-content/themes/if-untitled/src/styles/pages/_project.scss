@@ -4,7 +4,59 @@ main#project {
     display: grid;
     gap: var(--grid-gutter);
 
-    // Hero fills the first viewport from md: summary centred in col 1, cover cropped to the remaining height.
+    // Title + category and the project content share one grid cell, so the sticky title travels over the whole
+    // project (hero, content grid, text) and stops before the pager. White + difference = black on white, inverted
+    // over images. No transitions.
+    .project__layout {
+        display: grid;
+    }
+
+    .project__head,
+    .project__body {
+        grid-area: 1 / 1;
+    }
+
+    .project__head {
+        position: sticky;
+        inset-block-start: var(--nav-height);
+        z-index: 2;
+        align-self: start;
+        color: #fff;
+        mix-blend-mode: difference;
+        pointer-events: none;
+    }
+
+    .project__heading {
+        padding: var(--text-inset);
+        pointer-events: auto;
+    }
+
+    .project__body {
+        display: grid;
+        gap: var(--grid-gutter);
+    }
+
+    .project__title {
+        @include text-style(display-l);
+        margin: 0;
+        font-size: 2.5rem; // 40px (design)
+        line-height: 1.1;
+    }
+
+    .project__categories {
+        @include text-style(text-s);
+        margin: 4px 0 0;
+
+        a {
+            @include hover {
+                text-decoration: underline;
+                text-underline-offset: 0.2em;
+            }
+        }
+    }
+
+    // Hero fills the first viewport from md: metadata centred in col 1 (title above it, logo below), cover cropped to the
+    // remaining height. Below md the metadata follows the cover (the title sits over the image).
     .project__hero {
         @include media-breakpoint-up(md) {
             block-size: calc(100svh - var(--nav-height));
@@ -16,28 +68,27 @@ main#project {
     }
 
     .project__summary {
-        align-self: center;
-        padding: 40px var(--text-inset);
+        order: 1;
+        padding: 0 var(--text-inset) 40px;
 
         @include media-breakpoint-up(md) {
+            align-self: center;
+            order: 0;
             padding-block: 0;
         }
-    }
 
-    .project__title {
-        @include text-style(display-l);
-        margin: 0 0 0.6em;
-    }
+        // Smaller than the shared project-meta; labels bold, values medium.
+        .project-meta {
+            font-size: 12px;
+            line-height: 1.25;
+        }
 
-    .project__categories {
-        @include text-style(text-s);
-        margin: 1.5em 0 0;
+        .project-meta__label {
+            font-weight: var(--font-bold);
+        }
 
-        a {
-            @include hover {
-                text-decoration: underline;
-                text-underline-offset: 0.2em;
-            }
+        .project-meta__value {
+            font-weight: var(--font-medium);
         }
     }
 
