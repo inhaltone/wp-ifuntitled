@@ -214,7 +214,7 @@ Journal entry ── 1 entry type ── n tags
 Home ── hero + content_grid rows ── 0..1 link per block (any public content)
 Studio ── n featured items (any public content) ── n services (anchors → header submenu + footer) ── n team members (picked order) ── clients component
 Advisory ── n service areas (anchors → header submenu) ── 1 showcase project each (Advisory Projects category) ── clients component
-Primary menu (`primary_menu`) ── Studio › 2 service anchors · Advisory › 4 service-area anchors · Work · Journal · Contact
+Primary menu (`primary_menu`) ── Studio › 2 service anchors · Advisory › 4 service-area anchors · Work › project categories (generated in code, `wp_nav_menu_objects` in `inc/setup.php`) · Journal · Contact
 Theme Options ── n clients (the single list the clients component renders)
 Theme Options ── n locations (Contact map + footer)
 ```

@@ -96,3 +96,45 @@ add_filter('nav_menu_link_attributes', function (array $atts, WP_Post $item, std
 }, 10, 3);
 
 add_filter('nav_menu_submenu_css_class', fn(array $classes, stdClass $args): array => empty($args->if_untitled_block) ? $classes : ["{$args->if_untitled_block}__submenu"], 10, 2);
+
+/*
+ * Work (the project archive menu item) gets its submenu from code: the project categories in the Work filter order
+ * (if_untitled_archive_filter(), non-empty only), so new categories appear without editing the menu.
+ */
+add_filter('wp_nav_menu_objects', function (array $items, stdClass $args): array {
+    if (empty($args->if_untitled_block) || (int) ($args->depth ?? 0) === 1) {
+        return $items;
+    }
+    $out = [];
+    foreach ($items as $item) {
+        $out[] = $item;
+        if ($item->type !== 'post_type_archive' || $item->object !== 'project' || (int) $item->menu_item_parent) {
+            continue;
+        }
+        $terms = if_untitled_archive_filter('project_category', '', '');
+        array_shift($terms); // "All" = Work itself
+        if (!$terms) {
+            continue;
+        }
+        $item->classes[] = 'menu-item-has-children';
+        foreach ($terms as $i => $term) {
+            $out[] = new WP_Post((object) [
+                'ID'               => -1 - $i,
+                'db_id'            => -1 - $i,
+                'menu_item_parent' => (string) $item->db_id,
+                'post_type'        => 'nav_menu_item',
+                'type'             => 'taxonomy',
+                'object'           => 'project_category',
+                'title'            => $term['label'],
+                'url'              => $term['url'],
+                'classes'          => $term['is_active'] ? ['current-menu-item'] : [],
+                'target'           => '',
+                'attr_title'       => '',
+                'description'      => '',
+                'xfn'              => '',
+                'current'          => $term['is_active'],
+            ]);
+        }
+    }
+    return $out;
+}, 10, 2);
