@@ -428,7 +428,7 @@
             "label": "Map ID",
             "name": "google_maps_id",
             "type": "text",
-            "instructions": "Optional. Custom Map ID (Google Cloud → Map Management) to refine the style. Empty = Google's built-in dark scheme.",
+            "instructions": "Optional. Custom Map ID (Google Cloud → Map Management) to refine the style. Empty = the theme's dark black-and-white style without place labels.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {

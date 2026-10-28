@@ -96,7 +96,7 @@ if-untitled/
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | `IF_UNTITLED_VITE_DEV`        | force dev (`true`) or prod (`false`) asset loading                                                                   |
 | `IF_UNTITLED_GOOGLE_MAPS_KEY` | overrides Theme Options → Google Maps → API key (Contact map + location picker)                                      |
-| `IF_UNTITLED_GOOGLE_MAPS_ID`  | overrides Theme Options → Google Maps → Map ID (optional custom style; default `DEMO_MAP_ID`, dark scheme set in JS) |
+| `IF_UNTITLED_GOOGLE_MAPS_ID`  | overrides Theme Options → Google Maps → Map ID (optional Google Cloud style; empty = dark black-and-white code style without place labels, in `ContactMap.js`) |
 
 ## Tooling
 

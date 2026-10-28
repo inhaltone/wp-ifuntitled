@@ -11,7 +11,7 @@
         min-block-size: calc(100svh - var(--nav-height));
     }
 
-    // Black-and-white: greyscale on top of the dark colour scheme (no custom Map ID needed).
+    // Black-and-white safety net: greyscale on top of the map style (code style or a Map ID style).
     &__canvas {
         block-size: 60svh;
         filter: grayscale(1);

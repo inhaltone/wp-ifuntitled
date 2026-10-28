@@ -1,12 +1,12 @@
 <?php
 /**
- * Contact map: Google map (dark colour scheme, one marker per location) filling the first viewport, with
+ * Contact map: Google map (dark black-and-white style, no place labels, one marker per location) filling the first viewport, with
  * the title, intro and locations in a panel over col 5. The map is loaded by src/js/components/ContactMap.js
  * (lazy, only where [data-contact-map] exists); without a key or JS the panel is shown on the dark background.
  * $args: ['title' => string, 'text' => string (HTML)]
  *
  * Key and Map ID: if_untitled_google_maps() (Theme Options → Google Maps, overridable by wp-config.php constants). Without
- * a Map ID Google's DEMO_MAP_ID is used (advanced markers need one); the dark scheme is set in JS either way.
+ * a Map ID the style is set in code (ContactMap.js); a Map ID switches to its Google Cloud style instead.
  *
  * @package if-untitled
  */
@@ -20,7 +20,7 @@ $markers   = array_values(array_filter(array_map(
 )));
 $maps      = if_untitled_google_maps();
 $key       = $maps['key'];
-$map_id    = $maps['map_id'] ?: 'DEMO_MAP_ID';
+$map_id    = $maps['map_id'];
 ?>
 <section class="contact-map">
     <?php if ($key && $markers) : ?>
