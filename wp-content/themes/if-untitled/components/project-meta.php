@@ -1,7 +1,8 @@
 <?php
 /**
- * Project metadata (Location · Client · Year · Status).
- * $args: ['post_id' => int|null, 'variant' => 'list' (label | value rows, empty rows dropped — project hero) | 'columns'
+ * Project metadata (Location · Client · Year · Status), plus the specs (Date · Size · Typology · Collaborators) with
+ * 'specs' => true (project hero only).
+ * $args: ['post_id' => int|null, 'specs' => bool, 'variant' => 'list' (label | value rows, empty rows dropped — project hero) | 'columns'
  * (4 cells, label above value, empty cells kept — Work card, Advisory)]
  *
  * @package if-untitled
@@ -9,6 +10,9 @@
 
 $variant = ($args['variant'] ?? 'list') === 'columns' ? 'columns' : 'list';
 $meta    = if_untitled_project_metadata($args['post_id'] ?? null);
+if (!empty($args['specs'])) {
+    $meta += if_untitled_project_specs($args['post_id'] ?? null);
+}
 if ($variant === 'list') {
     $meta = array_filter($meta, fn(string $value): bool => $value !== '');
 }

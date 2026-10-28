@@ -146,11 +146,12 @@ returns plain sub-field names (`heading`, `image_columns`, …).
 description, shown on the Advisory showcase — Q19). No video.
 Body = `content_grid` (above).
 
-| Field              | Type                                                                                                          | Req. |
-| ------------------ | ------------------------------------------------------------------------------------------------------------- | ---- |
-| `project_category` | taxonomy (radio, save + load terms — single category; native taxonomy box hidden with `meta_box_cb => false`) | ✓    |
-| `project_metadata` | group — Location, Client, Year, Status (see below)                                                            |      |
-| `project_text`     | wysiwyg — brief / approach / outcome (shown open, no toggle)                                                  |      |
+| Field              | Type                                                                                                                                                                                        | Req. |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| `project_category` | taxonomy (radio, save + load terms — single category; native taxonomy box hidden with `meta_box_cb => false`)                                                                               | ✓    |
+| `project_metadata` | group — Location, Client, Year, Status (see below)                                                                                                                                          |      |
+| `project_specs`    | group — Date (text), Size (number, m²), Typology (text), Collaborators (text); project page hero only, below the metadata (`if_untitled_project_specs()`, `project-meta` `'specs' => true`) |      |
+| `project_text`     | wysiwyg — brief / approach / outcome (shown open, no toggle)                                                                                                                                |      |
 
 **"Metadata" everywhere in this plan = these four, always in this order: Location · Client · Year · Status.**
 

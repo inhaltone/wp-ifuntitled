@@ -133,6 +133,110 @@
             ]
         },
         {
+            "key": "field_ee89260cc73f1",
+            "label": "Project specs",
+            "name": "project_specs",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Shown only on the project page, in the hero below Location · Client · Year · Status.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_95f823a42c6f6",
+                    "label": "Date",
+                    "name": "date",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Free text, e.g. 2019–2021.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_a4f08fe7978b4",
+                    "label": "Size",
+                    "name": "size",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Area in m².",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "min": 0,
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "step": "",
+                    "prepend": "",
+                    "append": "m²"
+                },
+                {
+                    "key": "field_7b6903a56bdcf",
+                    "label": "Typology",
+                    "name": "typology",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "e.g. Private house, Loft conversion.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_7801a7d625559",
+                    "label": "Collaborators",
+                    "name": "collaborators",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Comma-separated names.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        },
+        {
             "key": "field_9b1ae3541ad9f",
             "label": "Text",
             "name": "project_text",
@@ -170,5 +274,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1793111233
+    "modified": 1793195253
 }

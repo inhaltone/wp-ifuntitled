@@ -21,7 +21,7 @@ get_header();
             <div class="project__body">
                 <section class="project__hero grid">
                     <div class="project__summary grid__item" style="--col-start: 1; --col-span: 1">
-                        <?php if_untitled_component('project-meta', ['variant' => 'list']); ?>
+                        <?php if_untitled_component('project-meta', ['variant' => 'list', 'specs' => true]); ?>
                     </div>
                     <?php if (has_post_thumbnail()) : ?>
                         <div class="project__cover grid__item" style="--col-start: 2; --col-span: 4">

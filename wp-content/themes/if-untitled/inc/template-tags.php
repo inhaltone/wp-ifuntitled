@@ -197,7 +197,25 @@ function if_untitled_project_metadata(?int $post_id = null): array
 }
 
 /**
- * Labels for the project metadata keys (same order as if_untitled_project_metadata()).
+ * Project specs (project page hero only, below the metadata): display strings, '' = empty.
+ *
+ * @return array{date: string, size: string, typology: string, collaborators: string}
+ */
+function if_untitled_project_specs(?int $post_id = null): array
+{
+    $specs = function_exists('get_field') ? (get_field('project_specs', $post_id) ?: []) : [];
+    $size  = (string) ($specs['size'] ?? '');
+
+    return [
+        'date'          => trim((string) ($specs['date'] ?? '')),
+        'size'          => $size !== '' ? number_format_i18n((float) $size) . ' m²' : '',
+        'typology'      => trim((string) ($specs['typology'] ?? '')),
+        'collaborators' => trim((string) ($specs['collaborators'] ?? '')),
+    ];
+}
+
+/**
+ * Labels for the project metadata and specs keys (same order as if_untitled_project_metadata() / _specs()).
  *
  * @return array<string, string>
  */
@@ -208,6 +226,11 @@ function if_untitled_project_metadata_labels(): array
         'client'   => __('Client', 'if-untitled'),
         'year'     => __('Year', 'if-untitled'),
         'status'   => __('Status', 'if-untitled'),
+        // Specs.
+        'date'          => __('Date', 'if-untitled'),
+        'size'          => __('Size', 'if-untitled'),
+        'typology'      => __('Typology', 'if-untitled'),
+        'collaborators' => __('Collaborators', 'if-untitled'),
     ];
 }
 
