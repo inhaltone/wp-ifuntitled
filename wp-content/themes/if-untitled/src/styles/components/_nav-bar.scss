@@ -175,6 +175,11 @@
             padding: calc((var(--nav-height) - 1lh) / 2) 0 6px;
             background-color: var(--c-bg);
 
+            // Full-width background band (the viewport width, same height as the list): a spread shadow clipped to
+            // the list's own height.
+            box-shadow: 0 0 0 100vmax var(--c-bg);
+            clip-path: inset(0 -100vmax);
+
             .has-submenu:is(:hover, :focus-within, .is-open) > & {
                 display: block;
             }
