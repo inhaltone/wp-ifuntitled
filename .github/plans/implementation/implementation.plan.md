@@ -402,6 +402,29 @@ Skills per step: routes → `create-page-template`; shared components → `creat
 filters (Work + Journal, values in 1.6) → `create-archive-filter`; field reads → `create-acf-field-group` §5;
 verification → `vite-build-verify`.
 
+### 4.1 Checkpoint — 2026-10-28 (commit `3caf2ac`)
+
+**Done:** components #1–#11 (Phase B §4) · routes Project, Work (+ category filter), Studio, Advisory, Journal
+(+ category / tag, infinite scroll), Journal entry, Contact (map), Home, page / 404 / index fallbacks. `npm run check`
+passes; every route returns 200 (404 for unknown paths under `/journal/`, `/work/`).
+
+Added beyond the helper list above: `if_untitled_archive_intro()`, `if_untitled_paged_links()`,
+`if_untitled_studio_features()`, `if_untitled_advisory_features()`, `if_untitled_menu_item_is_current()` (Work current on
+projects, Journal only on journal content); components `location`, `contact-map`, `media`, `services`; constants
+`IF_UNTITLED_GOOGLE_MAPS_KEY` / `IF_UNTITLED_GOOGLE_MAPS_ID`. Removed `archive.php`, `post-card`, `.container`,
+`.single-layout`.
+
+**Remaining:**
+
+1. QA — responsive (mobile screenshots), a11y, empty states, images (`render-responsive-image` §5).
+2. Theme README — `page-templates/`, new components, Maps constants; drop removed parts.
+3. Phase B plan §4 — tick completed steps.
+4. Content — Home (featured image, description, grid rows), Contact intro + Maps key (map untested live), Advisory
+   features, clients, journal entries, Privacy page (draft).
+5. `text-render` — headings look the same as body text.
+6. Unknown root URLs (`/a/b/c/`) redirect to Home (WordPress `redirect_canonical` guess) instead of 404.
+7. Open questions still ⏳: Q1, Q5, Q9, Q13, Q18.
+
 ---
 
 ## Open questions
