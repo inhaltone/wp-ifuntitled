@@ -17,12 +17,14 @@
     &__title {
         @include text-style(display-s);
         margin: 10px 0 0;
+        font-size: clamp(1.25rem, 1.25vw, 1.5rem);
         padding-inline: var(--text-inset);
     }
 
     &__category {
         @include text-style(text-s);
         margin: 2px 0 0;
+        font-size: clamp(0.8125rem, 0.68vw, 0.875rem);
         padding-inline: var(--text-inset);
         font-weight: var(--font-medium);
     }
@@ -33,7 +35,7 @@
         padding-inline: var(--text-inset);
 
         .project-meta {
-            font-size: clamp(0.6875rem, 0.63vw, 0.75rem);
+            font-size: clamp(0.8rem, 0.7vw, 0.875rem);
             line-height: 1.25;
         }
 
