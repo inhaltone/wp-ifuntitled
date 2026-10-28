@@ -1,22 +1,62 @@
 @use 'abstracts' as *;
 
 // Vertical list (Work, Journal): bold "All", "Filter" label, terms; the active link is bold with an arrow.
+// Below md (JS only) the label is a +/− toggle and the terms are collapsed until it is opened.
 .archive-filter {
     @include text-style(text-s);
 
     &__label {
         margin: 0 0 0.75em;
         font-weight: var(--font-bold);
+
+        .js & {
+            display: none;
+        }
+    }
+
+    &__toggle {
+        @include text-style(text-s);
+        display: none;
+        min-block-size: 24px;
+        padding: 0;
+        color: inherit;
+        font-weight: var(--font-bold);
+        text-align: start;
+        background: none;
+        border: 0;
+        cursor: pointer;
+
+        .js & {
+            display: block;
+        }
+
+        &::after {
+            content: ' +';
+        }
+
+        &[aria-expanded='true']::after {
+            content: ' −';
+        }
     }
 
     &__list {
         margin: 0;
         padding: 0;
         list-style: none;
+
+        .js & {
+            display: none;
+            padding-block: 6px 4px;
+        }
+
+        .js .is-open > & {
+            display: block;
+        }
     }
 
     &__link {
         display: inline-block;
+        min-block-size: 24px;
 
         &--all {
             font-weight: var(--font-bold);
@@ -34,5 +74,28 @@
 
     &__item &__link[aria-current='page']::before {
         content: '→';
+    }
+
+    // From md the list is always shown under a plain label (design); tight lines.
+    @include media-breakpoint-up(md) {
+        &__label,
+        .js &__label {
+            display: block;
+        }
+
+        &__toggle,
+        .js &__toggle {
+            display: none;
+        }
+
+        &__list,
+        .js &__list {
+            display: block;
+            padding-block: 0;
+        }
+
+        &__link {
+            min-block-size: 0;
+        }
     }
 }

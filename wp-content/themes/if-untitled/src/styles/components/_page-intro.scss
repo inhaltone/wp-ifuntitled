@@ -1,13 +1,15 @@
 @use 'abstracts' as *;
 
-// First viewport: title + paragraph at the top of their column range; the content starts below the fold (design).
+// From md the intro fills the first viewport: title + paragraph at the top of their column range, the content starts
+// below the fold (design). Below md it takes its natural height and the aside (filter) follows the title.
 .page-intro {
     align-items: start;
-    min-block-size: calc(100svh - var(--nav-height));
-    padding-block-end: 40px;
+    padding-block-end: 48px;
 
     @include media-breakpoint-up(md) {
         grid-auto-rows: 1fr;
+        min-block-size: calc(100svh - var(--nav-height));
+        padding-block-end: 40px;
     }
 
     &__aside,
@@ -16,7 +18,12 @@
     }
 
     &__aside {
+        order: 1;
         padding-block-start: 4px;
+
+        @include media-breakpoint-up(md) {
+            order: 0;
+        }
     }
 
     &__body {

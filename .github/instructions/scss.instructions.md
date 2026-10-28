@@ -46,7 +46,11 @@ New partial `_foo.scss` → add `@use 'foo';` to that folder's `_index.scss`. `s
   bold = GT America 700 (`$base_font_family`, `--font-base`);
   display = GT Flexa 500 via `@include font-display(48);` (`$display_font_family`, `--font-display`).
   There is no 400 file, so `font-regular` renders with the 500 face. Add a new weight as a `.woff2` plus an `@font-face` block.
-- Responsive: **mobile-first** with `@include media-breakpoint-up(lg) { … }` (≥ 992px).
+- Responsive: **mobile-first** with `@include media-breakpoint-up(lg) { … }` (≥ 992px). Write the mobile rule first,
+  then override from a breakpoint up; don't use `media-breakpoint-down()` for layout.
+- **Layout breakpoint = `md`** (768px): below it everything stacks full width, the header is a "Menu" toggle
+  (full-screen panel) and archive filters collapse; from `md` the 5-column grid and the design's desktop layout.
+  Only card grids use `lg` (3 columns). Touch targets are ≥ 24px below `md`.
   `media-breakpoint-down(md)` = below 768px; `-between(sm, lg)` = 576–991.98px; `-only(md)` = 768–991.98px.
   Breakpoints: xs 0, sm 576, md 768, lg 992, xl 1200, xxl 1400 (mirror in `MediaBreakpoints.js`).
 - Motion: `@include transition(opacity .3s $ease-out);` (auto-disables for reduced motion). Easings `$ease-out`, `$ease-in-out`.

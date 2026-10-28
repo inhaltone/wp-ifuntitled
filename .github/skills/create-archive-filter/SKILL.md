@@ -99,7 +99,9 @@ Style it as a normal component (`create-theme-component`); the active state is `
 
 ## 5. JS
 
-None required. Filter links go through the existing `RouterTransition` page fade. Swapping only the grid via
+None required for filtering. Filter links go through the existing `RouterTransition` page fade. Below `md`
+`components/archive-filter.php` (`data-archive-filter`) is collapsed behind a "Filter +/−" toggle by
+`src/js/components/ArchiveFilter.js` (lazy); without JS the list is always shown. Swapping only the grid via
 `fetch` is an optional later enhancement — the links must keep working without it.
 
 ## 6. Verify

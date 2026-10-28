@@ -15,6 +15,7 @@ onMounted(() => {
     lazyComponent('[data-reveal]', () => import('@/js/components/Reveal.js'), {
         selector: '[data-reveal]',
     });
+    lazyComponent('[data-archive-filter]', () => import('@/js/components/ArchiveFilter.js'));
     lazyComponent('[data-infinite-scroll]', () => import('@/js/components/InfiniteScroll.js'));
     lazyComponent('[data-contact-map]', () => import('@/js/components/ContactMap.js'));
     lazyComponent('[data-media-video]', () => import('@/js/components/AmbientVideo.js'));

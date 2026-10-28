@@ -16,9 +16,14 @@ const getBreakpoint = (label) => {
     return BREAKPOINTS[label];
 };
 
+/** MediaQueryList for media-breakpoint-up(): read .matches or listen for 'change' when crossing the breakpoint. */
+export function mediaQueryUp(label = 'lg') {
+    return window.matchMedia(`(min-width: ${getBreakpoint(label)}px)`);
+}
+
 /** Same semantics as the SCSS mixin media-breakpoint-up(). */
 export function mediaBreakpointUp(label = 'lg') {
-    return window.matchMedia(`(min-width: ${getBreakpoint(label)}px)`).matches;
+    return mediaQueryUp(label).matches;
 }
 
 /** Same semantics as the SCSS mixin media-breakpoint-down(). */
