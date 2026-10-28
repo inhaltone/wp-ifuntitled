@@ -82,7 +82,7 @@ Pattern "**section label in col 1, content in cols 2–5**" → one `section-hea
 - **Filter:** vertical list top-left (col 1): "All Projects" (bold) · "Filter" label · 6 categories; active = bold with
   "→" prefix. Same `archive-filter` component, vertical modifier.
 - **Intro:** "Work" display XL + paragraph, cols 3–4 (`work_intro` / term description).
-- **Cards:** 3 columns, image at its **natural ratio** (landscape and portrait mixed, top-aligned — no crop), title
+- **Cards:** 3 columns, image cropped to **2:3 portrait** (same as Journal cards; landscape images are centre-cropped), title
   (display M), metadata as 4 labelled columns: Location · Client · Year · Status (empty value = empty cell).
 
 ### 3.5 Project `project` (light)

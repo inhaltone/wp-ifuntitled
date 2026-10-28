@@ -1,6 +1,6 @@
 <?php
 /**
- * Work archive card: featured image (natural ratio), title, metadata in 4 columns. Runs inside The Loop.
+ * Work archive card: featured image (2:3 portrait crop, like the Journal card), title, metadata in 4 columns. Runs inside The Loop.
  * $args: ['priority' => bool (first card only — LCP)]
  *
  * @package if-untitled
@@ -13,6 +13,7 @@
         if_untitled_component('image', [
             'id'       => (int) get_post_thumbnail_id(),
             'context'  => 'card',
+            'ratio'    => '2x3',
             'alt'      => '',
             'priority' => !empty($args['priority']),
         ]);

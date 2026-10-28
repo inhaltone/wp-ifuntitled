@@ -53,7 +53,8 @@ function if_untitled_column_range(string $range): ?array
 
 /**
  * Responsive <img> for an attachment ID. $context sets `sizes` (how wide the image renders on screen).
- * $args: ['priority' => bool (LCP image: eager + fetchpriority high), 'alt' => string, 'class' => string]
+ * $args: ['priority' => bool (LCP image: eager + fetchpriority high), 'alt' => string, 'class' => string,
+ *         'ratio' => '2x3' etc. (CSS crop; scales `sizes` for wider sources)]
  */
 function if_untitled_image(int $id, string $context = 'full', array $args = []): string
 {
@@ -70,6 +71,24 @@ function if_untitled_image(int $id, string $context = 'full', array $args = []):
             'logo'  => '240px',
             default => '100vw',
         };
+    }
+
+    // A fixed ratio crops with object-fit: cover, so an image wider than the box renders wider than its column.
+    // Scale `sizes` by that factor, or the browser picks a candidate that is too small (blurry).
+    $cropped = false;
+    if (preg_match('/^(\d+)x(\d+)$/', $args['ratio'] ?? '', $match)) {
+        $meta   = wp_get_attachment_metadata($id);
+        $factor = !empty($meta['width']) && !empty($meta['height'])
+            ? ($meta['width'] / $meta['height']) / ($match[1] / $match[2])
+            : 1;
+        $cropped = $factor > 1.05;
+        if ($cropped) {
+            $sizes = preg_replace_callback(
+                '/(\d+)(vw|px)\b(?!\))/',
+                fn(array $size): string => (int) round($size[1] * $factor) . $size[2],
+                $sizes
+            );
+        }
     }
 
     $attr = [
@@ -89,7 +108,10 @@ function if_untitled_image(int $id, string $context = 'full', array $args = []):
     }
 
     // 'large' is only the fallback src; srcset carries every proportional size up to 2560.
-    return wp_get_attachment_image($id, 'large', false, $attr);
+    $html = wp_get_attachment_image($id, 'large', false, $attr);
+
+    // Core prepends `sizes="auto"` to lazy images, which uses the box width and ignores the scaled hint.
+    return $cropped ? str_replace('sizes="auto, ', 'sizes="', $html) : $html;
 }
 
 /**

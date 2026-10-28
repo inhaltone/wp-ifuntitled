@@ -166,7 +166,7 @@ SCSS — `src/styles/components/_image.scss`, registered in `components/_index.s
 
 ## 4. Rules
 
-- **Natural ratio by default** (Work cards, `content_grid`); fixed ratio only where the design crops (Journal cards 2:3, team 3:2).
+- **Natural ratio by default** (`content_grid`); fixed ratio only where the design crops (Work + Journal cards 2:3, team 3:2). Pass `ratio` to `if_untitled_image()` too: it scales `sizes` by how much wider the source is than the box (and drops core's `sizes="auto"`), so cropped landscape images stay sharp.
 - **Exactly one `priority` image per route** — the LCP: Home hero, project featured image, the first archive card.
   Everything else stays lazy (core default). Never pass `priority` to every item of a loop.
 - **Alt:** from the media library (core adds it). Pass `'alt' => ''` when the image is decorative or sits in a link
