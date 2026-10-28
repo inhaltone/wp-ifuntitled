@@ -146,9 +146,12 @@
             height: 100%;
         }
 
+        // Items only as large as their text (not the whole grid cell), so the hover that opens a submenu starts on
+        // the text.
         &__item,
         .js &__item {
             display: flex;
+            place-self: center start;
 
             &--sub {
                 display: block;
@@ -166,7 +169,10 @@
             left: 0;
             display: none;
             min-width: max-content;
-            padding: 0 0 6px;
+
+            // Top padding = the gap between the text and the bar bottom: the list still starts below the bar and the
+            // hover is continuous from the text.
+            padding: calc((var(--nav-height) - 1lh) / 2) 0 6px;
             background-color: var(--c-bg);
 
             .has-submenu:is(:hover, :focus-within, .is-open) > & {
