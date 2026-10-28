@@ -101,9 +101,13 @@
             text-underline-offset: 0.2em;
         }
 
+        // Current section: same as the active archive filter link — bold with an arrow before the text.
         .is-current > & {
-            text-decoration: underline;
-            text-underline-offset: 0.2em;
+            font-weight: var(--font-bold);
+
+            &::before {
+                content: '→';
+            }
         }
     }
 
