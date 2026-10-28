@@ -17,6 +17,14 @@ add_action('template_redirect', function (): void {
     exit;
 });
 
+// Unknown URLs are real 404s. With the `/journal/%postname%/` base no rewrite rule catches an unknown root path, so
+// core would parse it as the front page and 301 to `/`; old site URLs are not maintained (1.7).
+add_action('parse_request', function (WP $wp): void {
+    if ($wp->request !== '' && empty($wp->matched_rule) && !$wp->query_vars) {
+        $wp->query_vars['error'] = '404';
+    }
+}, 1);
+
 // Tag archives stay out of the index until tag filtering ships.
 add_filter('wp_robots', function (array $robots): array {
     if (is_tag()) {
