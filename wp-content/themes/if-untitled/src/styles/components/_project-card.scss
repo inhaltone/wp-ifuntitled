@@ -1,42 +1,17 @@
 @use 'abstracts' as *;
 
+// No transitions: states switch instantly.
 .project-card {
+    position: relative;
+
     &__link {
         display: block;
         color: inherit;
         text-decoration: none;
-
-        @include hover {
-            .project-card__title {
-                text-decoration: underline;
-                text-underline-offset: 0.15em;
-            }
-        }
     }
 
     &__media {
         position: relative;
-    }
-
-    // Metadata bar over the bottom of the image: absolute, so showing it never changes the card height.
-    &__bar {
-        position: absolute;
-        inset: auto 0 0;
-        padding: 10px var(--text-inset) 12px;
-        color: var(--c-white);
-        background-color: var(--c-black);
-
-        // Pointer devices: revealed on hover / keyboard focus. Touch (no hover): always visible.
-        @media (hover: hover) {
-            opacity: 0;
-            transform: translateY(8px);
-            @include transition(opacity 0.2s ease, transform 0.2s $ease-out);
-
-            .project-card__link:is(:hover, :focus-visible) & {
-                opacity: 1;
-                transform: none;
-            }
-        }
     }
 
     &__title {
@@ -50,5 +25,37 @@
         margin: 2px 0 0;
         padding-inline: var(--text-inset);
         font-weight: var(--font-medium);
+    }
+
+    &__meta {
+        margin-block-start: 12px;
+        padding-inline: var(--text-inset);
+    }
+
+    // Pointer devices: line + metadata only on hover / focus, both absolute so the card never changes height
+    // (the metadata hangs into the archive row gap). Touch keeps the metadata in the flow, always visible.
+    @media (hover: hover) {
+        &__media::after {
+            position: absolute;
+            inset: auto 0 0;
+            display: none;
+            block-size: 8px;
+            background-color: var(--c-fg);
+            content: '';
+        }
+
+        &__meta {
+            position: absolute;
+            inset: 100% 0 auto;
+            visibility: hidden;
+        }
+
+        &:is(:hover, :focus-within) &__media::after {
+            display: block;
+        }
+
+        &:is(:hover, :focus-within) &__meta {
+            visibility: visible;
+        }
     }
 }

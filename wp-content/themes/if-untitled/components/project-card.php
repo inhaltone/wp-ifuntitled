@@ -1,8 +1,8 @@
 <?php
 /**
- * Work archive card: featured image (2:3 portrait crop, like the Journal card), title and category. The metadata
- * (4 columns) sits in a black bar over the bottom of the image, shown on hover / focus and always on touch.
- * Runs inside The Loop.
+ * Work archive card: featured image (2:3 portrait crop, like the Journal card), title, category and metadata
+ * (4 columns). Hover: a thick black line under the image and the metadata appear (both absolute → no height change);
+ * touch: metadata always visible. Runs inside The Loop.
  * $args: ['priority' => bool (first card only — LCP)]
  *
  * @package if-untitled
@@ -23,13 +23,13 @@ $category = if_untitled_project_categories();
                 'priority' => !empty($args['priority']),
             ]);
             ?>
-            <div class="project-card__bar">
-                <?php if_untitled_component('project-meta', ['post_id' => get_the_ID(), 'variant' => 'columns']); ?>
-            </div>
         </div>
         <h2 class="project-card__title"><?php the_title(); ?></h2>
         <?php if ($category) : ?>
             <p class="project-card__category"><?php echo esc_html($category); ?></p>
         <?php endif; ?>
     </a>
+    <div class="project-card__meta">
+        <?php if_untitled_component('project-meta', ['post_id' => get_the_ID(), 'variant' => 'columns']); ?>
+    </div>
 </article>
