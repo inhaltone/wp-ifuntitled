@@ -1,7 +1,7 @@
 @use 'abstracts' as *;
 
-// Vertical list (Work, Journal): bold "All", "Filter" label, terms; the active link is bold with an arrow.
-// Below md (JS only) the label is a +/− toggle and the terms are collapsed until it is opened.
+// Vertical list (Work, Journal): bold "Filter" label, then "All" + terms; the active link ("All" by default) is bold
+// with an arrow. Below md (JS only) the label is a +/− toggle and the list is collapsed until it is opened.
 .archive-filter {
     @include text-style(text-s);
 
@@ -57,10 +57,6 @@
     &__link {
         display: inline-block;
         min-block-size: 24px;
-
-        &--all {
-            font-weight: var(--font-bold);
-        }
 
         @include hover {
             text-decoration: underline;
