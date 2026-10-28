@@ -1,6 +1,6 @@
 <?php
 /**
- * Team members, two per row: landscape image (3:2), "Name + role" heading, short bio.
+ * Team members, one page column each (four per row): portrait image (3:4), "Name + role" heading, short bio.
  * $args: ['ids' => int[] (team_member post IDs in order)]
  *
  * @package if-untitled
@@ -14,7 +14,7 @@ if (!$members) {
 <ul class="team">
     <?php foreach ($members as $member) : ?>
         <li class="team__member">
-            <?php if_untitled_component('image', ['id' => $member['image'], 'context' => 'span-2', 'ratio' => '3x2']); ?>
+            <?php if_untitled_component('image', ['id' => $member['image'], 'context' => 'span-1', 'ratio' => '3x4']); ?>
             <h3 class="team__name">
                 <?php echo esc_html($member['name']); ?>
                 <?php if ($member['role']) : ?>

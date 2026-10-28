@@ -1,6 +1,6 @@
 @use 'abstracts' as *;
 
-// Two members per row across cols 2–5 (each spans 2 page columns).
+// One page column per member: four per row across cols 2–5 (two from sm).
 .team {
     display: grid;
     gap: 60px var(--grid-gutter);
@@ -8,8 +8,12 @@
     padding: 0;
     list-style: none;
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(sm) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     &__name {
