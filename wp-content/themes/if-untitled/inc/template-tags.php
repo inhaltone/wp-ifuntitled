@@ -211,6 +211,16 @@ function if_untitled_project_metadata_labels(): array
 }
 
 /**
+ * Project category names, comma-separated ('' when none) — the Work card line under the title.
+ */
+function if_untitled_project_categories(?int $post_id = null): string
+{
+    $terms = get_the_terms($post_id ?? get_the_ID(), 'project_category');
+
+    return is_array($terms) ? implode(', ', wp_list_pluck($terms, 'name')) : '';
+}
+
+/**
  * Previous / next published project in the Work "All" order (menu order, then newest), looping first ↔ last.
  */
 function if_untitled_adjacent_project(string $direction = 'next', ?int $post_id = null): ?array

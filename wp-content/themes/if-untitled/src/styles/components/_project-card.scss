@@ -14,13 +14,41 @@
         }
     }
 
+    &__media {
+        position: relative;
+    }
+
+    // Metadata bar over the bottom of the image: absolute, so showing it never changes the card height.
+    &__bar {
+        position: absolute;
+        inset: auto 0 0;
+        padding: 10px var(--text-inset) 12px;
+        color: var(--c-white);
+        background-color: var(--c-black);
+
+        // Pointer devices: revealed on hover / keyboard focus. Touch (no hover): always visible.
+        @media (hover: hover) {
+            opacity: 0;
+            transform: translateY(8px);
+            @include transition(opacity 0.2s ease, transform 0.2s $ease-out);
+
+            .project-card__link:is(:hover, :focus-visible) & {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    }
+
     &__title {
         @include text-style(display-s);
-        margin: 10px 0 12px;
+        margin: 10px 0 0;
         padding-inline: var(--text-inset);
     }
 
-    .project-meta {
+    &__category {
+        @include text-style(text-s);
+        margin: 2px 0 0;
         padding-inline: var(--text-inset);
+        font-weight: var(--font-medium);
     }
 }
