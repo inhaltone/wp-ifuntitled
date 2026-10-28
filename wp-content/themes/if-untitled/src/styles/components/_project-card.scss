@@ -17,7 +17,7 @@
     &__title {
         @include text-style(display-s);
         margin: 10px 0 0;
-        font-size: clamp(1.25rem, 1.25vw, 1.5rem);
+        font-size: 23px;
         padding-inline: var(--text-inset);
     }
 
@@ -35,7 +35,7 @@
         padding-inline: var(--text-inset);
 
         .project-meta {
-            font-size: clamp(0.8rem, 0.7vw, 0.875rem);
+            font-size: 10px;
             line-height: 1.25;
         }
 
