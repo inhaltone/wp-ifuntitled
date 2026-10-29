@@ -15,29 +15,25 @@
     }
 
     &__title {
-        @include text-style(text-l);
+        @include text-style(text-m);
         margin: 10px 0 0;
-        font-size: 18px;
-        line-height: 1.15;
+        font-weight: var(--font-bold);
         padding-inline: var(--text-inset);
     }
 
     &__category {
-        @include text-style(text-s);
+        @include text-style(text-xs);
         margin: 2px 0 0;
-        font-size: clamp(0.8125rem, 0.68vw, 0.875rem);
         padding-inline: var(--text-inset);
-        font-weight: var(--font-medium);
     }
 
-    // Card metadata: smaller and tighter than the shared project-meta; labels bold, values medium.
+    // Card metadata: text-xs; labels bold, values medium.
     &__meta {
         margin-block-start: 8px;
         padding-inline: var(--text-inset);
 
         .project-meta {
-            font-size: 12px;
-            line-height: 1.25;
+            @include text-style(text-xs);
         }
 
         .project-meta__label {

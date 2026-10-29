@@ -37,10 +37,8 @@ main#project {
     }
 
     .project__title {
-        @include text-style(display-l);
+        @include text-style(display-s);
         margin: 0;
-        font-size: 1.5rem;
-        line-height: 1;
     }
 
     .project__categories {
@@ -77,10 +75,9 @@ main#project {
             padding-block: 0;
         }
 
-        // Smaller than the shared project-meta; labels bold, values medium.
+        // text-xs; labels bold, values medium.
         .project-meta {
-            font-size: 12px;
-            line-height: 1.25;
+            @include text-style(text-xs);
         }
 
         .project-meta__label {
@@ -150,7 +147,6 @@ main#project {
     }
 
     .project__pager-title {
-        @include text-style(display-s);
-        font-family: var(--font-base);
+        @include text-style(text-l);
     }
 }

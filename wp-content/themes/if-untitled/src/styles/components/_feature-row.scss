@@ -25,18 +25,15 @@
         margin-block: auto;
     }
 
-    // Site type sizes: Flexa heading 30px, GT America 14px text, 12px project block.
+    // Flexa heading (display-m), GT America text (text-s), project block (text-xs).
     &__title {
-        @include text-style(display-s);
+        @include text-style(display-m);
         margin: 0 0 12px;
-        font-size: 1.875rem;
-        line-height: 1.1;
     }
 
     &__subtitle {
         @include text-style(text-s);
         margin: 0 0 12px;
-        font-size: 0.875rem;
         font-weight: var(--font-bold);
     }
 
@@ -54,14 +51,9 @@
         }
     }
 
-    &__description {
-        font-size: 0.875rem;
-    }
-
     &__project-title {
         @include text-style(text-s);
         margin: 0;
-        font-size: 0.875rem;
         font-weight: var(--font-bold);
 
         a {
@@ -73,9 +65,8 @@
     }
 
     &__excerpt {
+        @include text-style(text-xs);
         margin: 2px 0 8px;
-        font-size: 12px;
-        line-height: 1.25;
     }
 
     // The track fills the text column below the body (body moves to the top), so the sticky project block never
@@ -112,8 +103,7 @@
     }
 
     &__project .project-meta {
-        font-size: 12px;
-        line-height: 1.25;
+        @include text-style(text-xs);
     }
 
     &__project .project-meta__label {

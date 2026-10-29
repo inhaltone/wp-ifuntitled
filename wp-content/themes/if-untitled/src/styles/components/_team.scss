@@ -23,32 +23,23 @@
         }
     }
 
-    // Site type pattern: Flexa name 22px, bold role and medium bio in GT America 12px.
+    // Flexa name (display-s), bold role and medium bio (text-xs).
     &__name {
         @include text-style(display-s);
         margin: 12px 0 0;
         padding-inline-end: var(--text-inset);
-        font-size: 1.375rem;
-        line-height: 1.1;
     }
 
     &__role {
+        @include text-style(text-xs);
         display: block;
         margin-block: 6px 10px;
-        font-family: var(--font-base);
-        font-size: 0.75rem;
         font-weight: var(--font-bold);
-        line-height: 1.25;
-        letter-spacing: normal;
-        text-transform: none;
     }
 
     &__bio {
-        @include text-style(text-s);
+        @include text-style(text-xs);
         padding-inline-end: var(--text-inset);
-        font-size: 0.75rem;
-        font-weight: var(--font-medium);
-        line-height: 1.35;
 
         > :first-child {
             margin-block-start: 0;

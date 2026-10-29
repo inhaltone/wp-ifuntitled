@@ -1,4 +1,3 @@
-@use 'sass:map';
 @use 'abstracts' as *;
 
 main#front-page {
@@ -33,44 +32,5 @@ main#front-page {
         > :last-child {
             margin-block-end: 0;
         }
-    }
-
-    // Content grid type, one scale: the title size (display-l, 48 px at 1920) drives every other size and measure, so
-    // they stay in proportion at any width. Ratios to the title: filled statement 0.7 · statement 0.6 · large text
-    // 0.5 · small 0.42.
-    .content-grid {
-        --home-title: #{map.get($type-scale, display-l, size)};
-    }
-
-    .content-grid__text {
-        gap: 0.8em;
-    }
-
-    .content-grid__heading {
-        line-height: 1.2;
-    }
-
-    .content-grid__body {
-        font-size: max(1rem, calc(var(--home-title) * 0.42));
-        line-height: 1.3;
-    }
-
-    .content-grid__text--large .content-grid__body {
-        max-inline-size: calc(var(--home-title) * 10);
-        font-size: max(1rem, calc(var(--home-title) * 0.5));
-        line-height: 1.3;
-    }
-
-    .content-grid__text--display .content-grid__body {
-        font-size: calc(var(--home-title) * 0.6);
-        line-height: 1.2;
-    }
-
-    .content-grid__text--display:not(.content-grid__text--x-center) .content-grid__body {
-        max-inline-size: calc(var(--home-title) * 13.4);
-    }
-
-    .content-grid__text--display.content-grid__text--box-filled .content-grid__body {
-        font-size: calc(var(--home-title) * 0.7);
     }
 }

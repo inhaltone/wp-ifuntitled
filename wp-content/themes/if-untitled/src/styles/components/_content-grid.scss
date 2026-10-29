@@ -1,7 +1,13 @@
+@use 'sass:map';
 @use 'abstracts' as *;
 
 // Rows on the 5-column grid; image + text of a row share one grid row and the text block stretches to its height.
 .content-grid {
+    // One scale (tuned on Home): the title (display-l, 48 px at 1920) drives every other size and measure, so they
+    // stay in proportion at any width. Ratios to the title: filled statement 0.7 · statement 0.6 · large text 0.5 ·
+    // small 0.42.
+    --content-grid-title: #{map.get($type-scale, display-l, size)};
+
     display: grid;
     gap: var(--grid-gutter);
 
@@ -38,7 +44,7 @@
     &__text {
         display: flex;
         flex-direction: column;
-        gap: 0.6em;
+        gap: 0.8em;
         padding: 8px var(--text-inset);
 
         &--box-outlined,
@@ -94,6 +100,7 @@
 
     &__body {
         @include text-style(text-m);
+        font-size: max(1rem, calc(var(--content-grid-title) * 0.42));
 
         > :first-child {
             margin-block-start: 0;
@@ -105,17 +112,23 @@
 
         .content-grid__text--large & {
             @include text-style(text-l);
-
-            // Home XD: 30 px at 1920, larger than the shared text-l.
-            font-size: clamp(1.25rem, 1.56vw, 1.875rem);
+            max-inline-size: calc(var(--content-grid-title) * 10);
+            font-size: max(1rem, calc(var(--content-grid-title) * 0.5));
+            line-height: 1.3;
         }
 
         .content-grid__text--display & {
             @include text-style(display-m);
+            font-size: calc(var(--content-grid-title) * 0.6);
+            line-height: 1.2;
+        }
 
-            // Home XD statements: 38 px at 1920, tight leading.
-            font-size: clamp(1.5rem, 2vw, 2.375rem);
-            line-height: 1.15;
+        .content-grid__text--display:not(.content-grid__text--x-center) & {
+            max-inline-size: calc(var(--content-grid-title) * 13.4);
+        }
+
+        .content-grid__text--display.content-grid__text--box-filled & {
+            font-size: calc(var(--content-grid-title) * 0.7);
         }
     }
 

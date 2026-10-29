@@ -32,6 +32,9 @@ $grid-gutter: 10px !default;
 $text-inset: 12px !default;
 
 // Type scale: size at 1920 px, fluid below (clamp), never above. Display = GT Flexa Expanded Bold, base = GT America.
+// The only sizes in the theme: Flexa 96 · 48 · 32 · 22, GT America 22 · 18 · 15 · 12 (at 1920). Components pick a step
+// with text-style() and may change the weight, never the size or line height (exceptions: Home content grid, hover
+// title).
 $type-scale: (
     display-xl: (
         family: var(--font-display),
@@ -43,7 +46,7 @@ $type-scale: (
         family: var(--font-display),
         weight: var(--font-bold),
         size: clamp(2rem, 2.5vw, 3rem),
-        line: 1.05,
+        line: 1.2,
     ),
     display-m: (
         family: var(--font-display),
@@ -54,7 +57,7 @@ $type-scale: (
     display-s: (
         family: var(--font-display),
         weight: var(--font-bold),
-        size: clamp(1.0625rem, 1.05vw, 1.25rem),
+        size: clamp(1.0625rem, 1.15vw, 1.375rem),
         line: 1.15,
     ),
     text-l: (
@@ -74,6 +77,12 @@ $type-scale: (
         weight: var(--font-medium),
         size: clamp(0.875rem, 0.78vw, 0.9375rem),
         line: 1.3,
+    ),
+    text-xs: (
+        family: var(--font-base),
+        weight: var(--font-medium),
+        size: 0.75rem,
+        line: 1.25,
     ),
 ) !default;
 

@@ -47,3 +47,7 @@ p:last-child {
 .text-s {
     @include text-style(text-s);
 }
+
+.text-xs {
+    @include text-style(text-xs);
+}
