@@ -1,6 +1,6 @@
 <?php
 /**
- * Studio services: outlined boxes, two per row, each anchored for the header submenu + footer
+ * Studio services: outlined boxes, one page column each (four per row), each anchored for the header submenu + footer
  * (title display M, subtitle, description, optional image).
  * $args: ['services' => if_untitled_studio_services()]
  *
@@ -16,7 +16,7 @@ if (!$services) {
     <?php foreach ($services as $service) : ?>
         <li class="services__item" id="<?php echo esc_attr($service['anchor']); ?>">
             <?php if ($service['image']) : ?>
-                <?php if_untitled_component('image', ['id' => $service['image'], 'context' => 'span-2', 'ratio' => '3x2']); ?>
+                <?php if_untitled_component('image', ['id' => $service['image'], 'context' => 'span-1', 'ratio' => '3x2']); ?>
             <?php endif; ?>
             <h3 class="services__title"><?php echo esc_html($service['title']); ?></h3>
             <?php if ($service['subtitle'] !== '') : ?>

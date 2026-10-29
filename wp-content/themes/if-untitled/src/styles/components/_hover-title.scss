@@ -1,0 +1,22 @@
+@use 'abstracts' as *;
+
+// Home: the title of the hovered (linked) image, fixed top-left just below the nav bar. Plain black, no blend,
+// no transition. Never clickable; JS toggles .is-visible on hover devices only.
+.hover-title {
+    @include text-style(display-l);
+    font-size: clamp(1.75rem, 2.1vw, 2.5rem); // a step between display-m and display-l: 40 px at 1920
+    position: fixed;
+    top: calc(var(--nav-height) + #{$text-inset});
+    left: $text-inset;
+    z-index: 90;
+    max-inline-size: calc(100vw - 2 * #{$text-inset});
+    margin: 0;
+    color: $c_black;
+    text-wrap: balance;
+    pointer-events: none;
+    visibility: hidden;
+
+    &.is-visible {
+        visibility: visible;
+    }
+}

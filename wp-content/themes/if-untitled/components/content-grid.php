@@ -1,12 +1,14 @@
 <?php
 /**
  * Content grid (Project, Journal entry, Home): rows of image and/or text blocks on the 5-column grid.
- * $args: ['rows' => if_untitled_content_grid()]. Blocks are output in column order so they stack in reading order.
+ * $args: ['rows' => if_untitled_content_grid(), 'hover_titles' => bool (Home: linked images expose their link title
+ *         to components/hover-title.php)]. Blocks are output in column order so they stack in reading order.
  *
  * @package if-untitled
  */
 
-$rows = $args['rows'] ?? [];
+$rows         = $args['rows'] ?? [];
+$hover_titles = !empty($args['hover_titles']);
 if (!$rows) {
     return;
 }
@@ -22,7 +24,7 @@ if (!$rows) {
                 $place = sprintf('--col-start: %d; --col-span: %d', $block['start'], $block['span']);
                 ?>
                 <?php if ($kind === 'image') : ?>
-                    <div class="content-grid__media grid__item" style="<?php echo esc_attr($place); ?>">
+                    <div class="content-grid__media grid__item" style="<?php echo esc_attr($place); ?>"<?php if ($hover_titles && $block['title'] !== '') : ?> data-hover-title-text="<?php echo esc_attr($block['title']); ?>"<?php endif; ?>>
                         <?php
                         // The heading carries the link text when there is one; the media link is then a duplicate.
                         if_untitled_component('media', [

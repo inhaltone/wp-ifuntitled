@@ -1,8 +1,8 @@
 @use 'abstracts' as *;
 
-// Label in col 1 (vertically centred on the content), content in cols 2–5.
+// Label in col 1 (top-aligned with the content), content in cols 2–5.
 .section-head {
-    align-items: center;
+    align-items: start;
     padding-block: clamp(80px, 10vw, 200px) 0;
 
     &__title {

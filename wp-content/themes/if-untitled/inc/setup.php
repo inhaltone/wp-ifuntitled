@@ -40,9 +40,23 @@ add_action('wp_head', function (): void {
     wp_print_inline_script_tag("document.documentElement.classList.add('js');");
 }, 0);
 
-// Dark theme (black background, white text) on the Journal archive and Contact (designs).
+/*
+ * Critical loader CSS, inline so the overlay covers the page from the first paint — in dev Vite injects the stylesheet
+ * from JS, so the page would otherwise flash unstyled. Black on dark pages. The failsafe hides it after 3 s if the JS
+ * never runs. The rest (states, fade, spinner) is in src/styles/components/_loader.scss.
+ */
+add_action('wp_head', function (): void {
+    echo '<style id="if-untitled-loader-critical">'
+        . 'html.js .loader{position:fixed;inset:0;z-index:2000;background:#fff}'
+        . 'html.js .is-dark .loader{background:#000}'
+        . '.loader:not(.is-entered,.is-leaving){animation:if-untitled-loader-failsafe 0s 3s forwards}'
+        . '@keyframes if-untitled-loader-failsafe{to{opacity:0;visibility:hidden;pointer-events:none}}'
+        . "</style>\n";
+}, 1);
+
+// Dark theme (black background, white text) on the Journal archive, Journal entries and Contact (designs).
 add_filter('body_class', function (array $classes): array {
-    if (is_home() || is_category() || is_tag() || is_page_template('page-templates/contact.php')) {
+    if (is_home() || is_category() || is_tag() || is_singular('post') || is_page_template('page-templates/contact.php')) {
         $classes[] = 'is-dark';
     }
     return $classes;
@@ -98,33 +112,43 @@ add_filter('nav_menu_link_attributes', function (array $atts, WP_Post $item, std
 add_filter('nav_menu_submenu_css_class', fn(array $classes, stdClass $args): array => empty($args->if_untitled_block) ? $classes : ["{$args->if_untitled_block}__submenu"], 10, 2);
 
 /*
- * Work (the project archive menu item) gets its submenu from code: the project categories in the Work filter order
- * (if_untitled_archive_filter(), non-empty only), so new categories appear without editing the menu.
+ * Work (the project archive menu item) and Journal (the posts page) get their submenus from code: the project
+ * categories / entry types in their archive filter order (if_untitled_archive_filter(), non-empty only), so new terms
+ * appear without editing the menu.
  */
 add_filter('wp_nav_menu_objects', function (array $items, stdClass $args): array {
     if (empty($args->if_untitled_block) || (int) ($args->depth ?? 0) === 1) {
         return $items;
     }
-    $out = [];
+    $out  = [];
+    $next = -1; // generated items need unique (negative) IDs
     foreach ($items as $item) {
         $out[] = $item;
-        if ($item->type !== 'post_type_archive' || $item->object !== 'project' || (int) $item->menu_item_parent) {
+        if ((int) $item->menu_item_parent) {
             continue;
         }
-        $terms = if_untitled_archive_filter('project_category', '', '');
-        array_shift($terms); // "All" = Work itself
+        $taxonomy = match (true) {
+            $item->type === 'post_type_archive' && $item->object === 'project' => 'project_category',
+            $item->type === 'post_type' && (int) $item->object_id === (int) get_option('page_for_posts') => 'category',
+            default => '',
+        };
+        if (!$taxonomy) {
+            continue;
+        }
+        $terms = if_untitled_archive_filter($taxonomy, '', '');
+        array_shift($terms); // "All" = the archive itself
         if (!$terms) {
             continue;
         }
         $item->classes[] = 'menu-item-has-children';
-        foreach ($terms as $i => $term) {
+        foreach ($terms as $term) {
             $out[] = new WP_Post((object) [
-                'ID'               => -1 - $i,
-                'db_id'            => -1 - $i,
+                'ID'               => $next,
+                'db_id'            => $next--,
                 'menu_item_parent' => (string) $item->db_id,
                 'post_type'        => 'nav_menu_item',
                 'type'             => 'taxonomy',
-                'object'           => 'project_category',
+                'object'           => $taxonomy,
                 'title'            => $term['label'],
                 'url'              => $term['url'],
                 'classes'          => $term['is_active'] ? ['current-menu-item'] : [],

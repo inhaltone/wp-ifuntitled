@@ -31,8 +31,9 @@ get_header();
             </div>
         <?php endif; ?>
 
-        <?php if_untitled_component('content-grid', ['rows' => if_untitled_content_grid()]); ?>
+        <?php if_untitled_component('content-grid', ['rows' => if_untitled_content_grid(), 'hover_titles' => true]); ?>
     <?php endwhile; ?>
+    <?php if_untitled_component('hover-title'); ?>
 </main>
 <?php
 get_footer();

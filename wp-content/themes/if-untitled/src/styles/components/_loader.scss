@@ -1,6 +1,7 @@
 @use 'abstracts' as *;
 
-// Page-transition overlay. States toggled by RouterTransition.js.
+// Page-transition overlay in the page colours (black on dark pages). States toggled by RouterTransition.js.
+// Position, first-paint colour and the failsafe (JS never runs) are inline critical CSS (inc/setup.php).
 .loader {
     position: fixed;
     inset: 0;
@@ -8,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $c_white;
+    background-color: var(--c-bg);
     @include transition(opacity 0.5s $ease-out, visibility 0.5s $ease-out);
 
     &.is-entered {
@@ -25,7 +26,7 @@
     &__spinner {
         width: 2rem;
         height: 2rem;
-        border: 0.25em solid $c_black;
+        border: 0.25em solid var(--c-fg);
         border-right-color: transparent;
         border-radius: 50%;
         animation: loader-spin 0.75s linear infinite;
@@ -35,19 +36,6 @@
 // Without JS the overlay must never block the page.
 html:not(.js) .loader {
     display: none;
-}
-
-// Failsafe: if the JS bundle fails to load, hide the overlay after 3s anyway.
-.loader:not(.is-entered, .is-leaving) {
-    animation: loader-failsafe 0s 3s forwards;
-}
-
-@keyframes loader-failsafe {
-    to {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-    }
 }
 
 @keyframes loader-spin {

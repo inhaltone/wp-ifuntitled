@@ -26,7 +26,7 @@
     --nav-height: 30px;
 }
 
-// Dark theme (Journal archive, Contact): body class set in inc/setup.php.
+// Dark theme (Journal archive + entries, Contact): body class set in inc/setup.php.
 .is-dark {
     --c-bg: var(--c-black);
     --c-fg: var(--c-white);

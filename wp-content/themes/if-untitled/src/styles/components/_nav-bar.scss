@@ -92,6 +92,11 @@
         @include text-style(text-s);
         display: inline-block;
 
+        // Top level: GT America Bold at the same size; submenu items stay GT America Medium.
+        .primary-nav__list > .primary-nav__item > & {
+            font-weight: var(--font-bold);
+        }
+
         .js .primary-nav__list > .primary-nav__item > & {
             @include text-style(display-s);
         }
@@ -101,10 +106,8 @@
             text-underline-offset: 0.2em;
         }
 
-        // Current section: same as the active archive filter link — bold with an arrow before the text.
+        // Current section: an arrow before the text (submenu items stay Medium; the top level is already bold).
         .is-current > & {
-            font-weight: var(--font-bold);
-
             &::before {
                 content: '→';
             }
@@ -160,6 +163,7 @@
 
         .js &__list > &__item > &__link {
             @include text-style(text-s);
+            font-weight: var(--font-bold);
         }
 
         &__submenu,

@@ -1,7 +1,7 @@
 <?php
 /**
- * Journal entry: hero (title, excerpt, entry type + date, tags in col 1 · lead image cols 2–5), content grid,
- * then any classic post content.
+ * Journal entry: hero (title, excerpt, entry type + date, tags in col 1 · lead image cols 2–5), the post text,
+ * then the content grid (images).
  *
  * @package if-untitled
  */
@@ -41,8 +41,6 @@ get_header();
             <?php endif; ?>
         </section>
 
-        <?php if_untitled_component('content-grid', ['rows' => if_untitled_content_grid()]); ?>
-
         <?php if (trim(get_the_content()) !== '') : ?>
             <div class="journal-entry__text-row grid">
                 <div class="journal-entry__text grid__item" style="--col-start: 2; --col-span: 3">
@@ -50,6 +48,8 @@ get_header();
                 </div>
             </div>
         <?php endif; ?>
+
+        <?php if_untitled_component('content-grid', ['rows' => if_untitled_content_grid()]); ?>
     <?php endwhile; ?>
 </main>
 <?php

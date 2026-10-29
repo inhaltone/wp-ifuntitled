@@ -268,7 +268,8 @@ function if_untitled_adjacent_project(string $direction = 'next', ?int $post_id 
 
 /**
  * Content grid rows, ready to render: invalid ranges and empty blocks are dropped.
- * Each block gets its grid placement (`start`, `span`) and image `context` (render-responsive-image).
+ * Each block gets its grid placement (`start`, `span`), images their `context` (render-responsive-image) and `title`
+ * (the linked item's title, '' without a link).
  *
  * @return array<int, array{layout: string, link: ?array, image: ?array, text: ?array}>
  */
@@ -305,9 +306,14 @@ function if_untitled_content_grid(?int $post_id = null): array
             }
         }
         if ($image || $text) {
+            $link = if_untitled_resolve_item($row['link'] ?? 0);
+            if ($image) {
+                // Hover title (Home): only linked images, with the linked item's title.
+                $image['title'] = $link['title'] ?? '';
+            }
             $grid[] = [
                 'layout' => $layout,
-                'link'   => if_untitled_resolve_item($row['link'] ?? 0),
+                'link'   => $link,
                 'image'  => $image,
                 'text'   => $text,
             ];

@@ -10,6 +10,9 @@ main#journal-entry {
         @include media-breakpoint-up(md) {
             block-size: calc(100svh - var(--nav-height));
 
+            // Keep the row at the hero height so the cover crops instead of growing past it (over the text below).
+            grid-template-rows: minmax(0, 1fr);
+
             > * {
                 grid-row: 1;
             }
@@ -67,6 +70,11 @@ main#journal-entry {
                 object-fit: cover;
             }
         }
+    }
+
+    // Text first, then the content grid's images: air above and below the text.
+    .journal-entry__text-row {
+        padding-block: 40px;
     }
 
     .journal-entry__text {

@@ -1,6 +1,6 @@
 @use 'abstracts' as *;
 
-// Outlined boxes on the section's 4 columns: two per row (cols 2–3 / 4–5 of the page grid).
+// Outlined boxes on the section's 4 columns: one page column each, from col 2 (Studio's two: cols 2 and 3).
 .services {
     display: grid;
     gap: var(--grid-gutter);
@@ -9,7 +9,7 @@
     list-style: none;
 
     @include media-breakpoint-up(md) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     &__item {

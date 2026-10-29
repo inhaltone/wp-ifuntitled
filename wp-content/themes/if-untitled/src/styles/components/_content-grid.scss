@@ -80,6 +80,11 @@
         &--y-bottom {
             justify-content: flex-end;
         }
+
+        // A lone title is always centred on the row height, whatever its vertical alignment.
+        &:has(> .content-grid__heading:only-child) {
+            justify-content: center;
+        }
     }
 
     &__heading {
