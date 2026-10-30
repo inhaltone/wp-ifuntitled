@@ -2,20 +2,4 @@
 
 main#advisory {
     padding-block-end: clamp(80px, 10vw, 200px);
-
-    // Images at least 75vh tall (cropped to fill), so the sticky project block has room to travel.
-    .feature-row__media {
-        @include media-breakpoint-up(md) {
-            .feature-row__link,
-            .image {
-                block-size: 100%;
-            }
-
-            .image__img {
-                block-size: 100%;
-                min-block-size: 75vh;
-                object-fit: cover;
-            }
-        }
-    }
 }

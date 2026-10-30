@@ -10,7 +10,7 @@
 
     // Below md (JS only): "Menu" top right; the list becomes a full-screen panel. Without JS the list stays a row.
     &__toggle {
-        @include text-style(text-s);
+        @include text-style(text-m);
         position: absolute;
         inset: 0 0 auto auto;
         z-index: 1;
@@ -89,7 +89,7 @@
     }
 
     &__link {
-        @include text-style(text-s);
+        @include text-style(text-m);
         display: inline-block;
 
         // Top level: GT America Bold at the same size; submenu items stay GT America Medium.
@@ -162,7 +162,7 @@
         }
 
         .js &__list > &__item > &__link {
-            @include text-style(text-s);
+            @include text-style(text-m);
             font-weight: var(--font-bold);
         }
 

@@ -1,7 +1,8 @@
 <?php
 /**
- * Clients (Theme Options `clients`) as a typographic list: names in a vertical list in the first column of the
- * section content (Studio / Advisory col 2), each linking to the client's site in a new tab when it has one.
+ * Clients (Theme Options `clients`) as a horizontal row of logos across the section content (Studio / Advisory),
+ * each linking to the client's site in a new tab when it has one. A client without a logo shows its name instead.
+ * --logo-ratio (width / height) lets the CSS give every logo a similar visual weight.
  *
  * @package if-untitled
  */
@@ -13,11 +14,17 @@ if (!$clients) {
 ?>
 <ul class="clients">
     <?php foreach ($clients as $client) : ?>
-        <li class="clients__item">
+        <li class="clients__item"<?php echo $client['logo'] ? ' style="--logo-ratio: ' . esc_attr(round($client['logo_ratio'], 3)) . '"' : ''; ?>>
             <?php if ($client['url']) : ?>
-                <a class="clients__link" href="<?php echo esc_url($client['url']); ?>" target="_blank" rel="noopener"><?php echo esc_html($client['name']); ?></a>
+                <a class="clients__link" href="<?php echo esc_url($client['url']); ?>" target="_blank" rel="noopener">
+            <?php endif; ?>
+            <?php if ($client['logo']) : ?>
+                <?php echo if_untitled_image($client['logo'], 'logo', ['alt' => $client['name'], 'class' => 'clients__logo']); // Core markup, already escaped. ?>
             <?php else : ?>
-                <?php echo esc_html($client['name']); ?>
+                <span class="clients__name"><?php echo esc_html($client['name']); ?></span>
+            <?php endif; ?>
+            <?php if ($client['url']) : ?>
+                </a>
             <?php endif; ?>
         </li>
     <?php endforeach; ?>

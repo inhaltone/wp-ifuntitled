@@ -402,7 +402,7 @@ function if_untitled_team_member(int $id): ?array
 /**
  * The Theme Options client list in its order (published clients only).
  *
- * @return array<int, array{name: string, url: string, logo: int}>
+ * @return array<int, array{name: string, url: string, logo: int, logo_ratio: float}>
  */
 function if_untitled_clients(): array
 {
@@ -410,10 +410,13 @@ function if_untitled_clients(): array
     $out = [];
     foreach ($ids as $id) {
         if (get_post_status((int) $id) === 'publish') {
+            $logo  = (int) get_post_thumbnail_id((int) $id);
+            $meta  = $logo ? wp_get_attachment_metadata($logo) : [];
             $out[] = [
-                'name' => get_the_title((int) $id),
-                'url'  => (string) get_field('client_url', (int) $id),
-                'logo' => (int) get_post_thumbnail_id((int) $id),
+                'name'       => get_the_title((int) $id),
+                'url'        => (string) get_field('client_url', (int) $id),
+                'logo'       => $logo,
+                'logo_ratio' => !empty($meta['width']) && !empty($meta['height']) ? $meta['width'] / $meta['height'] : 1.0,
             ];
         }
     }
@@ -514,7 +517,7 @@ function if_untitled_studio_services(): array
 }
 
 /**
- * Studio feature rows: the item's image + URL, the row title (falls back to the item title) and description.
+ * Studio featured items: the item's image + URL, the row title (falls back to the item title) and description.
  * Rows whose item is missing / unpublished keep their text, without image.
  *
  * @return array<int, array{title: string, description: string, image: int, url: string}>
@@ -538,10 +541,10 @@ function if_untitled_studio_features(?int $post_id = null): array
 }
 
 /**
- * Advisory service areas: title (anchored for the header submenu), subtitle, description, the showcase project
- * (image = its featured image) and the image columns (image_size: large = 3–5, small = 4–5).
+ * Advisory service areas (rendered by the services component, anchored for the header submenu): title, subtitle,
+ * description and the showcase project (see if_untitled_advisory_featured()).
  *
- * @return array<int, array{title: string, subtitle: string, description: string, anchor: string, project: ?array, columns: string}>
+ * @return array<int, array{title: string, subtitle: string, description: string, image: int, anchor: string, project: ?array}>
  */
 function if_untitled_advisory_features(?int $post_id = null): array
 {
@@ -552,10 +555,26 @@ function if_untitled_advisory_features(?int $post_id = null): array
         'title'       => (string) $row['title'],
         'subtitle'    => (string) ($row['subtitle'] ?? ''),
         'description' => (string) ($row['description'] ?? ''),
+        'image'       => 0,
         'anchor'      => $anchor,
         'project'     => if_untitled_resolve_item($row['item'] ?? 0),
-        'columns'     => ($row['image_size'] ?? '') === 'large' ? '3-5' : '4-5',
     ], $rows, $anchors);
+}
+
+/**
+ * Advisory featured items: the showcase project of each service area (title, excerpt, featured image, URL).
+ *
+ * @return array<int, array{title: string, description: string, image: int, url: string}>
+ */
+function if_untitled_advisory_featured(?int $post_id = null): array
+{
+    $projects = array_filter(array_column(if_untitled_advisory_features($post_id), 'project'));
+    return array_values(array_map(fn(array $project): array => [
+        'title'       => $project['title'],
+        'description' => has_excerpt($project['id']) ? get_the_excerpt($project['id']) : '',
+        'image'       => $project['image'],
+        'url'         => $project['url'],
+    ], $projects));
 }
 
 /**

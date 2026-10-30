@@ -104,36 +104,35 @@
                     "allow_null": 0,
                     "ui": 1,
                     "parent_repeater": "field_cd4c4202c11b0"
-                },
-                {
-                    "key": "field_66483d0c9e708",
-                    "label": "Image size",
-                    "name": "image_size",
-                    "aria-label": "",
-                    "type": "select",
-                    "instructions": "Large: columns 3–5. Small: columns 4–5.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "large": "Large",
-                        "small": "Small"
-                    },
-                    "default_value": "small",
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "allow_in_bindings": 0,
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": "",
-                    "parent_repeater": "field_cd4c4202c11b0"
                 }
             ]
+        },
+        {
+            "key": "field_1e0b4b23fe3d8",
+            "label": "Team",
+            "name": "advisory_team",
+            "type": "relationship",
+            "instructions": "Pick and order the team members.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "team_member"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search"
+            ],
+            "elements": [
+                "featured_image"
+            ],
+            "return_format": "id",
+            "min": 0,
+            "max": 0
         }
     ],
     "location": [
@@ -141,7 +140,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "page-templates\/advisory.php"
+                "value": "page-templates/advisory.php"
             }
         ]
     ],
@@ -154,5 +153,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1793193594
+    "modified": 1793343887
 }

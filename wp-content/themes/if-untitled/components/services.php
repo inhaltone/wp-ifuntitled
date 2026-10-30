@@ -1,8 +1,8 @@
 <?php
 /**
- * Studio services: outlined boxes, one page column each (four per row), each anchored for the header submenu + footer
- * (title display M, subtitle, description, optional image).
- * $args: ['services' => if_untitled_studio_services()]
+ * Services (Studio services, Advisory service areas): outlined boxes, one page column each (four per row), each
+ * anchored for the header submenu (+ footer on Studio) (title display M, subtitle, description, optional image).
+ * $args: ['services' => if_untitled_studio_services() | if_untitled_advisory_features()]
  *
  * @package if-untitled
  */

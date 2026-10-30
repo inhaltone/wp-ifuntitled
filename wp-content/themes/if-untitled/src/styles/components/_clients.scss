@@ -1,21 +1,42 @@
 @use 'abstracts' as *;
 
-// Vertical list of names, GT America bold (text-s), one page column wide (the section content starts at col 2).
+// Horizontal row of logos across the section content, wrapping; a client without a logo shows its name
+// (GT America bold, text-m) in the logo's place.
 .clients {
-    @include text-style(text-s);
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(24px, 2.5vw, 48px) clamp(32px, 3.5vw, 72px);
+    align-items: center;
     margin: 0;
     padding: 0;
-    font-weight: var(--font-bold);
     list-style: none;
 
-    @include media-breakpoint-up(md) {
-        inline-size: calc((100% - 3 * var(--grid-gutter)) / 4);
+    &__link {
+        display: block;
+
+        @include hover {
+            opacity: 0.6;
+        }
     }
 
-    &__link {
-        @include hover {
-            text-decoration: underline;
-            text-underline-offset: 0.2em;
-        }
+    // Optical balance: every logo covers about the same area (height = size / √ratio), so wide word marks aren't
+    // tiny and square marks aren't huge; tall marks are capped.
+    &__logo {
+        --logo-size: clamp(48px, 3.75vw, 72px);
+
+        display: block;
+        inline-size: auto;
+        block-size: clamp(
+            calc(var(--logo-size) * 0.3),
+            calc(var(--logo-size) / sqrt(var(--logo-ratio, 1))),
+            calc(var(--logo-size) * 0.9)
+        );
+    }
+
+    &__name {
+        @include text-style(text-m);
+        display: block;
+        font-weight: var(--font-bold);
+        white-space: nowrap;
     }
 }

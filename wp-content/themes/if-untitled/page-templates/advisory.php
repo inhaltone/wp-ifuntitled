@@ -3,7 +3,8 @@
  * Template Name: Advisory
  * Template Post Type: page
  *
- * Advisory: intro (page title + content), service areas with their showcase project (anchored), clients.
+ * Advisory (same structure as Studio): intro (page title + content), service areas (anchored), team, clients,
+ * the service areas' showcase projects side by side.
  *
  * @package if-untitled
  */
@@ -18,30 +19,38 @@ get_header();
             'text'    => apply_filters('the_content', get_the_content()),
             'columns' => '2-3',
         ]);
-        ?>
 
-        <?php foreach (if_untitled_advisory_features() as $feature) : ?>
-            <?php
-            if_untitled_component('feature-row', [
-                'title'       => $feature['title'],
-                'subtitle'    => $feature['subtitle'],
-                'description' => $feature['description'],
-                'id'          => $feature['anchor'],
-                'project'     => $feature['project'],
-                'image'       => $feature['project']['image'] ?? 0,
-                'columns'     => $feature['columns'],
+        $services = if_untitled_advisory_features();
+        if ($services) {
+            if_untitled_component('section-head', [
+                'title'   => __('Services', 'if-untitled'),
+                'content' => ['name' => 'services', 'args' => ['services' => $services]],
             ]);
-            ?>
-        <?php endforeach; ?>
+        }
 
-        <?php if (if_untitled_clients()) : ?>
-            <?php
+        $team = function_exists('get_field') ? (get_field('advisory_team') ?: []) : [];
+        if ($team) {
+            if_untitled_component('section-head', [
+                'title'   => __('Team', 'if-untitled'),
+                'content' => ['name' => 'team', 'args' => ['ids' => $team]],
+            ]);
+        }
+
+        if (if_untitled_clients()) {
             if_untitled_component('section-head', [
                 'title'   => __('Clients', 'if-untitled'),
                 'content' => ['name' => 'clients'],
             ]);
-            ?>
-        <?php endif; ?>
+        }
+
+        $featured = if_untitled_advisory_featured();
+        if ($featured) {
+            if_untitled_component('section-head', [
+                'title'   => __('Featured', 'if-untitled'),
+                'content' => ['name' => 'featured', 'args' => ['items' => $featured]],
+            ]);
+        }
+        ?>
     <?php endwhile; ?>
 </main>
 <?php
