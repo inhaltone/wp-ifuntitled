@@ -5,10 +5,10 @@
 # =============================================================================
 
 # --- Environment / secrets ---------------------------------------------------
-wp-config.php
-.htaccess
-.user.ini
-php.ini
+/wp-config.php
+/.htaccess
+/.user.ini
+/php.ini
 .env
 .env.*
 !.env.example
@@ -18,6 +18,13 @@ wp-content/uploads/
 wp-content/upgrade/
 wp-content/upgrade-temp-backup/
 wp-content/backup*/
+wp-content/backups-dup-*/
+wp-content/duplicator-backups/
+/dup-installer/
+/installer.php
+/installer-backup.php
+*_archive.zip
+*_archive.daf
 wp-content/cache/
 wp-content/wflogs/
 wp-content/ai1wm-backups/
@@ -33,14 +40,16 @@ sitemap*.xml.gz
 *.sql.gz
 
 # --- Theme build (Vite) ------------------------------------------------------
+# Scoped to themes: core and plugins ship their own dist/ and vendor/ folders.
 node_modules/
-dist/
-dist-ssr/
+wp-content/themes/*/dist/
+wp-content/themes/*/dist-ssr/
 # Created by `npm run dev` — signals dev mode to inc/vite.php
 wp-content/themes/*/hot
 .vite/
 *.local
-vendor/
+/vendor/
+wp-content/themes/*/vendor/
 
 # --- Design exports (large PNGs, shared outside git) -------------------------
 .github/plans/*/designs/
