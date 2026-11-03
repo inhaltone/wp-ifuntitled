@@ -5,21 +5,6 @@ main#front-page {
     gap: var(--grid-gutter);
     padding-block-end: 120px;
 
-    // Full-bleed first viewport; the fixed site logo sits over the image bottom-left.
-    .front-page__hero {
-        block-size: calc(100svh - var(--nav-height));
-        background-color: $c_black;
-
-        .image,
-        .image__img {
-            block-size: 100%;
-        }
-
-        .image__img {
-            object-fit: cover;
-        }
-    }
-
     .front-page__description {
         @include text-style(text-m);
         padding-inline: var(--text-inset);

@@ -3,116 +3,11 @@
     "title": "Advisory",
     "fields": [
         {
-            "key": "field_cd4c4202c11b0",
-            "label": "Service areas",
-            "name": "advisory_features",
-            "type": "repeater",
-            "instructions": "",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "button_label": "Add service area",
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_5ad8f1e415b27",
-                    "label": "Title",
-                    "name": "title",
-                    "type": "text",
-                    "instructions": "Also the anchor used by the menu — renaming it changes the link.",
-                    "required": 1,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "placeholder": "Social & Affordable Housing",
-                    "default_value": "",
-                    "maxlength": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_cd4c4202c11b0"
-                },
-                {
-                    "key": "field_d6ab4f718c34b",
-                    "label": "Subtitle",
-                    "name": "subtitle",
-                    "type": "text",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "placeholder": "policy diagnostics, housing strategy…",
-                    "default_value": "",
-                    "maxlength": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_cd4c4202c11b0"
-                },
-                {
-                    "key": "field_d309470009868",
-                    "label": "Description",
-                    "name": "description",
-                    "type": "textarea",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "rows": 4,
-                    "new_lines": "wpautop",
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "parent_repeater": "field_cd4c4202c11b0"
-                },
-                {
-                    "key": "field_163541f88e53b",
-                    "label": "Showcase project",
-                    "name": "item",
-                    "type": "post_object",
-                    "instructions": "A project in the Advisory Projects category.",
-                    "required": 1,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "post_type": [
-                        "project"
-                    ],
-                    "taxonomy": [],
-                    "return_format": "id",
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "ui": 1,
-                    "parent_repeater": "field_cd4c4202c11b0"
-                }
-            ]
-        },
-        {
-            "key": "field_1e0b4b23fe3d8",
-            "label": "Team",
-            "name": "advisory_team",
+            "key": "field_27aca198e70e0",
+            "label": "Featured",
+            "name": "advisory_featured",
             "type": "relationship",
-            "instructions": "Pick and order the team members.",
+            "instructions": "Pick and order projects in the Advisory Projects category — title, excerpt and featured image are shown.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -121,7 +16,7 @@
                 "id": ""
             },
             "post_type": [
-                "team_member"
+                "project"
             ],
             "taxonomy": [],
             "filters": [
@@ -133,6 +28,25 @@
             "return_format": "id",
             "min": 0,
             "max": 0
+        },
+        {
+            "key": "field_2205a1d679e60",
+            "label": "Hide Featured",
+            "name": "advisory_hide_featured",
+            "type": "true_false",
+            "instructions": "Hide the Featured section on the page.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Hide the Featured section",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -153,5 +67,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1793343887
+    "modified": 1793717803
 }

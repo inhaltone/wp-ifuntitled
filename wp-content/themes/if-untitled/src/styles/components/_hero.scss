@@ -1,0 +1,16 @@
+@use 'abstracts' as *;
+
+// Full-bleed first viewport (Home, Studio, Advisory); from md the fixed site logo sits over the image bottom-left.
+.hero {
+    block-size: calc(100svh - var(--nav-height));
+    background-color: $c_black;
+
+    .image,
+    .image__img {
+        block-size: 100%;
+    }
+
+    .image__img {
+        object-fit: cover;
+    }
+}

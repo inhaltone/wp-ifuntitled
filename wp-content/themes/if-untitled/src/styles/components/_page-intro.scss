@@ -47,4 +47,17 @@
             margin-block-end: 0;
         }
     }
+
+    // Studio / Advisory: regular text, bold only where set in the editor, at the Theme Options weight.
+    &--rich &__text {
+        font-weight: var(--font-medium);
+
+        :is(strong, b) {
+            font-weight: var(--page-intro-strong, var(--font-bold));
+        }
+    }
+
+    &--strong-medium {
+        --page-intro-strong: var(--font-medium);
+    }
 }

@@ -1,9 +1,13 @@
 @use 'abstracts' as *;
 
 .site-footer {
-    padding: 120px 0 20px;
+    padding: 72px 0 20px;
     color: var(--c-fg);
     background-color: var(--c-bg);
+
+    @include media-breakpoint-up(md) {
+        padding-block-start: 120px;
+    }
 
     &__columns {
         row-gap: 40px;
@@ -49,7 +53,11 @@
 
     &__copy {
         @include text-style(text-s);
-        margin: 120px 0 0;
+        margin: 72px 0 0;
         text-align: center;
+
+        @include media-breakpoint-up(md) {
+            margin-block-start: 120px;
+        }
     }
 }

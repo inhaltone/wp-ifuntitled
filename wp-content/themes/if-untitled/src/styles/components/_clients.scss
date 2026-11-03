@@ -8,8 +8,12 @@
     gap: clamp(24px, 2.5vw, 48px) clamp(32px, 3.5vw, 72px);
     align-items: center;
     margin: 0;
-    padding: 0;
+    padding: 0 var(--text-inset);
     list-style: none;
+
+    @include media-breakpoint-up(md) {
+        padding: 0;
+    }
 
     &__link {
         display: block;

@@ -10,18 +10,12 @@ get_header();
 ?>
 <main id="front-page" class="front-page">
     <?php while (have_posts()) : the_post(); ?>
-        <section class="front-page__hero">
-            <h1 class="screen-reader-text"><?php bloginfo('name'); ?></h1>
-            <?php if (has_post_thumbnail()) : ?>
-                <?php
-                if_untitled_component('image', [
-                    'id'       => get_post_thumbnail_id(),
-                    'context'  => 'full',
-                    'priority' => true,
-                ]);
-                ?>
-            <?php endif; ?>
-        </section>
+        <?php
+        if_untitled_component('hero', [
+            'id'    => has_post_thumbnail() ? get_post_thumbnail_id() : 0,
+            'title' => get_bloginfo('name'),
+        ]);
+        ?>
 
         <?php if (trim(get_the_content()) !== '') : ?>
             <div class="front-page__intro grid">

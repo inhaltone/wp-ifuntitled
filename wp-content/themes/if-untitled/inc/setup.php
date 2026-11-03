@@ -111,52 +111,92 @@ add_filter('nav_menu_link_attributes', function (array $atts, WP_Post $item, std
 
 add_filter('nav_menu_submenu_css_class', fn(array $classes, stdClass $args): array => empty($args->if_untitled_block) ? $classes : ["{$args->if_untitled_block}__submenu"], 10, 2);
 
-/*
- * Work (the project archive menu item) and Journal (the posts page) get their submenus from code: the project
- * categories / entry types in their archive filter order (if_untitled_archive_filter(), non-empty only), so new terms
- * appear without editing the menu.
+/**
+ * Generated submenu of a top-level menu item: Work (the project archive) and Journal (the posts page) list their
+ * categories / entry types in archive filter order (if_untitled_archive_filter(), non-empty only); Studio and Advisory
+ * (pages by template) list their services (the content grid headings, if_untitled_services_grid()). Null = keep the
+ * menu's own children.
+ *
+ * @return array<int, array{title: string, url: string, type: string, object: string, current: bool}>|null
  */
+function if_untitled_menu_children(WP_Post $item): ?array
+{
+    $template = $item->type === 'post_type' && $item->object === 'page' ? get_page_template_slug((int) $item->object_id) : '';
+    if (in_array($template, ['page-templates/studio.php', 'page-templates/advisory.php'], true)) {
+        $url      = (string) get_permalink((int) $item->object_id);
+        $services = array_filter(if_untitled_services_grid((int) $item->object_id), fn(array $row): bool => $row['anchor'] !== '');
+        return !$services ? null : array_values(array_map(fn(array $row): array => [
+            'title'   => $row['text']['heading'],
+            'url'     => "{$url}#{$row['anchor']}",
+            'type'    => 'custom',
+            'object'  => 'custom',
+            'current' => false,
+        ], $services));
+    }
+    $taxonomy = match (true) {
+        $item->type === 'post_type_archive' && $item->object === 'project' => 'project_category',
+        $item->type === 'post_type' && (int) $item->object_id === (int) get_option('page_for_posts') => 'category',
+        default => '',
+    };
+    if (!$taxonomy) {
+        return null;
+    }
+    $terms = if_untitled_archive_filter($taxonomy, '', '');
+    array_shift($terms); // "All" = the archive itself
+    return !$terms ? null : array_map(fn(array $term): array => [
+        'title'   => $term['label'],
+        'url'     => $term['url'],
+        'type'    => 'taxonomy',
+        'object'  => $taxonomy,
+        'current' => $term['is_active'],
+    ], $terms);
+}
+
+// Generated submenus (if_untitled_menu_children()) replace the items' own children, so new content needs no menu edit.
 add_filter('wp_nav_menu_objects', function (array $items, stdClass $args): array {
     if (empty($args->if_untitled_block) || (int) ($args->depth ?? 0) === 1) {
         return $items;
     }
+    $generated = [];
+    foreach ($items as $item) {
+        if (!(int) $item->menu_item_parent) {
+            $children = if_untitled_menu_children($item);
+            if ($children !== null) {
+                $generated[(int) $item->db_id] = $children;
+            }
+        }
+    }
     $out  = [];
     $next = -1; // generated items need unique (negative) IDs
     foreach ($items as $item) {
+        $parent = (int) $item->menu_item_parent;
+        if ($parent && isset($generated[$parent])) {
+            continue;
+        }
+        if ($parent || empty($generated[(int) $item->db_id])) {
+            $out[] = $item;
+            continue;
+        }
+        if (!in_array('menu-item-has-children', (array) $item->classes, true)) {
+            $item->classes[] = 'menu-item-has-children';
+        }
         $out[] = $item;
-        if ((int) $item->menu_item_parent) {
-            continue;
-        }
-        $taxonomy = match (true) {
-            $item->type === 'post_type_archive' && $item->object === 'project' => 'project_category',
-            $item->type === 'post_type' && (int) $item->object_id === (int) get_option('page_for_posts') => 'category',
-            default => '',
-        };
-        if (!$taxonomy) {
-            continue;
-        }
-        $terms = if_untitled_archive_filter($taxonomy, '', '');
-        array_shift($terms); // "All" = the archive itself
-        if (!$terms) {
-            continue;
-        }
-        $item->classes[] = 'menu-item-has-children';
-        foreach ($terms as $term) {
+        foreach ($generated[(int) $item->db_id] as $child) {
             $out[] = new WP_Post((object) [
                 'ID'               => $next,
                 'db_id'            => $next--,
                 'menu_item_parent' => (string) $item->db_id,
                 'post_type'        => 'nav_menu_item',
-                'type'             => 'taxonomy',
-                'object'           => $taxonomy,
-                'title'            => $term['label'],
-                'url'              => $term['url'],
-                'classes'          => $term['is_active'] ? ['current-menu-item'] : [],
+                'type'             => $child['type'],
+                'object'           => $child['object'],
+                'title'            => $child['title'],
+                'url'              => $child['url'],
+                'classes'          => $child['current'] ? ['current-menu-item'] : [],
                 'target'           => '',
                 'attr_title'       => '',
                 'description'      => '',
                 'xfn'              => '',
-                'current'          => $term['is_active'],
+                'current'          => $child['current'],
             ]);
         }
     }

@@ -16,14 +16,19 @@
     --grid-gutter: #{$grid-gutter};
     --text-inset: #{$text-inset};
 
-    // Fixed logo (bottom-left): width and height (SVG ratio 84.082 / 366.281), so content can clear it.
-    --logo-width: clamp(140px, 19.08vw, 366px);
+    // Fixed logo: width and height (SVG ratio 84.082 / 366.281), so content can clear it. Below md it sits in the
+    // header bar (top-left), sized to the bar; from md bottom-left at the design size.
+    --logo-width: 80px;
     --logo-height: calc(var(--logo-width) * 0.2296);
     --logo-offset: 10px;
     --c-bg: var(--c-white);
     --c-fg: var(--c-black);
     --c-line: var(--c-grey);
     --nav-height: 30px;
+
+    @include media-breakpoint-up(md) {
+        --logo-width: clamp(140px, 19.08vw, 366px);
+    }
 }
 
 // Dark theme (Journal archive + entries, Contact): body class set in inc/setup.php.

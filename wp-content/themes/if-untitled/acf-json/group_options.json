@@ -495,6 +495,44 @@
             "default_value": "",
             "maxlength": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_b8a7a360d54e5",
+            "label": "Typography",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_dfa9a771de598",
+            "label": "Intro bold weight",
+            "name": "intro_strong_weight",
+            "type": "button_group",
+            "instructions": "Weight of bold text (B in the editor) in the Studio and Advisory intro.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "bold": "Bold",
+                "medium": "Medium"
+            },
+            "default_value": "bold",
+            "return_format": "value",
+            "allow_null": 0,
+            "layout": "horizontal"
         }
     ],
     "location": [
@@ -515,5 +553,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1793169976
+    "modified": 1793717803
 }

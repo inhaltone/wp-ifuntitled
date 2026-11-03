@@ -2,7 +2,9 @@
 /**
  * Page intro: display XL title + bold paragraph in a column range, filling the first viewport.
  * $args: ['title' => string, 'text' => string (HTML), 'columns' => '1-2' (start-end, 1–5),
- * 'aside' => ['name' => component, 'args' => array] (rendered in col 1, e.g. archive-filter)]
+ * 'aside' => ['name' => component, 'args' => array] (rendered in col 1, e.g. archive-filter),
+ * 'strong' => 'bold' | 'medium' (Studio / Advisory: text in the regular weight, bold only where set in the editor, at
+ * this weight — Theme Options)]
  *
  * @package if-untitled
  */
@@ -11,9 +13,10 @@ $title   = $args['title'] ?? '';
 $text    = $args['text'] ?? '';
 $range   = if_untitled_column_range($args['columns'] ?? '1-2') ?? [1, 2];
 $aside   = $args['aside'] ?? null;
+$strong  = in_array($args['strong'] ?? '', ['bold', 'medium'], true) ? $args['strong'] : '';
 $classes = 'page-intro__body grid__item';
 ?>
-<header class="page-intro grid">
+<header class="page-intro grid<?php echo $strong ? esc_attr(" page-intro--rich page-intro--strong-{$strong}") : ''; ?>">
     <?php if (!empty($aside['name'])) : ?>
         <div class="page-intro__aside grid__item" style="--col-start: 1; --col-span: 1">
             <?php if_untitled_component($aside['name'], $aside['args'] ?? []); ?>

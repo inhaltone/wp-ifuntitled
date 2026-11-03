@@ -2,7 +2,7 @@
 /**
  * Featured items side by side in one row across the section content (Studio / Advisory): image (4:3), title linking
  * to the item, short description.
- * $args: ['items' => array<int, array{title: string, description: string, image: int, url: string}>]
+ * $args: ['items' => if_untitled_featured()]
  *
  * @package if-untitled
  */

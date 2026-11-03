@@ -3,7 +3,17 @@
 // Label in col 1 (top-aligned with the content), content in cols 2–5.
 .section-head {
     align-items: start;
-    padding-block: clamp(80px, 10vw, 200px) 0;
+    padding-block: 64px 0;
+
+    @include media-breakpoint-up(md) {
+        padding-block-start: clamp(80px, 10vw, 200px);
+    }
+
+    // Anchors (header submenu) clear the fixed header.
+    &,
+    .content-grid__row[id] {
+        scroll-margin-top: var(--nav-height);
+    }
 
     &__title {
         @include text-style(display-l);

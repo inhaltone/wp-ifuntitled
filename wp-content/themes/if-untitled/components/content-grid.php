@@ -1,8 +1,9 @@
 <?php
 /**
  * Content grid (Project, Journal entry, Home): rows of image and/or text blocks on the 5-column grid.
- * $args: ['rows' => if_untitled_content_grid(), 'hover_titles' => bool (Home: linked images expose their link title
- *         to components/hover-title.php)]. Blocks are output in column order so they stack in reading order.
+ * $args: ['rows' => if_untitled_content_grid() | if_untitled_services_grid() (rows with an `anchor` get it as id),
+ *         'hover_titles' => bool (Home: linked images expose their link title to components/hover-title.php)].
+ * Blocks are output in column order so they stack in reading order.
  *
  * @package if-untitled
  */
@@ -19,7 +20,7 @@ if (!$rows) {
         $blocks = array_filter(['image' => $row['image'], 'text' => $row['text']]);
         uasort($blocks, fn(array $a, array $b): int => $a['start'] <=> $b['start']);
         ?>
-        <div class="content-grid__row grid">
+        <div class="content-grid__row grid"<?php echo !empty($row['anchor']) ? ' id="' . esc_attr($row['anchor']) . '"' : ''; ?>>
             <?php foreach ($blocks as $kind => $block) :
                 $place = sprintf('--col-start: %d; --col-span: %d', $block['start'], $block['span']);
                 ?>

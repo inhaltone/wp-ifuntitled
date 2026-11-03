@@ -1,16 +1,23 @@
 @use 'abstracts' as *;
 
-// Fixed bottom-left on every page. White + difference blend reads on white, black and photos; only the logo is
-// clickable. Below the header (and its submenus).
+// Below md: in the header bar, top-left (never over the content). From md: fixed bottom-left on every page, below the
+// header (and its submenus). White + difference blend reads on white, black and photos; only the logo is clickable.
 .site-logo {
     position: fixed;
-    bottom: var(--logo-offset);
-    left: 8px;
-    z-index: 90;
+    top: calc((var(--nav-height) - var(--logo-height)) / 2);
+    left: var(--text-inset);
+    z-index: 101;
     display: block;
     width: var(--logo-width);
     color: $c_white;
     mix-blend-mode: difference;
+
+    @include media-breakpoint-up(md) {
+        top: auto;
+        bottom: var(--logo-offset);
+        left: 8px;
+        z-index: 90;
+    }
 
     &__svg {
         display: block;

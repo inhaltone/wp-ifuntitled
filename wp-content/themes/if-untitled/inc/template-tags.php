@@ -459,14 +459,14 @@ function if_untitled_google_maps(): array
 }
 
 /**
- * Unique anchor ids from titles (`sanitize_title()`; duplicates get -2, -3 …).
+ * Unique anchor ids from titles (`sanitize_title()`; duplicates get -2, -3 …). `$used`: ids already taken on the page.
  *
  * @param string[] $titles
+ * @param string[] $used
  * @return string[]
  */
-function if_untitled_anchors(array $titles): array
+function if_untitled_anchors(array $titles, array $used = []): array
 {
-    $used = [];
     return array_map(function (string $title) use (&$used): string {
         $base   = sanitize_title($title) ?: 'section';
         $anchor = $base;
@@ -479,102 +479,135 @@ function if_untitled_anchors(array $titles): array
 }
 
 /**
- * The Studio page's services (Studio + footer), each with its anchor and URL. The page is found by its
- * template, never by ID / slug.
+ * The published page using a page template (Studio, Advisory), found by its template — never by ID / slug.
+ */
+function if_untitled_template_page(string $template): int
+{
+    static $pages = [];
+    if (!isset($pages[$template])) {
+        $ids = get_posts([
+            'post_type'        => 'page',
+            'post_status'      => 'publish',
+            'posts_per_page'   => 1,
+            'fields'           => 'ids',
+            'meta_key'         => '_wp_page_template',
+            'meta_value'       => $template,
+            'suppress_filters' => true,
+        ]);
+        $pages[$template] = (int) ($ids[0] ?? 0);
+    }
+    return $pages[$template];
+}
+
+/** Section anchors on Studio / Advisory (service anchors never reuse them). */
+const IF_UNTITLED_SECTION_ANCHORS = ['services', 'team', 'clients', 'featured'];
+
+/**
+ * Services of a Studio / Advisory page: its content grid rows, each row with a heading anchored (`anchor`, '' without
+ * heading) for the header submenu and the footer.
  *
- * @return array<int, array{title: string, subtitle: string, description: string, image: int, anchor: string, url: string}>
+ * @return array<int, array{layout: string, link: ?array, image: ?array, text: ?array, anchor: string}>
+ */
+function if_untitled_services_grid(int $post_id): array
+{
+    static $grids = [];
+    if (isset($grids[$post_id])) {
+        return $grids[$post_id];
+    }
+    $rows     = if_untitled_content_grid($post_id);
+    $headings = array_filter(array_map(fn(array $row): string => trim($row['text']['heading'] ?? ''), $rows));
+    $anchors  = array_combine(array_keys($headings), if_untitled_anchors(array_values($headings), IF_UNTITLED_SECTION_ANCHORS));
+    foreach ($rows as $i => &$row) {
+        $row['anchor'] = $anchors[$i] ?? '';
+    }
+    unset($row);
+    return $grids[$post_id] = $rows;
+}
+
+/**
+ * The Studio page's services for the footer: each content grid row heading with its URL (page + anchor).
+ *
+ * @return array<int, array{title: string, url: string}>
  */
 function if_untitled_studio_services(): array
 {
-    static $services = null;
-    if ($services !== null) {
-        return $services;
+    $page = if_untitled_template_page('page-templates/studio.php');
+    if (!$page) {
+        return [];
     }
-    $page     = get_posts([
-        'post_type'        => 'page',
-        'post_status'      => 'publish',
-        'posts_per_page'   => 1,
-        'fields'           => 'ids',
-        'meta_key'         => '_wp_page_template',
-        'meta_value'       => 'page-templates/studio.php',
-        'suppress_filters' => true,
-    ]);
-    $rows     = $page && function_exists('get_field') ? (get_field('studio_services', $page[0]) ?: []) : [];
-    $rows     = array_values(array_filter($rows, fn(array $row): bool => trim((string) ($row['title'] ?? '')) !== ''));
-    $anchors  = if_untitled_anchors(array_column($rows, 'title'));
-    $services = [];
-    foreach ($rows as $i => $row) {
-        $services[] = [
-            'title'       => (string) $row['title'],
-            'subtitle'    => (string) ($row['subtitle'] ?? ''),
-            'description' => (string) ($row['description'] ?? ''),
-            'image'       => (int) ($row['image'] ?? 0),
-            'anchor'      => $anchors[$i],
-            'url'         => get_permalink($page[0]) . '#' . $anchors[$i],
-        ];
-    }
-    return $services;
+    $rows = array_filter(if_untitled_services_grid($page), fn(array $row): bool => $row['anchor'] !== '');
+    return array_values(array_map(fn(array $row): array => [
+        'title' => $row['text']['heading'],
+        'url'   => get_permalink($page) . '#' . $row['anchor'],
+    ], $rows));
 }
 
 /**
- * Studio featured items: the item's image + URL, the row title (falls back to the item title) and description.
- * Rows whose item is missing / unpublished keep their text, without image.
+ * Featured items of a Studio / Advisory page (`studio_featured`, `advisory_featured` relationship, picked order):
+ * each published item's title, excerpt, featured image and URL.
  *
  * @return array<int, array{title: string, description: string, image: int, url: string}>
  */
-function if_untitled_studio_features(?int $post_id = null): array
+function if_untitled_featured(string $field, ?int $post_id = null): array
 {
-    $rows = function_exists('get_field') ? (get_field('studio_features', $post_id) ?: []) : [];
-    return array_values(array_filter(array_map(function (array $row): ?array {
-        $item  = if_untitled_resolve_item($row['item'] ?? 0);
-        $title = trim((string) ($row['title'] ?? '')) ?: ($item['title'] ?? '');
-        if ($title === '' && !$item) {
-            return null;
+    $ids   = function_exists('get_field') ? (get_field($field, $post_id) ?: []) : [];
+    $items = array_filter(array_map('if_untitled_resolve_item', (array) $ids));
+    return array_values(array_map(fn(array $item): array => [
+        'title'       => $item['title'],
+        'description' => has_excerpt($item['id']) ? get_the_excerpt($item['id']) : '',
+        'image'       => $item['image'],
+        'url'         => $item['url'],
+    ], $items));
+}
+
+/**
+ * The sections of a Studio / Advisory page in render order, only those with content: label, anchor and the component that renders the content (`full`: content spans all columns below the label).
+ * Studio: Services · Team · Clients · Featured. Advisory: Services · Clients · Featured.
+ *
+ * @return array<int, array{title: string, id: string, full: bool, content: array{name: string, args: array}}>
+ */
+function if_untitled_page_sections(int $post_id): array
+{
+    static $cache = [];
+    if (isset($cache[$post_id])) {
+        return $cache[$post_id];
+    }
+    $context = match (get_page_template_slug($post_id)) {
+        'page-templates/studio.php'   => 'studio',
+        'page-templates/advisory.php' => 'advisory',
+        default                       => '',
+    };
+    if (!$context) {
+        return $cache[$post_id] = [];
+    }
+    $acf      = function_exists('get_field');
+    $services = if_untitled_services_grid($post_id);
+    $team     = $context === 'studio' && $acf ? (get_field('studio_team', $post_id) ?: []) : [];
+    $hidden   = $acf && get_field("{$context}_hide_featured", $post_id);
+    $featured = $hidden ? [] : if_untitled_featured("{$context}_featured", $post_id);
+
+    $sections = [
+        'services' => [__('Services', 'if-untitled'), true, $services ? ['name' => 'content-grid', 'args' => ['rows' => $services]] : null],
+        'team'     => [__('Team', 'if-untitled'), false, $team ? ['name' => 'team', 'args' => ['ids' => $team]] : null],
+        'clients'  => [__('Clients', 'if-untitled'), false, if_untitled_clients() ? ['name' => 'clients', 'args' => []] : null],
+        'featured' => [__('Featured', 'if-untitled'), false, $featured ? ['name' => 'featured', 'args' => ['items' => $featured]] : null],
+    ];
+    $out = [];
+    foreach ($sections as $id => [$title, $full, $content]) {
+        if ($content) {
+            $out[] = ['title' => $title, 'id' => $id, 'full' => $full, 'content' => $content];
         }
-        return [
-            'title'       => $title,
-            'description' => (string) ($row['description'] ?? ''),
-            'image'       => $item['image'] ?? 0,
-            'url'         => $item['url'] ?? '',
-        ];
-    }, $rows)));
+    }
+    return $cache[$post_id] = $out;
 }
 
 /**
- * Advisory service areas (rendered by the services component, anchored for the header submenu): title, subtitle,
- * description and the showcase project (see if_untitled_advisory_featured()).
- *
- * @return array<int, array{title: string, subtitle: string, description: string, image: int, anchor: string, project: ?array}>
+ * Weight of bold text in the Studio / Advisory intro (Theme Options): 'bold' (default) or 'medium'.
  */
-function if_untitled_advisory_features(?int $post_id = null): array
+function if_untitled_intro_strong_weight(): string
 {
-    $rows    = function_exists('get_field') ? (get_field('advisory_features', $post_id) ?: []) : [];
-    $rows    = array_values(array_filter($rows, fn(array $row): bool => trim((string) ($row['title'] ?? '')) !== ''));
-    $anchors = if_untitled_anchors(array_column($rows, 'title'));
-    return array_map(fn(array $row, string $anchor): array => [
-        'title'       => (string) $row['title'],
-        'subtitle'    => (string) ($row['subtitle'] ?? ''),
-        'description' => (string) ($row['description'] ?? ''),
-        'image'       => 0,
-        'anchor'      => $anchor,
-        'project'     => if_untitled_resolve_item($row['item'] ?? 0),
-    ], $rows, $anchors);
-}
-
-/**
- * Advisory featured items: the showcase project of each service area (title, excerpt, featured image, URL).
- *
- * @return array<int, array{title: string, description: string, image: int, url: string}>
- */
-function if_untitled_advisory_featured(?int $post_id = null): array
-{
-    $projects = array_filter(array_column(if_untitled_advisory_features($post_id), 'project'));
-    return array_values(array_map(fn(array $project): array => [
-        'title'       => $project['title'],
-        'description' => has_excerpt($project['id']) ? get_the_excerpt($project['id']) : '',
-        'image'       => $project['image'],
-        'url'         => $project['url'],
-    ], $projects));
+    $weight = function_exists('get_field') ? get_field('intro_strong_weight', 'option') : '';
+    return $weight === 'medium' ? 'medium' : 'bold';
 }
 
 /**

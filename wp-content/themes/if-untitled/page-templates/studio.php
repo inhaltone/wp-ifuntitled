@@ -3,7 +3,8 @@
  * Template Name: Studio
  * Template Post Type: page
  *
- * Studio: intro (page title + content), services (anchored), team, clients, featured items side by side.
+ * Studio: hero (featured image), intro (page title + content), then the sections of if_untitled_page_sections():
+ * services (content grid), team, clients, featured items (can be hidden) — each anchored for the header submenu.
  *
  * @package if-untitled
  */
@@ -13,41 +14,19 @@ get_header();
 <main id="studio" class="studio">
     <?php while (have_posts()) : the_post(); ?>
         <?php
+        if (has_post_thumbnail()) {
+            if_untitled_component('hero', ['id' => get_post_thumbnail_id()]);
+        }
+
         if_untitled_component('page-intro', [
             'title'   => get_the_title(),
             'text'    => apply_filters('the_content', get_the_content()),
             'columns' => '1-2',
+            'strong'  => if_untitled_intro_strong_weight(),
         ]);
 
-        $services = if_untitled_studio_services();
-        if ($services) {
-            if_untitled_component('section-head', [
-                'title'   => __('Services', 'if-untitled'),
-                'content' => ['name' => 'services', 'args' => ['services' => $services]],
-            ]);
-        }
-
-        $team = function_exists('get_field') ? (get_field('studio_team') ?: []) : [];
-        if ($team) {
-            if_untitled_component('section-head', [
-                'title'   => __('Team', 'if-untitled'),
-                'content' => ['name' => 'team', 'args' => ['ids' => $team]],
-            ]);
-        }
-
-        if (if_untitled_clients()) {
-            if_untitled_component('section-head', [
-                'title'   => __('Clients', 'if-untitled'),
-                'content' => ['name' => 'clients'],
-            ]);
-        }
-
-        $featured = if_untitled_studio_features();
-        if ($featured) {
-            if_untitled_component('section-head', [
-                'title'   => __('Featured', 'if-untitled'),
-                'content' => ['name' => 'featured', 'args' => ['items' => $featured]],
-            ]);
+        foreach (if_untitled_page_sections(get_the_ID()) as $section) {
+            if_untitled_component('section-head', $section);
         }
         ?>
     <?php endwhile; ?>

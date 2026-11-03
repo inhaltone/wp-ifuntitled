@@ -42,9 +42,8 @@ function if_untitled_acf_picker_query(array $args, array $field): array
     if (empty($field['post_type'])) {
         $args['post_type'] = array_values(array_diff(get_post_types(['public' => true]), ['attachment']));
     }
-    // Advisory showcase: projects in the Advisory Projects category only.
-    $parent = !empty($field['parent']) && function_exists('acf_get_field') ? acf_get_field($field['parent']) : null;
-    if (($parent['name'] ?? '') === 'advisory_features') {
+    // Advisory featured: projects in the Advisory Projects category only.
+    if (($field['name'] ?? '') === 'advisory_featured') {
         $args['tax_query'] = [[
             'taxonomy' => 'project_category',
             'field'    => 'slug',

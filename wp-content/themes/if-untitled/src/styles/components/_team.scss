@@ -49,4 +49,12 @@
             margin-block-end: 0;
         }
     }
+
+    // Below md the images are full-bleed: the text keeps the page inset on both sides.
+    @include media-breakpoint-down(md) {
+        &__name,
+        &__bio {
+            padding-inline: var(--text-inset);
+        }
+    }
 }
