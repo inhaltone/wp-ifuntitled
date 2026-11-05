@@ -56,7 +56,8 @@ add_filter('acf/fields/post_object/query', 'if_untitled_acf_picker_query', 10, 2
 add_filter('acf/fields/relationship/query', 'if_untitled_acf_picker_query', 10, 2);
 
 /**
- * Submitted field values (keyed by field key, clones flattened) → keyed by field name.
+ * Submitted field values (keyed by field key) → keyed by field name. Seamless clones are flattened, group clones
+ * (content_grid pairs: image_1, text_2, …) nested under their own name.
  */
 function if_untitled_acf_named_values(array $values): array
 {
@@ -71,7 +72,11 @@ function if_untitled_acf_named_values(array $values): array
             continue;
         }
         if ($field['type'] === 'clone' && is_array($value)) {
-            $named += if_untitled_acf_named_values($value);
+            if (($field['display'] ?? '') === 'group') {
+                $named[$field['name']] = if_untitled_acf_named_values($value);
+            } else {
+                $named += if_untitled_acf_named_values($value);
+            }
             continue;
         }
         $named[$field['name']] = $value;
@@ -79,7 +84,7 @@ function if_untitled_acf_named_values(array $values): array
     return $named;
 }
 
-// content_grid rows: text blocks need a heading or body; image + text must not overlap.
+// content_grid rows: text blocks need a heading or body; the blocks of a row must not overlap.
 add_filter('acf/validate_value/name=content_grid', function ($valid, $value) {
     if ($valid !== true || !is_array($value)) {
         return $valid;
@@ -90,21 +95,23 @@ add_filter('acf/validate_value/name=content_grid', function ($valid, $value) {
             continue;
         }
         $number++;
-        $layout = $row['acf_fc_layout'];
-        $fields = if_untitled_acf_named_values($row);
+        $ranges = [];
 
-        if (in_array($layout, ['text', 'image_text'], true)
-            && trim((string) ($fields['heading'] ?? '')) === '' && trim((string) ($fields['body'] ?? '')) === '') {
-            /* translators: %d: row number */
-            return sprintf(__('Row %d: the text needs a heading or a body.', 'if-untitled'), $number);
-        }
-
-        if ($layout === 'image_text') {
-            $image = if_untitled_column_range((string) ($fields['image_columns'] ?? ''));
-            $text  = if_untitled_column_range((string) ($fields['text_columns'] ?? ''));
-            if ($image && $text && $image[0] <= $text[1] && $text[0] <= $image[1]) {
+        foreach (if_untitled_content_grid_parts($row['acf_fc_layout'], if_untitled_acf_named_values($row)) as [$kind, $fields]) {
+            if ($kind === 'text'
+                && trim((string) ($fields['heading'] ?? '')) === '' && trim((string) ($fields['body'] ?? '')) === '') {
                 /* translators: %d: row number */
-                return sprintf(__('Row %d: the image and the text columns overlap.', 'if-untitled'), $number);
+                return sprintf(__('Row %d: every text needs a heading or a body.', 'if-untitled'), $number);
+            }
+            $range = if_untitled_column_range((string) ($fields["{$kind}_columns"] ?? ''));
+            foreach ($range ? $ranges : [] as $other) {
+                if ($range[0] <= $other[1] && $other[0] <= $range[1]) {
+                    /* translators: %d: row number */
+                    return sprintf(__('Row %d: the columns of the blocks overlap.', 'if-untitled'), $number);
+                }
+            }
+            if ($range) {
+                $ranges[] = $range;
             }
         }
     }
@@ -117,6 +124,37 @@ add_filter('acf/validate_value/name=youtube_url', function ($valid, $value) {
     }
     return $valid;
 }, 10, 2);
+
+// content_grid image block: the image is the poster of a video / YouTube block. Both labels are rendered and the
+// admin style below shows the one matching the selected media type (ACF labels can't depend on another field).
+add_filter('acf/prepare_field/type=image', function ($field) {
+    if (!is_array($field) || !str_contains($field['wrapper']['class'] ?? '', 'if-untitled-media-poster')) {
+        return $field;
+    }
+    $field['label']        = sprintf(
+        '<span class="if-untitled-media-label-image">%s</span><span class="if-untitled-media-label-poster">%s</span>',
+        esc_html__('Image', 'if-untitled'),
+        esc_html__('Poster image', 'if-untitled')
+    );
+    $field['instructions'] = sprintf(
+        '<span class="if-untitled-media-label-poster">%s</span>',
+        esc_html__('A frame of the video (YouTube: 16:9). Reserves the space and is shown until the video plays.', 'if-untitled')
+    );
+    return $field;
+});
+
+add_action('acf/input/admin_head', function (): void {
+    $video = '.acf-fields:has(> .if-untitled-media-type :is(input[value="video"], input[value="youtube"]):checked) > .if-untitled-media-poster';
+    ?>
+    <style>
+        .if-untitled-media-poster .if-untitled-media-label-poster,
+        .if-untitled-media-poster .description:has(> .if-untitled-media-label-poster) { display: none; }
+        <?php echo $video; // Static selector. ?> .if-untitled-media-label-image { display: none; }
+        <?php echo $video; ?> .if-untitled-media-label-poster { display: inline; }
+        <?php echo $video; ?> .description:has(> .if-untitled-media-label-poster) { display: block; }
+    </style>
+    <?php
+});
 
 // A project location is a city (a child term), never a country.
 add_filter('acf/validate_value/type=taxonomy', function ($valid, $value, array $field) {

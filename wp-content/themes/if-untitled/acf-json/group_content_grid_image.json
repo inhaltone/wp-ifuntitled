@@ -12,7 +12,7 @@
             "conditional_logic": false,
             "wrapper": {
                 "width": "",
-                "class": "",
+                "class": "if-untitled-media-type",
                 "id": ""
             },
             "choices": {
@@ -30,12 +30,12 @@
             "label": "Image",
             "name": "image",
             "type": "image",
-            "instructions": "The image — or the poster (a frame) of the video.",
+            "instructions": "",
             "required": 1,
             "conditional_logic": false,
             "wrapper": {
                 "width": "",
-                "class": "",
+                "class": "if-untitled-media-poster",
                 "id": ""
             },
             "return_format": "id",
@@ -157,5 +157,5 @@
     "active": false,
     "description": "Cloned into the content_grid layouts — not shown on its own.",
     "show_in_rest": 0,
-    "modified": 1793111233
+    "modified": 1793891971
 }

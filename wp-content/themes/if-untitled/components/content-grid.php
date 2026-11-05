@@ -1,6 +1,7 @@
 <?php
 /**
- * Content grid (Project, Journal entry, Home): rows of image and/or text blocks on the 5-column grid.
+ * Content grid (Project, Journal entry, Home, Studio, Advisory): rows of image and/or text blocks on the 5-column grid
+ * (image, text, image + text, image + image, text + text).
  * $args: ['rows' => if_untitled_content_grid() | if_untitled_services_grid() (rows with an `anchor` get it as id),
  *         'hover_titles' => bool (Home: linked images expose their link title to components/hover-title.php)].
  * Blocks are output in column order so they stack in reading order.
@@ -15,24 +16,20 @@ if (!$rows) {
 }
 ?>
 <div class="content-grid">
-    <?php foreach ($rows as $row) :
-        $link   = $row['link'];
-        $blocks = array_filter(['image' => $row['image'], 'text' => $row['text']]);
-        uasort($blocks, fn(array $a, array $b): int => $a['start'] <=> $b['start']);
-        ?>
+    <?php foreach ($rows as $row) : ?>
         <div class="content-grid__row grid"<?php echo !empty($row['anchor']) ? ' id="' . esc_attr($row['anchor']) . '"' : ''; ?>>
-            <?php foreach ($blocks as $kind => $block) :
+            <?php foreach ($row['blocks'] as $block) :
+                $link  = $block['link'];
                 $place = sprintf('--col-start: %d; --col-span: %d', $block['start'], $block['span']);
                 ?>
-                <?php if ($kind === 'image') : ?>
+                <?php if ($block['kind'] === 'image') : ?>
                     <div class="content-grid__media grid__item" style="<?php echo esc_attr($place); ?>"<?php if ($hover_titles && $block['title'] !== '') : ?> data-hover-title-text="<?php echo esc_attr($block['title']); ?>"<?php endif; ?>>
                         <?php
-                        // The heading carries the link text when there is one; the media link is then a duplicate.
                         if_untitled_component('media', [
                             'block'   => $block['block'],
                             'context' => $block['context'],
-                            'title'   => ($row['text']['heading'] ?? '') ?: get_the_title(),
-                            'link'    => $link ? ['url' => $link['url'], 'hidden' => (bool) $row['text']] : null,
+                            'title'   => $block['label'],
+                            'link'    => $link ? ['url' => $link['url'], 'hidden' => $block['link_hidden']] : null,
                         ]);
                         ?>
                     </div>

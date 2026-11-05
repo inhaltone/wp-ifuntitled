@@ -126,7 +126,7 @@ function if_untitled_menu_children(WP_Post $item): ?array
         $url      = (string) get_permalink((int) $item->object_id);
         $services = array_filter(if_untitled_services_grid((int) $item->object_id), fn(array $row): bool => $row['anchor'] !== '');
         return !$services ? null : array_values(array_map(fn(array $row): array => [
-            'title'   => $row['text']['heading'],
+            'title'   => $row['heading'],
             'url'     => "{$url}#{$row['anchor']}",
             'type'    => 'custom',
             'object'  => 'custom',

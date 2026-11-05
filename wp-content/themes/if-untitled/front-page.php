@@ -1,6 +1,6 @@
 <?php
 /**
- * Front page: full-bleed hero (page featured image, fixed logo over it, short description = page content below it),
+ * Front page: full-bleed hero (page featured image or a looping MP4 with it as poster, fixed logo over it, short description = page content below it),
  * then the shared content grid whose blocks may link to any public content.
  *
  * @package if-untitled
@@ -14,6 +14,7 @@ get_header();
         if_untitled_component('hero', [
             'id'    => has_post_thumbnail() ? get_post_thumbnail_id() : 0,
             'title' => get_bloginfo('name'),
+            'video' => if_untitled_hero_video(),
         ]);
         ?>
 

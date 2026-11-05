@@ -142,6 +142,22 @@ function if_untitled_media(array $block): array
 }
 
 /**
+ * Front page hero video (ACF hero_media_type = video), or null for the image hero.
+ *
+ * @return array{src: string, mime: string}|null
+ */
+function if_untitled_hero_video(int $post_id = 0): ?array
+{
+    if (!function_exists('get_field') || get_field('hero_media_type', $post_id ?: false) !== 'video') {
+        return null;
+    }
+    $video_id = (int) get_field('hero_video', $post_id ?: false);
+    $src      = $video_id ? wp_get_attachment_url($video_id) : '';
+
+    return $src ? ['src' => $src, 'mime' => (string) get_post_mime_type($video_id)] : null;
+}
+
+/**
  * A linked post (post object / relationship ID) if it is published, else null.
  *
  * @return array{id: int, url: string, title: string, image: int, type: string}|null
@@ -267,11 +283,32 @@ function if_untitled_adjacent_project(string $direction = 'next', ?int $post_id 
 }
 
 /**
- * Content grid rows, ready to render: invalid ranges and empty blocks are dropped.
- * Each block gets its grid placement (`start`, `span`), images their `context` (render-responsive-image) and `title`
- * (the linked item's title, '' without a link).
+ * The blocks of a content_grid row by layout: [kind ('image' | 'text'), sub-field values, link field name].
+ * Single layouts and image_text read flat (seamless clones, one row link); the pairs read their group clones
+ * (`image_1`/`image_2`, `text_1`/`text_2`), each with its own link (`link_1`/`link_2`).
  *
- * @return array<int, array{layout: string, link: ?array, image: ?array, text: ?array}>
+ * @return array<int, array{0: string, 1: array, 2: string}>
+ */
+function if_untitled_content_grid_parts(string $layout, array $row): array
+{
+    return match ($layout) {
+        'image'       => [['image', $row, 'link']],
+        'text'        => [['text', $row, 'link']],
+        'image_text'  => [['image', $row, 'link'], ['text', $row, 'link']],
+        'image_image' => [['image', (array) ($row['image_1'] ?? []), 'link_1'], ['image', (array) ($row['image_2'] ?? []), 'link_2']],
+        'text_text'   => [['text', (array) ($row['text_1'] ?? []), 'link_1'], ['text', (array) ($row['text_2'] ?? []), 'link_2']],
+        default       => [],
+    };
+}
+
+/**
+ * Content grid rows, ready to render: invalid ranges and empty blocks are dropped, blocks in column order.
+ * Every block has its `kind`, grid placement (`start`, `span`) and `link` (resolved item or null). Images also get
+ * `block` (media sub-fields), `context` (render-responsive-image), `title` (hover title: the linked item's title,
+ * '' without a link), `label` (accessible video name) and `link_hidden` (a text block of the row repeats the link).
+ * Row `heading` = its first text heading (section anchors).
+ *
+ * @return array<int, array{layout: string, heading: string, blocks: array<int, array>}>
  */
 function if_untitled_content_grid(?int $post_id = null): array
 {
@@ -280,44 +317,52 @@ function if_untitled_content_grid(?int $post_id = null): array
 
     foreach ($rows as $row) {
         $layout = $row['acf_fc_layout'] ?? '';
-        $image  = null;
-        $text   = null;
+        $blocks = [];
 
-        if (in_array($layout, ['image', 'image_text'], true)) {
-            $range = if_untitled_column_range((string) ($row['image_columns'] ?? ''));
-            if ($range && (int) ($row['image'] ?? 0)) {
-                $span  = $range[1] - $range[0] + 1;
-                $image = ['block' => $row, 'start' => $range[0], 'span' => $span, 'context' => "span-{$span}"];
+        foreach (if_untitled_content_grid_parts($layout, $row) as [$kind, $fields, $link_field]) {
+            $range = if_untitled_column_range((string) ($fields["{$kind}_columns"] ?? ''));
+            if (!$range) {
+                continue;
             }
-        }
-        if (in_array($layout, ['text', 'image_text'], true)) {
-            $range = if_untitled_column_range((string) ($row['text_columns'] ?? ''));
-            if ($range && (trim((string) ($row['heading'] ?? '')) !== '' || trim((string) ($row['body'] ?? '')) !== '')) {
-                $text = [
-                    'heading' => (string) $row['heading'],
-                    'body'    => (string) $row['body'],
-                    'size'    => $row['body_size'] ?: 'small',
-                    'box'     => $row['box'] ?: 'none',
-                    'align_x' => $row['align_x'] ?: 'start',
-                    'align_y' => $row['align_y'] ?: 'top',
-                    'start'   => $range[0],
-                    'span'    => $range[1] - $range[0] + 1,
+            $place = ['kind' => $kind, 'start' => $range[0], 'span' => $range[1] - $range[0] + 1];
+            $link  = if_untitled_resolve_item($row[$link_field] ?? 0);
+
+            if ($kind === 'image' && (int) ($fields['image'] ?? 0)) {
+                $blocks[] = $place + [
+                    'block'   => $fields,
+                    'context' => "span-{$place['span']}",
+                    'link'    => $link,
+                    'title'   => $link['title'] ?? '',
+                ];
+            } elseif ($kind === 'text' && (trim((string) ($fields['heading'] ?? '')) !== '' || trim((string) ($fields['body'] ?? '')) !== '')) {
+                $blocks[] = $place + [
+                    'heading' => trim((string) $fields['heading']),
+                    'body'    => (string) $fields['body'],
+                    'size'    => ($fields['body_size'] ?? '') ?: 'small',
+                    'box'     => ($fields['box'] ?? '') ?: 'none',
+                    'align_x' => ($fields['align_x'] ?? '') ?: 'start',
+                    'align_y' => ($fields['align_y'] ?? '') ?: 'top',
+                    'link'    => $link,
                 ];
             }
         }
-        if ($image || $text) {
-            $link = if_untitled_resolve_item($row['link'] ?? 0);
-            if ($image) {
-                // Hover title (Home): only linked images, with the linked item's title.
-                $image['title'] = $link['title'] ?? '';
-            }
-            $grid[] = [
-                'layout' => $layout,
-                'link'   => $link,
-                'image'  => $image,
-                'text'   => $text,
-            ];
+        if (!$blocks) {
+            continue;
         }
+
+        $texts   = array_values(array_filter($blocks, fn(array $block): bool => $block['kind'] === 'text'));
+        $heading = $texts[0]['heading'] ?? '';
+        foreach ($blocks as &$block) {
+            if ($block['kind'] === 'image') {
+                // image_text: the text carries the same link (heading or "more"), so the image link is a duplicate.
+                $block['link_hidden'] = $block['link'] && $layout === 'image_text' && $texts;
+                $block['label']       = ($layout === 'image_text' ? $heading : '') ?: get_the_title();
+            }
+        }
+        unset($block);
+        usort($blocks, fn(array $a, array $b): int => $a['start'] <=> $b['start']);
+
+        $grid[] = ['layout' => $layout, 'heading' => $heading, 'blocks' => $blocks];
     }
 
     return $grid;
@@ -506,7 +551,7 @@ const IF_UNTITLED_SECTION_ANCHORS = ['services', 'team', 'clients', 'featured'];
  * Services of a Studio / Advisory page: its content grid rows, each row with a heading anchored (`anchor`, '' without
  * heading) for the header submenu and the footer.
  *
- * @return array<int, array{layout: string, link: ?array, image: ?array, text: ?array, anchor: string}>
+ * @return array<int, array{layout: string, heading: string, blocks: array<int, array>, anchor: string}>
  */
 function if_untitled_services_grid(int $post_id): array
 {
@@ -515,7 +560,7 @@ function if_untitled_services_grid(int $post_id): array
         return $grids[$post_id];
     }
     $rows     = if_untitled_content_grid($post_id);
-    $headings = array_filter(array_map(fn(array $row): string => trim($row['text']['heading'] ?? ''), $rows));
+    $headings = array_filter(array_map(fn(array $row): string => $row['heading'], $rows));
     $anchors  = array_combine(array_keys($headings), if_untitled_anchors(array_values($headings), IF_UNTITLED_SECTION_ANCHORS));
     foreach ($rows as $i => &$row) {
         $row['anchor'] = $anchors[$i] ?? '';
@@ -537,7 +582,7 @@ function if_untitled_studio_services(): array
     }
     $rows = array_filter(if_untitled_services_grid($page), fn(array $row): bool => $row['anchor'] !== '');
     return array_values(array_map(fn(array $row): array => [
-        'title' => $row['text']['heading'],
+        'title' => $row['heading'],
         'url'   => get_permalink($page) . '#' . $row['anchor'],
     ], $rows));
 }

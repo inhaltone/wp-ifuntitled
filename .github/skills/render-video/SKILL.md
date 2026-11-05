@@ -6,7 +6,10 @@ description: Render video in the if-untitled theme as a variant of an image in c
 # Render video (image variant in `content_grid`)
 
 Theme root: `wp-content/themes/if-untitled/`. **Video exists only in `content_grid`** (Home, projects, journal
-entries): wherever a block shows an image it may show a video instead. Cards, heroes and journal leads stay images.
+entries): wherever a block shows an image it may show a video instead. Cards, journal leads and the Studio / Advisory
+heroes stay images. **Exception — Home hero:** ACF `hero_media_type` (`image` · `video`) + `hero_video` on the front
+page (`group_page_front`); `if_untitled_hero_video()` → `components/hero.php` renders the same `data-media-video` markup
+with the featured image as `priority` poster and **no** pause toggle (requested: no controls).
 Images follow `render-responsive-image` — this skill builds on it (`if_untitled_image()`, `image` component).
 
 | Variant   | Source                   | Behaviour                                                             |
@@ -19,15 +22,15 @@ Images follow `render-responsive-image` — this skill builds on it (`if_untitle
 (click to play). There is deliberately **no autoplaying YouTube**: it can't hide YouTube's branding, costs ~1 MB of
 YouTube JS per video and contacts YouTube without consent (plan Q13).
 
-## 1. Fields — image block of `content_grid` (`image` and `image_text` layouts)
+## 1. Fields — image block of `content_grid` (`image`, `image_text` and `image_image` layouts)
 
-| Sub-field       | Type                                        | Notes                                                                                                                |
-| --------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `media_type`    | button group: `image` · `video` · `youtube` | default `image`                                                                                                      |
-| `image`         | image, returns ID, **required**             | the image — or the video's **poster** (a frame of the video, same ratio): sizes the box, no-JS / reduced-motion view |
-| `video`         | file (`mp4`, `webm`), returns ID            | shown + required if `video`                                                                                          |
-| `youtube_url`   | url                                         | shown + required if `youtube`; validated with `if_untitled_youtube_id()` (`acf/validate_value`); poster 16:9         |
-| `image_columns` | column range                                | unchanged                                                                                                            |
+| Sub-field       | Type                                        | Notes                                                                                                                                                                                            |
+| --------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `media_type`    | button group: `image` · `video` · `youtube` | default `image`                                                                                                                                                                                  |
+| `image`         | image, returns ID, **required**             | the image — or the video's **poster** (a frame of the video, same ratio): sizes the box, no-JS / reduced-motion view; admin label switches to “Poster image” for video / YouTube (`inc/acf.php`) |
+| `video`         | file (`mp4`, `webm`), returns ID            | shown + required if `video`                                                                                                                                                                      |
+| `youtube_url`   | url                                         | shown + required if `youtube`; validated with `if_untitled_youtube_id()` (`acf/validate_value`); poster 16:9                                                                                     |
+| `image_columns` | column range                                | unchanged                                                                                                                                                                                        |
 
 **Block `link`:** a `youtube` block is never wrapped in the layout's `link` (no `<a>` around its play button); only
 the heading links. Image and `video` blocks may be wrapped — `content-grid.php` places the link on the poster area and

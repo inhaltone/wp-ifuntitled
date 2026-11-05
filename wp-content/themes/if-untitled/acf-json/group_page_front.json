@@ -1,0 +1,74 @@
+{
+    "key": "group_page_front",
+    "title": "Home",
+    "fields": [
+        {
+            "key": "field_9368728c051f3",
+            "label": "Hero",
+            "name": "hero_media_type",
+            "type": "button_group",
+            "instructions": "Image: the featured image. Video: silent loop, plays muted without controls — the featured image is its poster.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "image": "Image",
+                "video": "Video (MP4 loop)"
+            },
+            "default_value": "image",
+            "return_format": "value",
+            "layout": "horizontal",
+            "allow_null": 0
+        },
+        {
+            "key": "field_659a01fe0ef0c",
+            "label": "Hero video",
+            "name": "hero_video",
+            "type": "file",
+            "instructions": "MP4 (H.264), no audio, landscape, ≤ 1920 px wide, 10–30 s, under 10 MB. Set a frame of it as the featured image.",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_9368728c051f3",
+                        "operator": "==",
+                        "value": "video"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "mime_types": "mp4, webm",
+            "min_size": 0,
+            "max_size": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1793718446
+}
