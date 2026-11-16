@@ -73,8 +73,4 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
-.idea/workspace.xml
-.idea/usage.statistics.xml
-.idea/shelf/
-.idea/dataSources*
-.idea/httpRequests/
+.idea/
