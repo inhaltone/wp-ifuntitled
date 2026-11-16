@@ -19,4 +19,5 @@ require_once IF_UNTITLED_DIR . '/inc/media.php';
 require_once IF_UNTITLED_DIR . '/inc/post-types.php';
 require_once IF_UNTITLED_DIR . '/inc/urls.php';
 require_once IF_UNTITLED_DIR . '/inc/template-tags.php';
+require_once IF_UNTITLED_DIR . '/inc/seo.php';
 require_once IF_UNTITLED_DIR . '/inc/acf.php';

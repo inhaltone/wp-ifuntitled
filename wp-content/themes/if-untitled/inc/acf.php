@@ -30,7 +30,26 @@ add_filter('acf/fields/google_map/api', function (array $api): array {
     if ($key !== '') {
         $api['key'] = $key;
     }
+    // ACF's search uses the legacy Places Autocomplete, closed to Google Cloud projects created after March 2025
+    // (REQUEST_DENIED → no pin is ever saved). Without it, the script below geocodes the typed address instead.
+    unset($api['libraries']);
     return $api;
+});
+
+// Location picker: Enter in the search box geocodes the typed address (Geocoding API); clicking the map still works.
+add_action('acf/input/admin_footer', function (): void {
+    ?>
+    <script>
+        window.acf?.addAction('google_map_init', (map, marker, field) => {
+            field.$search().on('keydown', (event) => {
+                const address = event.target.value.trim();
+                if (event.key === 'Enter' && address) {
+                    field.searchAddress(address);
+                }
+            });
+        });
+    </script>
+    <?php
 });
 
 /**

@@ -41,6 +41,7 @@ inc/vite.php         dev (hot file) vs prod (dist/.vite/manifest.json) asset loa
 inc/setup.php        theme supports, nav menus, head cleanup
 inc/template-tags.php  if_untitled_* helpers
 inc/acf.php          ACF options page + acf-json sync (guarded)
+inc/seo.php          automatic meta description, canonical, Open Graph, Twitter card, sitemap tweaks (no SEO plugin)
 components/*.php     template parts
 *.php                template-hierarchy files; each renders <main id="{route-id}">
 src/main.js          entry: imports style.scss, wires components with hooks
