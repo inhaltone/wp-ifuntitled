@@ -55,7 +55,8 @@
     }
 
     &__link {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         min-block-size: 24px;
 
         @include hover {
@@ -72,7 +73,7 @@
         content: '→';
     }
 
-    // From md the list is always shown under a plain label (design); tight lines.
+    // From md the list is always shown under a plain label (design); 24px rows (WCAG 2.2 target size).
     @include media-breakpoint-up(md) {
         &__label,
         .js &__label {
@@ -88,10 +89,6 @@
         .js &__list {
             display: block;
             padding-block: 0;
-        }
-
-        &__link {
-            min-block-size: 0;
         }
     }
 }

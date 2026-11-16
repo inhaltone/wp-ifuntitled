@@ -24,7 +24,7 @@ $map_id    = $maps['map_id'];
 ?>
 <section class="contact-map">
     <?php if ($key && $markers) : ?>
-        <div class="contact-map__canvas" data-contact-map data-key="<?php echo esc_attr($key); ?>" data-map-id="<?php echo esc_attr($map_id); ?>" data-markers="<?php echo esc_attr(wp_json_encode($markers)); ?>" aria-hidden="true"></div>
+        <div class="contact-map__canvas" data-contact-map data-key="<?php echo esc_attr($key); ?>" data-map-id="<?php echo esc_attr($map_id); ?>" data-markers="<?php echo esc_attr(wp_json_encode($markers)); ?>"></div>
     <?php endif; ?>
     <div class="contact-map__overlay grid">
         <div class="contact-map__panel grid__item" style="--col-start: 5; --col-span: 1">

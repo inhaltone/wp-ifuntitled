@@ -29,7 +29,7 @@ if (!$rows) {
                             'block'   => $block['block'],
                             'context' => $block['context'],
                             'title'   => $block['label'],
-                            'link'    => $link ? ['url' => $link['url'], 'hidden' => $block['link_hidden']] : null,
+                            'link'    => $link ? ['url' => $link['url'], 'label' => $link['title'], 'hidden' => $block['link_hidden']] : null,
                         ]);
                         ?>
                     </div>

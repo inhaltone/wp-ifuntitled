@@ -59,6 +59,7 @@ export default class ContactMap {
                 disableDefaultUI: true,
                 zoomControl: true,
                 gestureHandling: 'cooperative',
+                keyboardShortcuts: false,
             });
             const addMarker = this.mapId ? await this.#advancedMarker(map) : this.#overlayMarker(map, OverlayView);
             const bounds = new LatLngBounds();

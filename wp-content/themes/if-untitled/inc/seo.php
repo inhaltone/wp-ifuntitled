@@ -14,7 +14,15 @@ defined('ABSPATH') || exit;
  */
 function if_untitled_seo_description(): string
 {
-    if (is_singular()) {
+    if (is_page_template('page-templates/contact.php') && !has_excerpt() && trim(get_post()->post_content) === '') {
+        $location = if_untitled_locations()[0] ?? [];
+        $text     = sprintf(
+            /* translators: 1: site name, 2: cities, e.g. "London and Athens" */
+            __('Contact %1$s in %2$s.', 'if-untitled'),
+            get_bloginfo('name'),
+            wp_sprintf('%l', array_filter(array_column(if_untitled_locations(), 'city')))
+        ) . ' ' . implode(' · ', array_filter([$location['email'] ?? '', $location['phone'] ?? '']));
+    } elseif (is_singular()) {
         $post = get_queried_object();
         $text = match (true) {
             post_password_required($post) => '',
@@ -27,8 +35,15 @@ function if_untitled_seo_description(): string
     } elseif (is_post_type_archive('project') || is_tax('project_category')) {
         $text = if_untitled_archive_intro('work_intro');
     }
-    $text = wp_trim_words(strip_shortcodes($text ?? ''), 30);
-    return $text !== '' ? $text : get_bloginfo('description');
+    // Last resort (e.g. Home without text): the tagline, else the Studio intro, which describes the practice.
+    $studio = if_untitled_template_page('page-templates/studio.php');
+    foreach ([$text ?? '', get_bloginfo('description'), $studio ? get_post_field('post_content', $studio) : ''] as $source) {
+        $source = wp_trim_words(strip_shortcodes((string) $source), 30);
+        if ($source !== '') {
+            return $source;
+        }
+    }
+    return get_bloginfo('name');
 }
 
 // The Work archive is called "Work" (header, <h1>), not "Projects".

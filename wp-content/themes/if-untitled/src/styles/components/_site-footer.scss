@@ -36,14 +36,10 @@
     }
 
     &__link {
-        // Touch: at least 24px tall targets (WCAG 2.2 target size); from md the tight list (design).
-        display: inline-block;
-        padding-block: 2px;
-
-        @include media-breakpoint-up(md) {
-            display: inline;
-            padding-block: 0;
-        }
+        // At least 24px tall targets on every screen (WCAG 2.2 target size).
+        display: inline-flex;
+        align-items: center;
+        min-block-size: 24px;
 
         @include hover {
             text-decoration: underline;

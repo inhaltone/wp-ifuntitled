@@ -3,7 +3,8 @@
  * Image, self-hosted video or YouTube video in the space of an image (content_grid).
  * $args: ['block' => array (content_grid media sub-fields), 'context' => string (render-responsive-image),
  *         'title' => string (accessible name of a player video; default: post title),
- *         'link' => ['url' => string, 'hidden' => bool] (optional; wraps the image / video area, never a YouTube block;
+ *         'link' => ['url' => string, 'label' => string, 'hidden' => bool] (optional; wraps the image / video area, never a
+ *                   YouTube block; label = accessible name, the target's title — a poster or alt-less image has none;
  *                   hidden = duplicate of a visible link → out of the tab order and accessibility tree)]
  *
  * @package if-untitled
@@ -15,7 +16,9 @@ $link    = $media['type'] === 'youtube' ? null : ($args['link'] ?? null);
 $open    = $link ? sprintf(
     '<a class="media__link" href="%s"%s>',
     esc_url($link['url']),
-    !empty($link['hidden']) ? ' tabindex="-1" aria-hidden="true"' : ''
+    !empty($link['hidden'])
+        ? ' tabindex="-1" aria-hidden="true"'
+        : (!empty($link['label']) ? ' aria-label="' . esc_attr($link['label']) . '"' : '')
 ) : '';
 $close   = $link ? '</a>' : '';
 
