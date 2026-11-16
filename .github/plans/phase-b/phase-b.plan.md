@@ -20,15 +20,15 @@ seeded data only.
 
 Measured on the 1920 px artboards. Tokens go to `src/styles/abstracts/_variables.scss` (+ CSS custom properties).
 
-| Token        | Value                                                                                                                                                                                                     |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Grid         | **5 columns**, gutter **10 px** (`--grid-gutter`, every layout grid), no outer margin — images bleed to the viewport edge (column = 376 px at 1920)                                                       |
-| Text inset   | 12 px from a column edge (measured 10–20; text never touches the viewport edge)                                                                                                                           |
-| Archive grid | **3 columns**, same 10 px gutter (Work + Journal)                                                                                                                                                         |
-| Colours      | `#000` / `#fff` only; map greys come from the map style. Thin outline `1px` mid-grey (outlined text box)                                                                                                  |
-| Themes       | **light** (default: white bg, black text) · **dark** (black bg, white text) — Journal archive and Contact are dark                                                                                        |
-| Typography   | **Display**: GT Flexa Expanded Bold (headings, statement boxes) · **Text**: GT America Standard Medium / Bold (body, metadata). Files already in `src/assets/fonts/` — **Trial** versions (licence ⏳ Q1) |
-| Type scale   | display XL (page titles "Studio", "Work") · display L (section titles) · display M (statement boxes, card titles) · body · small (metadata labels, footer)                                                |
+| Token        | Value                                                                                                                                                                                         |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Grid         | **5 columns**, gutter **10 px** (`--grid-gutter`, every layout grid), no outer margin — images bleed to the viewport edge (column = 376 px at 1920)                                           |
+| Text inset   | 12 px from a column edge (measured 10–20; text never touches the viewport edge)                                                                                                               |
+| Archive grid | **3 columns**, same 10 px gutter (Work + Journal)                                                                                                                                             |
+| Colours      | `#000` / `#fff` only; map greys come from the map style. Thin outline `1px` mid-grey (outlined text box)                                                                                      |
+| Themes       | **light** (default: white bg, black text) · **dark** (black bg, white text) — Journal archive and Contact are dark                                                                            |
+| Typography   | **Display**: GT Flexa Expanded Bold (headings, statement boxes) · **Text**: GT America Standard Medium / Bold (body, metadata). Licensed `woff2` files in `src/assets/fonts/` (licence ✅ Q1) |
+| Type scale   | display XL (page titles "Studio", "Work") · display L (section titles) · display M (statement boxes, card titles) · body · small (metadata labels, footer)                                    |
 
 Layout primitive: one `.grid` utility (5 col) with `--col-start` / `--col-span` custom properties, reused by every
 image/text row (Home, Project, Studio, Advisory). Below the tablet breakpoint every row is full width, stacked
@@ -163,7 +163,7 @@ unknown URLs → 404, Lighthouse performance 99–100 / accessibility 100. ✅ H
 
 | #   | Question                                                                                       | Default until answered                                                                                                                                                                                                          |
 | --- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Font licences: GT Flexa + GT America are **Trial** files — buy web licences before launch?     | Build with the trial `woff2`; swap files (same family names) when licensed — launch blocker                                                                                                                                     |
+| 1   | ✅ Font licences: GT Flexa + GT America web licences bought                                    | Licensed `woff2` files replaced the trials (same family names); unused GT Flexa Medium dropped                                                                                                                                  |
 | 2   | ✅ Logo position                                                                               | Always visible — fixed bottom-left of the viewport on every page (blend-mode for contrast)                                                                                                                                      |
 | 3   | ✅ Header submenu                                                                              | Shown on hover of the parent, simple list directly below it (no panel); no 01–05 numbers. Keyboard via `:focus-within`, touch via `PrimaryNav`                                                                                  |
 | 4   | Footer "Studio" column = Architecture · Urban Design · Interior Design ≠ the 2 Studio services | Generated from `studio_services` (single source); designer to align the labels                                                                                                                                                  |
