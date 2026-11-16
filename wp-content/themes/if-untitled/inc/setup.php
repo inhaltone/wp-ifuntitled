@@ -114,8 +114,8 @@ add_filter('nav_menu_submenu_css_class', fn(array $classes, stdClass $args): arr
 /**
  * Generated submenu of a top-level menu item: Work (the project archive) and Journal (the posts page) list their
  * categories / entry types in archive filter order (if_untitled_archive_filter(), non-empty only); Studio and Advisory
- * (pages by template) list their services (the content grid headings, if_untitled_services_grid()). Null = keep the
- * menu's own children.
+ * (pages by template) list their services (the content grid headings, if_untitled_services_grid()), then the Team
+ * section when the page has one (Studio). Null = keep the menu's own children.
  *
  * @return array<int, array{title: string, url: string, type: string, object: string, current: bool}>|null
  */
@@ -124,14 +124,22 @@ function if_untitled_menu_children(WP_Post $item): ?array
     $template = $item->type === 'post_type' && $item->object === 'page' ? get_page_template_slug((int) $item->object_id) : '';
     if (in_array($template, ['page-templates/studio.php', 'page-templates/advisory.php'], true)) {
         $url      = (string) get_permalink((int) $item->object_id);
-        $services = array_filter(if_untitled_services_grid((int) $item->object_id), fn(array $row): bool => $row['anchor'] !== '');
-        return !$services ? null : array_values(array_map(fn(array $row): array => [
-            'title'   => $row['heading'],
-            'url'     => "{$url}#{$row['anchor']}",
+        $links = array_map(
+            fn(array $row): array => ['title' => $row['heading'], 'anchor' => $row['anchor']],
+            array_filter(if_untitled_services_grid((int) $item->object_id), fn(array $row): bool => $row['anchor'] !== '')
+        );
+        foreach (if_untitled_page_sections((int) $item->object_id) as $section) {
+            if ($section['id'] === 'team') {
+                $links[] = ['title' => $section['title'], 'anchor' => $section['id']];
+            }
+        }
+        return !$links ? null : array_values(array_map(fn(array $link): array => [
+            'title'   => $link['title'],
+            'url'     => "{$url}#{$link['anchor']}",
             'type'    => 'custom',
             'object'  => 'custom',
             'current' => false,
-        ], $services));
+        ], $links));
     }
     $taxonomy = match (true) {
         $item->type === 'post_type_archive' && $item->object === 'project' => 'project_category',

@@ -1,13 +1,14 @@
 <?php
 /**
- * Clients (Theme Options `clients`) as a horizontal row of logos across the section content (Studio / Advisory),
+ * The page's clients as a horizontal row of logos across the section content (Studio / Advisory),
  * each linking to the client's site in a new tab when it has one. A client without a logo shows its name instead.
  * --logo-ratio (width / height) lets the CSS give every logo a similar visual weight.
+ * $args: ['clients' => array (if_untitled_clients())]
  *
  * @package if-untitled
  */
 
-$clients = if_untitled_clients();
+$clients = $args['clients'] ?? [];
 if (!$clients) {
     return;
 }

@@ -445,13 +445,13 @@ function if_untitled_team_member(int $id): ?array
 }
 
 /**
- * The Theme Options client list in its order (published clients only).
+ * A page's client list (`studio_clients` / `advisory_clients` client IDs) in its order (published clients only).
  *
+ * @param int[] $ids
  * @return array<int, array{name: string, url: string, logo: int, logo_ratio: float}>
  */
-function if_untitled_clients(): array
+function if_untitled_clients(array $ids): array
 {
-    $ids = function_exists('get_field') ? (get_field('clients', 'option') ?: []) : [];
     $out = [];
     foreach ($ids as $id) {
         if (get_post_status((int) $id) === 'publish') {
@@ -628,13 +628,14 @@ function if_untitled_page_sections(int $post_id): array
     $acf      = function_exists('get_field');
     $services = if_untitled_services_grid($post_id);
     $team     = $context === 'studio' && $acf ? (get_field('studio_team', $post_id) ?: []) : [];
+    $clients  = if_untitled_clients($acf ? (get_field("{$context}_clients", $post_id) ?: []) : []);
     $hidden   = $acf && get_field("{$context}_hide_featured", $post_id);
     $featured = $hidden ? [] : if_untitled_featured("{$context}_featured", $post_id);
 
     $sections = [
         'services' => [__('Services', 'if-untitled'), true, $services ? ['name' => 'content-grid', 'args' => ['rows' => $services]] : null],
         'team'     => [__('Team', 'if-untitled'), false, $team ? ['name' => 'team', 'args' => ['ids' => $team]] : null],
-        'clients'  => [__('Clients', 'if-untitled'), false, if_untitled_clients() ? ['name' => 'clients', 'args' => []] : null],
+        'clients'  => [__('Clients', 'if-untitled'), false, $clients ? ['name' => 'clients', 'args' => ['clients' => $clients]] : null],
         'featured' => [__('Featured', 'if-untitled'), false, $featured ? ['name' => 'featured', 'args' => ['items' => $featured]] : null],
     ];
     $out = [];

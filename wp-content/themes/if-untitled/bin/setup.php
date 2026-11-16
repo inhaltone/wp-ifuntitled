@@ -85,6 +85,7 @@ if (!wp_get_nav_menu_items($if_untitled_menu_id)) {
         'menu-item-status'    => 'publish',
     ]);
 
+    $if_untitled_add_page('home');
     $if_untitled_studio = $if_untitled_add_page('studio');
     foreach (['Architecture & Interior Design', 'Experience Curation'] as $if_untitled_service) {
         wp_update_nav_menu_item($if_untitled_menu_id, 0, [
@@ -106,11 +107,42 @@ if (!wp_get_nav_menu_items($if_untitled_menu_id)) {
     $if_untitled_add_page('contact');
     WP_CLI::log('Menu created: Primary');
 }
+// Home = first item (menus created before it existed get it prepended).
+$if_untitled_items = wp_get_nav_menu_items($if_untitled_menu_id) ?: [];
+$if_untitled_has_home = array_filter($if_untitled_items, fn(WP_Post $item): bool => (int) $item->object_id === $if_untitled_page_ids['home']);
+if (!$if_untitled_has_home) {
+    foreach ($if_untitled_items as $if_untitled_item) {
+        wp_update_post(['ID' => $if_untitled_item->ID, 'menu_order' => $if_untitled_item->menu_order + 1]);
+    }
+    wp_update_nav_menu_item($if_untitled_menu_id, 0, [
+        'menu-item-object'    => 'page',
+        'menu-item-object-id' => $if_untitled_page_ids['home'],
+        'menu-item-type'      => 'post_type',
+        'menu-item-position'  => 1,
+        'menu-item-status'    => 'publish',
+    ]);
+    WP_CLI::log('Menu item added: Home');
+}
 // One menu for both locations; the footer renders depth 1.
 set_theme_mod('nav_menu_locations', [
     'primary_menu' => $if_untitled_menu_id,
     'footer_menu'  => $if_untitled_menu_id,
 ]);
+
+// Clients moved from Theme Options to each page (studio_clients / advisory_clients): copy the old shared list to
+// pages that have none yet, then drop it.
+$if_untitled_old_clients = get_option('options_clients');
+if ($if_untitled_old_clients !== false && function_exists('update_field')) {
+    foreach (['studio', 'advisory'] as $if_untitled_slug) {
+        $if_untitled_page_id = $if_untitled_page_ids[$if_untitled_slug];
+        if ($if_untitled_old_clients && !get_field("{$if_untitled_slug}_clients", $if_untitled_page_id)) {
+            update_field("{$if_untitled_slug}_clients", array_map('intval', (array) $if_untitled_old_clients), $if_untitled_page_id);
+            WP_CLI::log("Clients copied to: {$if_untitled_slug}");
+        }
+    }
+    delete_option('options_clients');
+    delete_option('_options_clients');
+}
 
 flush_rewrite_rules(false);
 WP_CLI::success('Site structure applied.');

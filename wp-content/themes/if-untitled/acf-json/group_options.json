@@ -3,49 +3,6 @@
     "title": "Theme Options",
     "fields": [
         {
-            "key": "field_e59aea7df1066",
-            "label": "Clients",
-            "name": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0
-        },
-        {
-            "key": "field_92e30e13d3170",
-            "label": "Clients",
-            "name": "clients",
-            "type": "relationship",
-            "instructions": "Which clients show on Studio and Advisory, in this order.",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "post_type": [
-                "client"
-            ],
-            "taxonomy": [],
-            "filters": [
-                "search"
-            ],
-            "elements": [
-                "featured_image"
-            ],
-            "return_format": "id",
-            "min": 0,
-            "max": 0
-        },
-        {
             "key": "field_5df7da957881f",
             "label": "Locations & footer",
             "name": "",
@@ -553,5 +510,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1793717803
+    "modified": 1794820138
 }

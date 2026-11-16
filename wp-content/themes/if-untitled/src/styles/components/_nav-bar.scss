@@ -163,6 +163,22 @@
             }
         }
 
+        // Last top-level item (Contact): right-aligned at the end of the bar, outside the auto-placement so the
+        // other items keep one grid column each.
+        &__list,
+        .js &__list {
+            position: relative;
+        }
+
+        &__list > &__item:last-child:not(:first-child),
+        .js &__list > &__item:last-child:not(:first-child) {
+            position: absolute;
+            inset-block: 0;
+            inset-inline-end: var(--text-inset);
+            display: flex;
+            align-items: center;
+        }
+
         .js &__list > &__item > &__link {
             @include text-style(text-m);
             font-weight: var(--font-bold);

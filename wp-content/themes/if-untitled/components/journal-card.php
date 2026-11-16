@@ -1,6 +1,6 @@
 <?php
 /**
- * Journal archive card: featured image (2:3 crop), title, excerpt, entry type + date. Runs inside The Loop.
+ * Journal archive card: featured image (4:3 crop, as Featured), title, excerpt, entry type + date. Runs inside The Loop.
  * $args: ['priority' => bool (first card only — LCP)]
  *
  * @package if-untitled
@@ -15,7 +15,7 @@ $type       = $categories ? $categories[0]->name : '';
         if_untitled_component('image', [
             'id'       => (int) get_post_thumbnail_id(),
             'context'  => 'card',
-            'ratio'    => '2x3',
+            'ratio'    => '4x3',
             'alt'      => '',
             'priority' => !empty($args['priority']),
         ]);
